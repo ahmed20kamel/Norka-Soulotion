@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
   <rect width="64" height="64" rx="14" fill="#FAF7F2"/>
-  <text x="32" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="32" fill="#C9A96E">N</text>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.3"/>
+  <!-- Stylized N matching NORKA brand -->
+  <path d="M18 48V16h6l16 22V16h6v32h-6L24 26v22h-6z" fill="#C9A96E"/>
+  <!-- Subtle gold accent line -->
+  <rect x="16" y="52" width="32" height="2" rx="1" fill="#C9A96E" fill-opacity="0.4"/>
 </svg>

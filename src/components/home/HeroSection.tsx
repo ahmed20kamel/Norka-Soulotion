@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { images } from "@/lib/images.config";
 
@@ -15,9 +16,16 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Video Background */}
+      {/* Video Background with image fallback */}
       <div className="absolute inset-0 z-0">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover scale-105">
+        <Image
+          src={images.hero.fallback.src}
+          alt={images.hero.fallback.alt}
+          fill
+          className="object-cover"
+          priority
+        />
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover scale-105">
           <source src={images.hero.video.src} type={images.hero.video.type} />
         </video>
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950/90 via-gray-950/80 to-accent/20" />

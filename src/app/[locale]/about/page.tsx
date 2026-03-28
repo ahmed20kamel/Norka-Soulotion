@@ -34,18 +34,17 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-gray-950 via-dark to-gray-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-              backgroundSize: "40px 40px",
-            }}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.pageHeroes.about.src}
+            alt={images.pageHeroes.about.alt}
+            fill
+            className="object-cover"
+            priority
           />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-950/90 via-gray-950/80 to-accent/20" />
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_#C9A96E22,_transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -155,8 +154,55 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Team Section */}
       <section className="py-24 bg-surface dark:bg-surface-dark/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title={t("team")} subtitle={t("teamSubtitle")} />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-w-3xl mx-auto">
+            {[
+              {
+                name: locale === "ar" ? "م. نورهان" : "Eng. Nourhan",
+                role: locale === "ar" ? "المدير التنفيذي" : "Managing Director",
+                image: "/images/team/nourhan.jpg",
+              },
+              {
+                name: locale === "ar" ? "أحمد كامل" : "Ahmed Kamel",
+                role: locale === "ar" ? "المؤسس والرئيس التنفيذي" : "CEO & Founder",
+                image: "/images/team/ahmed.jpg",
+              },
+            ].map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700 group"
+              >
+                <div className="relative h-80 overflow-hidden">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-accent font-medium text-sm">{member.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-24 bg-background dark:bg-background-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title={t("whyUs")} />
 

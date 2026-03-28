@@ -27,8 +27,28 @@ export const images = {
     },
     // Fallback image if video doesn't load
     fallback: {
-      src: "/images/hero-fallback.jpg",
+      src: "/images/hero/hero-fallback.jpg",
       alt: "NORKA SOLUTION office",
+    },
+  },
+
+  /** Inner page hero backgrounds */
+  pageHeroes: {
+    services: {
+      src: "/images/hero/services-hero.jpg",
+      alt: "Our services",
+    },
+    about: {
+      src: "/images/hero/about-hero.jpg",
+      alt: "About Norka Solution",
+    },
+    portfolio: {
+      src: "/images/hero/portfolio-hero.jpg",
+      alt: "Our portfolio",
+    },
+    contact: {
+      src: "/images/hero/contact-hero.jpg",
+      alt: "Contact us",
     },
   },
 
@@ -43,8 +63,20 @@ export const images = {
       alt: "Norka Solution office",
     },
     ceo: {
-      src: "/images/about/ceo-ahmed-kamel.jpg",
+      src: "/images/team/ahmed.jpg",
       alt: "Ahmed Kamel - CEO & Founder",
+    },
+  },
+
+  /** Team members */
+  team: {
+    nourhan: {
+      src: "/images/team/nourhan.jpg",
+      alt: "Eng. Nourhan - Managing Director",
+    },
+    ahmed: {
+      src: "/images/team/ahmed.jpg",
+      alt: "Ahmed - CEO & Founder",
     },
   },
 

@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Quote } from "lucide-react";
+import { images } from "@/lib/images.config";
 
 interface CEOQuoteProps {
   locale?: string;
@@ -41,26 +43,15 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
               {/* Glow ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/40 to-accent-light/40 blur-2xl scale-110" />
 
-              {/* Avatar Circle — placeholder until real photo is provided */}
-              <div className="relative w-72 h-72 rounded-full border-4 border-white/10 overflow-hidden bg-gradient-to-br from-accent/30 to-accent-light/30 flex items-center justify-center">
-                <svg viewBox="0 0 200 200" className="w-full h-full" fill="none">
-                  <rect width="200" height="200" fill="url(#ceoGrad)"/>
-                  <defs>
-                    <linearGradient id="ceoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#C9A96E" stopOpacity="0.8"/>
-                      <stop offset="100%" stopColor="#D4B87A" stopOpacity="0.8"/>
-                    </linearGradient>
-                  </defs>
-                  <circle cx="100" cy="75" r="35" fill="white" fillOpacity="0.15"/>
-                  <path d="M35 200 Q35 140 100 130 Q165 140 165 200Z" fill="white" fillOpacity="0.15"/>
-                </svg>
-
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-5xl font-bold text-white/80">AK</span>
-                  <span className="text-sm text-white/50 mt-1">
-                    {isAr ? "صورة المدير التنفيذي" : "CEO Photo"}
-                  </span>
-                </div>
+              {/* Avatar Circle with real photo */}
+              <div className="relative w-72 h-72 rounded-full border-4 border-white/10 overflow-hidden">
+                <Image
+                  src={images.team.nourhan.src}
+                  alt={images.team.nourhan.alt}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
               </div>
 
               {/* Badge */}
@@ -72,7 +63,7 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
                 className="absolute -bottom-4 -right-4 bg-accent px-5 py-3 rounded-2xl shadow-2xl"
               >
                 <div className="text-dark text-sm font-bold">
-                  {isAr ? "المؤسس والمدير التنفيذي" : "CEO & Founder"}
+                  {isAr ? "المدير التنفيذي" : "Managing Director"}
                 </div>
                 <div className="text-dark/70 text-xs">Norka Solution</div>
               </motion.div>
@@ -116,12 +107,12 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
               <div className="w-16 h-0.5 bg-gradient-to-r from-accent to-accent-light" />
               <div>
                 <div className="text-white font-bold text-xl">
-                  {isAr ? "أحمد كامل" : "Ahmed Kamel"}
+                  {isAr ? "م. نورهان" : "Eng. Nourhan"}
                 </div>
                 <div className="text-gray-400 text-sm">
                   {isAr
-                    ? "المؤسس والمدير التنفيذي، نوركا سوليوشن"
-                    : "CEO & Founder, Norka Solution"}
+                    ? "المدير التنفيذي، نوركا سوليوشن"
+                    : "Managing Director, Norka Solution"}
                 </div>
               </div>
             </div>

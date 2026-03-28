@@ -86,7 +86,7 @@ export default function CTASection({ locale }: CTASectionProps) {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "📞", text: t("callUs"), sub: "+971 54 521 4280" },
+                { icon: "📞", text: t("callUs"), sub: "+971 50 725 7157" },
                 { icon: "✉️", text: t("emailUs"), sub: "info@norkasolution.com" },
               ].map((item) => (
                 <div
