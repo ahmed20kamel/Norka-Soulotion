@@ -1,0 +1,185 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "getStarted": "Get In Touch"
+  },
+  "hero": {
+    "badge": "Leading IT Solutions Provider in UAE",
+    "title": "We Build Digital",
+    "titleHighlight": "Products That Matter",
+    "description": "NORKA SOLUTION delivers cutting-edge technology services from web and mobile development to ERP systems, IT infrastructure, and digital marketing across Abu Dhabi, Al Ain & Dubai.",
+    "cta1": "Get In Touch",
+    "cta2": "View Our Work",
+    "statsProjects": "Projects",
+    "statsClients": "Clients",
+    "statsYears": "Years"
+  },
+  "stats": {
+    "years": "Years Experience",
+    "projects": "Projects Delivered",
+    "clients": "Happy Clients",
+    "team": "Team Members"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive technology solutions tailored to your business needs",
+    "badge": "What We Do",
+    "viewAll": "View All Services",
+    "learnMore": "Learn More",
+    "software": {
+      "title": "Web Applications",
+      "description": "Custom web applications built with modern frameworks, optimized for performance and tailored to your business requirements.",
+      "features": ["Custom Applications", "API Development", "System Integration", "Cloud Solutions"]
+    },
+    "mobile": {
+      "title": "Mobile Apps",
+      "description": "Native and cross-platform mobile applications for iOS and Android with modern UI/UX design.",
+      "features": ["iOS Development", "Android Development", "Cross-Platform", "UI/UX Design"]
+    },
+    "erp": {
+      "title": "ERP Systems",
+      "description": "Enterprise resource planning solutions that streamline your business operations and boost productivity.",
+      "features": ["Inventory Management", "HR & Payroll", "Financial Management", "Supply Chain"]
+    },
+    "web": {
+      "title": "Website Development",
+      "description": "Modern, responsive websites and landing pages using the latest technologies and frameworks.",
+      "features": ["React & Next.js", "E-Commerce", "CMS Solutions", "Progressive Web Apps"]
+    },
+    "infrastructure": {
+      "title": "IT Infrastructure & Servers",
+      "description": "Complete network infrastructure design, implementation, and management for stable and secure connectivity.",
+      "features": ["Network Design", "Server Management", "Cloud Migration", "IT Consulting"]
+    },
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "User-centered design solutions that create intuitive, beautiful digital experiences for your customers.",
+      "features": ["User Research", "Wireframing", "Prototyping", "Design Systems"]
+    },
+    "marketing": {
+      "title": "Social Media & Marketing",
+      "description": "Strategic social media management and digital marketing campaigns that grow your brand presence online.",
+      "features": ["Content Strategy", "Social Management", "SEO Optimization", "Paid Advertising"]
+    },
+    "consulting": {
+      "title": "Company Setup & IT Consulting",
+      "description": "End-to-end IT consulting and company technology setup to get your business running from day one.",
+      "features": ["IT Strategy", "Technology Audits", "Digital Transformation", "Vendor Management"]
+    }
+  },
+  "portfolio": {
+    "title": "Our Portfolio",
+    "subtitle": "Showcasing our best work across different industries and technologies",
+    "badge": "Our Work",
+    "viewAll": "View All Projects",
+    "viewProject": "View Project",
+    "viewDemo": "Live Demo",
+    "viewDetails": "View Details",
+    "techStack": "Tech Stack",
+    "keyFeatures": "Key Features",
+    "challenge": "The Challenge",
+    "solution": "Our Solution",
+    "results": "Results",
+    "filterAll": "All",
+    "filterSoftware": "Software",
+    "filterMobile": "Mobile",
+    "filterWeb": "Web",
+    "filterERP": "ERP",
+    "filterInfra": "Infrastructure",
+    "filterSecurity": "Security",
+    "similarProject": "Need a Similar Project?",
+    "similarProjectDesc": "Let's discuss how we can build something amazing for your business.",
+    "contactUs": "Contact Us"
+  },
+  "about": {
+    "title": "About Norka Solution",
+    "subtitle": "Your trusted technology partner in the UAE",
+    "story": "Our Story",
+    "storyText": "Norka Solution was founded with a vision to bridge the gap between businesses and technology. Based in the UAE with offices in Abu Dhabi, Al Ain, and Dubai, we started as a passionate team of developers and IT professionals, and have grown into a full-service technology company serving clients across multiple industries in the region.",
+    "mission": "Our Mission",
+    "missionText": "To empower businesses with innovative technology solutions that drive growth, efficiency, and competitive advantage in the digital age.",
+    "vision": "Our Vision",
+    "visionText": "To be the leading technology partner for businesses seeking digital transformation and operational excellence across the UAE and beyond.",
+    "whyUs": "Why Choose Us",
+    "teamMembers": "Team Members",
+    "learnMore": "Learn More About Us",
+    "values": {
+      "innovation": { "title": "Innovation", "description": "We stay at the forefront of technology to deliver cutting-edge solutions." },
+      "quality": { "title": "Quality", "description": "We maintain the highest standards in every project we deliver." },
+      "reliability": { "title": "Reliability", "description": "We are committed to delivering on time and exceeding expectations." },
+      "support": { "title": "24/7 Support", "description": "Our team is always available to assist you whenever you need us." }
+    }
+  },
+  "techStack": {
+    "title": "Technologies We Use",
+    "subtitle": "We work with modern, battle-tested technologies to build reliable solutions",
+    "badge": "Tech Stack"
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Trusted by businesses across the region",
+    "badge": "Testimonials"
+  },
+  "partners": {
+    "title": "Our Partners",
+    "subtitle": "Collaborating with industry leaders"
+  },
+  "cta": {
+    "title": "Ready to Transform Your Business?",
+    "description": "Contact us today to discuss how our IT solutions can help your business grow and thrive in the digital age.",
+    "button": "Get Started Now",
+    "badge": "Ready to Start?",
+    "callUs": "Call Us",
+    "emailUs": "Email Us"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Phone Number",
+      "service": "Service Needed",
+      "servicePlaceholder": "Select a service",
+      "serviceOptions": {
+        "webApp": "Web Applications",
+        "mobileApp": "Mobile Apps",
+        "erp": "ERP Systems",
+        "website": "Website Development",
+        "infrastructure": "IT Infrastructure & Servers",
+        "uiux": "UI/UX Design",
+        "marketing": "Social Media & Marketing",
+        "consulting": "Company Setup & IT Consulting",
+        "other": "Other"
+      },
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "sent": "Message Sent!"
+    },
+    "info": {
+      "address": "Address",
+      "addressValue": "Abu Dhabi · Al Ain · Dubai, UAE",
+      "phone": "Phone",
+      "phoneValue": "+971 54 521 4280",
+      "email": "Email",
+      "emailValue": "info@norkasolution.com",
+      "hours": "Working Hours",
+      "hoursValue": "Sun - Thu: 9:00 AM - 6:00 PM"
+    },
+    "social": "Follow Us"
+  },
+  "footer": {
+    "description": "A leading provider of comprehensive IT services in the UAE, helping businesses leverage technology for growth and success.",
+    "quickLinks": "Quick Links",
+    "ourServices": "Our Services",
+    "contactUs": "Contact Us",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}
