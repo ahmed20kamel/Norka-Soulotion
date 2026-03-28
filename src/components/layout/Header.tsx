@@ -65,7 +65,7 @@ export default function Header({ locale }: HeaderProps) {
 
             {/* Logo */}
             <Link href={`/${locale}`} className="flex items-center gap-3 group">
-              <div className="relative w-11 h-11 rounded-xl overflow-hidden bg-white p-1 shadow-md group-hover:shadow-lg transition-shadow shrink-0">
+              <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow shrink-0">
                 <Image
                   src={images.brand.logo.src}
                   alt={images.brand.logo.alt}
