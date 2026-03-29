@@ -4,10 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
   Mail,
   Phone,
   MapPin,
@@ -42,13 +38,6 @@ export default function Footer({ locale }: FooterProps) {
     servicesT("uiux.title"),
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-  ];
-
   return (
     <footer className="bg-gray-950 text-gray-300">
       {/* Main Footer */}
@@ -72,21 +61,9 @@ export default function Footer({ locale }: FooterProps) {
                 </span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-400 text-sm leading-relaxed">
               {t("description")}
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="p-2.5 rounded-lg bg-gray-800 hover:bg-accent hover:text-white transition-all duration-300 group"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Quick Links */}

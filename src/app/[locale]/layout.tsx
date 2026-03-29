@@ -6,6 +6,8 @@ import { Inter, Syne, Cairo } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ChatWidget from "@/components/ChatWidget";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,6 +56,8 @@ export default async function LocaleLayout({
             <Header locale={locale} />
             <main className="min-h-screen grain relative">{children}</main>
             <Footer locale={locale} />
+            <ChatWidget />
+            <WhatsAppButton />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

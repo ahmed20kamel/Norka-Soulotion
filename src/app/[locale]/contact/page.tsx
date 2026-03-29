@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -12,11 +12,9 @@ import {
   Mail,
   Clock,
   Send,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
   CheckCircle,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -24,6 +22,9 @@ export default function ContactPage() {
   const params = useParams();
   const locale = params.locale as string;
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const contactInfo = [
     {
@@ -58,22 +59,42 @@ export default function ContactPage() {
     },
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-  ];
-
   const serviceOptions = [
     "webApp", "mobileApp", "erp", "website",
     "infrastructure", "uiux", "marketing", "consulting", "other"
   ] as const;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError("");
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      service: formData.get("service") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to send");
+
+      setIsSubmitted(true);
+      formRef.current?.reset();
+      setTimeout(() => setIsSubmitted(false), 4000);
+    } catch {
+      setError(locale === "ar" ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -157,29 +178,6 @@ export default function ContactPage() {
                 );
               })}
 
-              {/* Social Links */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="pt-4"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  {t("social")}
-                </h3>
-                <div className="flex gap-3">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className="p-3 rounded-xl bg-surface dark:bg-surface-dark hover:bg-accent hover:text-white text-gray-600 dark:text-gray-400 transition-all duration-300 group"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    </a>
-                  ))}
-                </div>
-              </motion.div>
             </div>
 
             {/* Contact Form */}
@@ -190,6 +188,7 @@ export default function ContactPage() {
               className="lg:col-span-3"
             >
               <form
+                ref={formRef}
                 onSubmit={handleSubmit}
                 className="bg-surface dark:bg-surface-dark rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800"
               >
@@ -200,6 +199,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all"
                       placeholder={t("form.name")}
@@ -211,6 +211,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all"
                       placeholder={t("form.email")}
@@ -225,6 +226,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="tel"
+                      name="phone"
                       className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all"
                       placeholder={t("form.phone")}
                       dir="ltr"
@@ -235,6 +237,7 @@ export default function ContactPage() {
                       {t("form.service")}
                     </label>
                     <select
+                      name="service"
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all"
                       defaultValue=""
@@ -254,6 +257,7 @@ export default function ContactPage() {
                     {t("form.message")}
                   </label>
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all resize-none"
@@ -261,15 +265,27 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {error && (
+                  <div className="mb-4 flex items-center gap-2 text-red-500 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    {error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isSubmitted}
+                  disabled={isSubmitted || isSubmitting}
                   className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-dark bg-accent hover:bg-accent-dark hover:shadow-lg hover:shadow-accent/30 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0 cursor-pointer"
                 >
                   {isSubmitted ? (
                     <>
                       <CheckCircle className="w-5 h-5" />
                       {t("form.sent")}
+                    </>
+                  ) : isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      {t("form.sending")}
                     </>
                   ) : (
                     <>
