@@ -3,40 +3,19 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  fadeUp, staggerContainer, staggerItem, viewport
-} from "@/lib/animations";
-import {
-  SoftwareIcon, MobileIcon, WebIcon, ErpIcon,
-  InfraIcon, UiuxIcon, MarketingIcon, ConsultingIcon
-} from "@/components/icons/ServiceIcons";
+import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
 
-const serviceIcons = {
-  software: SoftwareIcon,
-  mobile: MobileIcon,
-  web: WebIcon,
-  erp: ErpIcon,
-  infrastructure: InfraIcon,
-  uiux: UiuxIcon,
-  marketing: MarketingIcon,
-  consulting: ConsultingIcon,
-};
-
-const serviceGradients: Record<string, { from: string; to: string; shadow: string }> = {
-  software:       { from: "#2563eb", to: "#1d4ed8", shadow: "rgba(37,99,235,0.35)" },
-  mobile:         { from: "#8b5cf6", to: "#7c3aed", shadow: "rgba(139,92,246,0.35)" },
-  erp:            { from: "#f59e0b", to: "#d97706", shadow: "rgba(245,158,11,0.35)" },
-  web:            { from: "#10b981", to: "#059669", shadow: "rgba(16,185,129,0.35)" },
-  infrastructure: { from: "#06b6d4", to: "#0891b2", shadow: "rgba(6,182,212,0.35)" },
-  uiux:           { from: "#ec4899", to: "#db2777", shadow: "rgba(236,72,153,0.35)" },
-  marketing:      { from: "#f97316", to: "#ea580c", shadow: "rgba(249,115,22,0.35)" },
-  consulting:     { from: "#14b8a6", to: "#0d9488", shadow: "rgba(20,184,166,0.35)" },
-};
-
-const serviceKeys = [
-  "software", "mobile", "erp", "web",
-  "infrastructure", "uiux", "marketing", "consulting"
+const serviceCards = [
+  { key: "software", image: "/images/services/web-applications.jpg" },
+  { key: "mobile", image: "/images/services/mobile-apps.jpg" },
+  { key: "erp", image: "/images/services/erp-systems.jpg" },
+  { key: "web", image: "/images/services/website-development.jpg" },
+  { key: "infrastructure", image: "/images/services/it-infrastructure.jpg" },
+  { key: "uiux", image: "/images/services/uiux-design.jpg" },
+  { key: "marketing", image: "/images/services/social-media.jpg" },
+  { key: "consulting", image: "/images/services/company-setup.jpg" },
 ] as const;
 
 interface ServicesPreviewProps {
@@ -70,7 +49,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
           <div className="mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
         </motion.div>
 
-        {/* Cards grid — 4 columns */}
+        {/* Cards grid — 4 columns with image + text */}
         <motion.div
           variants={staggerContainer(0.08)}
           initial="hidden"
@@ -78,63 +57,42 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
           viewport={viewport}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {serviceKeys.map((key) => {
-            const Icon = serviceIcons[key];
-            const grad = serviceGradients[key];
-            return (
-              <motion.div
-                key={key}
-                variants={staggerItem}
-                className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 hover:border-transparent overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default"
-                whileHover={{
-                  boxShadow: `0 25px 60px ${grad.shadow}`,
-                }}
-              >
-                {/* Background gradient on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(135deg, ${grad.from}, ${grad.to})` }}
+          {serviceCards.map((card) => (
+            <motion.div
+              key={card.key}
+              variants={staggerItem}
+              className="group relative bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent/10"
+            >
+              {/* Image */}
+              <div className="relative h-52 overflow-hidden">
+                <Image
+                  src={card.image}
+                  alt={t(`${card.key}.title`)}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                {/* Glow top-right */}
-                <div
-                  className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-2xl"
-                  style={{ background: grad.from }}
-                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-                {/* Icon */}
-                <motion.div
-                  className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5 shadow-lg"
-                  style={{ background: `linear-gradient(135deg, ${grad.from}, ${grad.to})` }}
-                  whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <Icon className="w-7 h-7 text-white" />
-                </motion.div>
+                {/* Title overlay on image */}
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <h3 className="text-lg font-bold text-white drop-shadow-lg">
+                    {t(`${card.key}.title`)}
+                  </h3>
+                </div>
+              </div>
 
-                {/* Title */}
-                <h3
-                  className="text-lg font-bold mb-3 transition-all duration-300"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, ${grad.from}, ${grad.to})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {t(`${key}.title`)}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">
-                  {t(`${key}.description`)}
+              {/* Content below image */}
+              <div className="p-6">
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                  {t(`${card.key}.description`)}
                 </p>
 
                 {/* Features */}
                 <div className="flex flex-wrap gap-1.5 mb-5">
-                  {(t.raw(`${key}.features`) as string[]).slice(0, 3).map((f: string) => (
+                  {(t.raw(`${card.key}.features`) as string[]).slice(0, 3).map((f: string) => (
                     <span
                       key={f}
-                      className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                      className="px-2.5 py-1 text-xs font-medium rounded-full bg-accent/10 dark:bg-accent/20 text-accent"
                     >
                       {f}
                     </span>
@@ -144,27 +102,17 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
                 {/* Link */}
                 <Link
                   href={`/${locale}/services`}
-                  className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors group/link"
-                  style={{ color: grad.from }}
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:text-accent-dark transition-colors group/link"
                 >
                   {t("learnMore")}
-                  <motion.span
-                    className="inline-block"
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.span>
+                  <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                 </Link>
+              </div>
 
-                {/* Bottom border accent */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(90deg, ${grad.from}, ${grad.to})` }}
-                />
-              </motion.div>
-            );
-          })}
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* View All */}

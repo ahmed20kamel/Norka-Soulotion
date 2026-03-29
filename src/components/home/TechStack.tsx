@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { fadeUp, viewport } from "@/lib/animations";
 
-const technologies = [
+const row1 = [
   {
     name: "React",
     logo: (
@@ -63,6 +63,9 @@ const technologies = [
       </svg>
     ),
   },
+];
+
+const row2 = [
   {
     name: "Node.js",
     logo: (
@@ -128,6 +131,35 @@ const technologies = [
   },
 ];
 
+function MarqueeRow({ items, reverse = false }: { items: typeof row1; reverse?: boolean }) {
+  // Duplicate items for seamless infinite scroll
+  const doubled = [...items, ...items];
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-gray-950 to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-gray-950 to-transparent z-10" />
+
+      <div className={`flex gap-8 w-max ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}>
+        {doubled.map((tech, i) => (
+          <div
+            key={`${tech.name}-${i}`}
+            className="group flex items-center gap-4 px-8 py-5 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-200 dark:border-gray-800 hover:border-accent/40 hover:shadow-xl transition-all duration-300 shrink-0"
+          >
+            <div className="text-gray-500 dark:text-gray-400 group-hover:scale-110 transition-transform duration-300">
+              {tech.logo}
+            </div>
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-accent transition-colors whitespace-nowrap">
+              {tech.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function TechStack() {
   const t = useTranslations("techStack");
 
@@ -152,29 +184,12 @@ export default function TechStack() {
           </p>
           <div className="mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
         </motion.div>
+      </div>
 
-        <motion.div
-          variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6"
-        >
-          {technologies.map((tech) => (
-            <motion.div
-              key={tech.name}
-              variants={staggerItem}
-              className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-200 dark:border-gray-800 hover:border-accent/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
-                {tech.logo}
-              </div>
-              <span className="mt-3 text-xs font-medium text-gray-500 dark:text-gray-400 group-hover:text-accent transition-colors duration-300">
-                {tech.name}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* Full-width marquee rows */}
+      <div className="space-y-6">
+        <MarqueeRow items={row1} />
+        <MarqueeRow items={row2} reverse />
       </div>
     </section>
   );

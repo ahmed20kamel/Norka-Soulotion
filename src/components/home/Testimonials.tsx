@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { fadeUp, viewport } from "@/lib/animations";
@@ -15,9 +16,20 @@ export default function Testimonials({ locale }: TestimonialsProps) {
   const t = useTranslations("testimonials");
   const lang = locale as "en" | "ar";
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
+  const next = useCallback(
+    () => setActive((a) => (a === testimonials.length - 1 ? 0 : a + 1)),
+    []
+  );
   const prev = () => setActive((a) => (a === 0 ? testimonials.length - 1 : a - 1));
-  const next = () => setActive((a) => (a === testimonials.length - 1 ? 0 : a + 1));
+
+  // Auto-rotate every 5 seconds
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [paused, next]);
 
   return (
     <section className="py-32 bg-background dark:bg-background-dark overflow-hidden">
@@ -41,8 +53,12 @@ export default function Testimonials({ locale }: TestimonialsProps) {
           <div className="mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-          {/* Sidebar avatars */}
+        <div
+          className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {/* Sidebar avatars with real photos */}
           <div className="hidden lg:flex lg:col-span-1 flex-col gap-4">
             {testimonials.map((item, i) => (
               <motion.button
@@ -54,8 +70,13 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                     : "bg-surface dark:bg-surface-dark border-2 border-transparent hover:border-gray-200 dark:hover:border-gray-600"
                 }`}
               >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-xs shrink-0 bg-gradient-to-br ${i === active ? "from-accent to-accent-dark" : "from-gray-400 to-gray-500"} transition-all duration-300`}>
-                  {item.avatar}
+                <div className="relative w-10 h-10 rounded-xl overflow-hidden shrink-0">
+                  <Image
+                    src={item.image}
+                    alt={item.name[lang]}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="overflow-hidden">
                   <div className="text-sm font-bold text-gray-900 dark:text-white truncate">
@@ -102,11 +123,16 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                   &ldquo;{testimonials[active].text[lang]}&rdquo;
                 </p>
 
-                {/* Author + nav */}
+                {/* Author with photo + nav */}
                 <div className="flex items-center justify-between flex-wrap gap-6">
                   <div className="flex items-center gap-5">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-white font-black text-lg shadow-lg">
-                      {testimonials[active].avatar}
+                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden shadow-lg ring-2 ring-accent/20">
+                      <Image
+                        src={testimonials[active].image}
+                        alt={testimonials[active].name[lang]}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                     <div>
                       <div className="text-xl font-black text-gray-900 dark:text-white">
@@ -140,7 +166,7 @@ export default function Testimonials({ locale }: TestimonialsProps) {
               </motion.div>
             </AnimatePresence>
 
-            {/* Dots */}
+            {/* Dots with progress bar */}
             <div className="flex justify-center gap-2 mt-6">
               {testimonials.map((_, i) => (
                 <button
