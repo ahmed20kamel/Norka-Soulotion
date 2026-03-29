@@ -9,6 +9,17 @@ import CTASection from "@/components/home/CTASection";
 import { services } from "@/lib/data/services";
 import { images } from "@/lib/images.config";
 
+const serviceImages: Record<string, string> = {
+  software: "/images/services/web-applications.jpg",
+  mobile: "/images/services/mobile-apps.jpg",
+  erp: "/images/services/erp-systems.jpg",
+  web: "/images/services/website-development.jpg",
+  infrastructure: "/images/services/it-infrastructure.jpg",
+  uiux: "/images/services/uiux-design.jpg",
+  marketing: "/images/services/social-media.jpg",
+  consulting: "/images/services/company-setup.jpg",
+};
+
 export default function ServicesPage() {
   const t = useTranslations("services");
   const params = useParams();
@@ -17,30 +28,42 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-36 pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={images.pageHeroes.services.src}
             alt={images.pageHeroes.services.alt}
             fill
-            className="object-cover"
+            className="object-cover scale-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-950/90 via-gray-950/80 to-accent/20" />
+          <div className="absolute inset-0 bg-gray-950/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-950/50 to-transparent" />
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-white/50 text-sm mb-6 font-medium"
+          >
+            <span className="hover:text-white/70 transition-colors">Home</span>
+            <span className="mx-2">/</span>
+            <span className="text-accent">{t("title")}</span>
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+            transition={{ delay: 0.1 }}
+            className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5"
           >
             {t("title")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+            transition={{ delay: 0.25 }}
+            className="text-lg md:text-xl text-gray-300/80 max-w-2xl mx-auto"
           >
             {t("subtitle")}
           </motion.p>
@@ -52,7 +75,6 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-20">
             {services.map((service, index) => {
-              const Icon = service.icon;
               const isEven = index % 2 === 0;
               return (
                 <motion.div
@@ -65,12 +87,16 @@ export default function ServicesPage() {
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                   } gap-12 items-center`}
                 >
-                  {/* Icon side */}
-                  <div className="flex-shrink-0">
-                    <div
-                      className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-2xl`}
-                    >
-                      <Icon className="w-16 h-16 text-white" />
+                  {/* Image side */}
+                  <div className="flex-shrink-0 w-full lg:w-[45%]">
+                    <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl group">
+                      <Image
+                        src={serviceImages[service.key]}
+                        alt={t(`${service.key}.title`)}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                     </div>
                   </div>
 

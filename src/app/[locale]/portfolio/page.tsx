@@ -33,30 +33,42 @@ export default function PortfolioPage() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-36 pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={images.pageHeroes.portfolio.src}
             alt={images.pageHeroes.portfolio.alt}
             fill
-            className="object-cover"
+            className="object-cover scale-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-950/90 via-gray-950/80 to-accent/20" />
+          <div className="absolute inset-0 bg-gray-950/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-950/50 to-transparent" />
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-white/50 text-sm mb-6 font-medium"
+          >
+            <span className="hover:text-white/70 transition-colors">Home</span>
+            <span className="mx-2">/</span>
+            <span className="text-accent">{t("title")}</span>
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+            transition={{ delay: 0.1 }}
+            className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5"
           >
             {t("title")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+            transition={{ delay: 0.25 }}
+            className="text-lg md:text-xl text-gray-300/80 max-w-2xl mx-auto"
           >
             {t("subtitle")}
           </motion.p>

@@ -52,7 +52,7 @@ export default async function LocaleLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>
             <Header locale={locale} />
-            <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen grain relative">{children}</main>
             <Footer locale={locale} />
           </NextIntlClientProvider>
         </ThemeProvider>

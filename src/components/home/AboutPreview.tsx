@@ -24,7 +24,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
   ];
 
   return (
-    <section className="py-32 bg-white dark:bg-gray-950 overflow-hidden">
+    <section className="py-32 bg-white dark:bg-gray-950 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left: Image */}
@@ -35,23 +35,18 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
             viewport={viewport}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-surface dark:bg-surface-dark">
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
               <Image
                 src={images.about.team.src}
                 alt={images.about.team.alt}
                 fill
                 className="object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                }}
               />
-              {/* Fallback gradient when no image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
-                <Users className="w-20 h-20 text-accent/30" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent" />
             </div>
+
+            {/* Decorative accent frame */}
+            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2 border-accent/20 -z-10" />
 
             {/* Floating stat card */}
             <motion.div
@@ -59,15 +54,15 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={viewport}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl border border-gray-100 dark:border-gray-700"
+              className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                  <Users className="w-6 h-6 text-white" />
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white">30+</div>
-                  <div className="text-sm text-gray-500">{t("teamMembers")}</div>
+                  <div className="text-2xl font-black text-gray-900 dark:text-white leading-none">30+</div>
+                  <div className="text-xs text-gray-500 mt-0.5">{t("teamMembers")}</div>
                 </div>
               </div>
             </motion.div>
@@ -80,20 +75,20 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
             whileInView="visible"
             viewport={viewport}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 dark:bg-accent/20 text-accent text-sm font-semibold mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 dark:bg-accent/20 text-accent text-sm font-semibold mb-5">
               {t("story")}
             </span>
-            <h2 className="font-heading text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6">
+            <h2 className="font-heading text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
               {t("title")}
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
               {t("storyText")}
             </p>
 
             {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark">
+                <div key={stat.label} className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
                   <stat.icon className="w-5 h-5 text-accent mx-auto mb-2" />
                   <div className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</div>
                   <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
@@ -103,10 +98,10 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
             <Link
               href={`/${locale}/about`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-accent font-semibold border-2 border-accent hover:bg-accent hover:text-white transition-all duration-300"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-accent font-semibold border-2 border-accent hover:bg-accent hover:text-white transition-all duration-300"
             >
               {t("learnMore")}
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </motion.div>
         </div>

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { fadeUp, viewport } from "@/lib/animations";
 import {
   MicrosoftLogo,
   CiscoLogo,
@@ -25,6 +25,31 @@ const partners = [
   { name: "HP", Logo: HPLogo },
 ];
 
+function PartnerMarquee({ items, reverse = false }: { items: typeof partners; reverse?: boolean }) {
+  const doubled = [...items, ...items];
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-surface dark:from-surface-dark/40 to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-surface dark:from-surface-dark/40 to-transparent z-10" />
+
+      <div className={`flex gap-8 w-max ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}>
+        {doubled.map(({ name, Logo }, i) => (
+          <div
+            key={`${name}-${i}`}
+            className="group flex items-center gap-4 px-10 py-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-accent/30 hover:shadow-lg transition-all duration-300 shrink-0"
+          >
+            <div className="text-gray-400 dark:text-gray-500 group-hover:text-gray-800 dark:group-hover:text-gray-100 filter grayscale group-hover:grayscale-0 transition-all duration-500">
+              <Logo className="h-8 w-auto max-w-[120px]" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Partners() {
   const t = useTranslations("partners");
 
@@ -36,7 +61,7 @@ export default function Partners() {
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             {t("title")}
@@ -46,33 +71,10 @@ export default function Partners() {
           </p>
           <div className="mt-5 h-1 w-16 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
         </motion.div>
-
-        <motion.div
-          variants={staggerContainer(0.08)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6"
-        >
-          {partners.map(({ name, Logo }) => (
-            <motion.div
-              key={name}
-              variants={staggerItem}
-              className="group relative flex flex-col items-center justify-center p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-accent/30 dark:hover:border-accent/30 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-pointer"
-            >
-              {/* Gradient hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-accent/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative text-gray-400 dark:text-gray-500 group-hover:text-gray-800 dark:group-hover:text-gray-100 transition-colors duration-500 filter grayscale group-hover:grayscale-0">
-                <Logo className="h-8 w-auto max-w-[120px]" />
-              </div>
-              <span className="mt-3 text-xs font-medium text-gray-400 dark:text-gray-500 group-hover:text-accent transition-colors duration-300">
-                {name}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
+
+      {/* Full-width marquee */}
+      <PartnerMarquee items={partners} />
     </section>
   );
 }
