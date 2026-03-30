@@ -3,26 +3,28 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Norka Solution | Complete IT Services in UAE",
+    default: "Norka Solution | AI-Powered Software & App Development in UAE",
     template: "%s | Norka Solution",
   },
   description:
-    "NORKA SOLUTION delivers cutting-edge technology services — Web Applications, Mobile Apps, ERP Systems, IT Infrastructure, UI/UX Design, and Digital Marketing across Abu Dhabi, Al Ain & Dubai, UAE.",
+    "NORKA SOLUTION — Leading software development company in UAE specializing in AI-integrated applications, custom web & mobile apps, ERP systems, and digital transformation across Abu Dhabi, Al Ain & Dubai.",
   keywords: [
-    "IT services UAE",
-    "web development Abu Dhabi",
+    "software development company UAE",
+    "AI application development UAE",
+    "custom app development Abu Dhabi",
     "mobile app development UAE",
-    "ERP systems Dubai",
-    "IT infrastructure Al Ain",
-    "UI/UX design UAE",
-    "digital marketing Abu Dhabi",
+    "web application development Dubai",
+    "AI integration UAE",
+    "artificial intelligence software UAE",
+    "ERP systems UAE",
+    "digital transformation UAE",
     "Norka Solution",
-    "software development Dubai",
-    "IT consulting UAE",
-    "company setup UAE",
-    "web applications Abu Dhabi",
-    "React Next.js development",
-    "technology partner UAE",
+    "programming company UAE",
+    "React Next.js development UAE",
+    "full-stack development Abu Dhabi",
+    "smart software solutions UAE",
+    "tech startup UAE",
+    "IT consulting Abu Dhabi",
   ],
   authors: [{ name: "Norka Solution", url: "https://norkasolution.com" }],
   creator: "Norka Solution",
@@ -52,9 +54,9 @@ export const metadata: Metadata = {
     alternateLocale: "ar_AE",
     url: "https://norkasolution.com",
     siteName: "Norka Solution",
-    title: "Norka Solution — We Build Digital Products That Matter",
+    title: "Norka Solution — AI-Powered Software Development in UAE",
     description:
-      "Leading IT solutions provider in UAE. Custom web apps, mobile apps, ERP systems, IT infrastructure, UI/UX design, and digital marketing. Based in Abu Dhabi, Al Ain & Dubai.",
+      "Leading software development company in UAE. We build AI-integrated apps, custom web & mobile applications, ERP systems, and enterprise software. Based in Abu Dhabi, Al Ain & Dubai.",
     images: [
       {
         url: "/og-image.png",
@@ -67,9 +69,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Norka Solution — We Build Digital Products That Matter",
+    title: "Norka Solution — AI-Powered Software Development in UAE",
     description:
-      "Leading IT solutions provider in UAE. Web apps, mobile apps, ERP systems, IT infrastructure & more.",
+      "Leading software & AI development company in UAE. Custom apps, mobile apps, ERP systems, AI integration & more.",
     images: ["/og-image.png"],
     creator: "@norkasolution",
   },
@@ -105,7 +107,7 @@ const jsonLd = {
   logo: "https://norkasolution.com/logo.svg",
   image: "https://norkasolution.com/og-image.png",
   description:
-    "Leading IT solutions provider in UAE delivering web applications, mobile apps, ERP systems, IT infrastructure, UI/UX design, and digital marketing services.",
+    "Leading software development company in UAE specializing in AI-powered applications, custom web & mobile apps, ERP systems, and digital transformation solutions.",
   foundingDate: "2020",
   founder: {
     "@type": "Person",
@@ -144,12 +146,15 @@ const jsonLd = {
     "https://twitter.com/norkasolution",
   ],
   knowsAbout: [
-    "Web Development",
+    "AI Application Development",
+    "Artificial Intelligence Integration",
+    "Custom Software Development",
+    "Web Application Development",
     "Mobile App Development",
     "ERP Systems",
-    "IT Infrastructure",
+    "Machine Learning Solutions",
+    "Digital Transformation",
     "UI/UX Design",
-    "Digital Marketing",
     "IT Consulting",
   ],
   areaServed: {

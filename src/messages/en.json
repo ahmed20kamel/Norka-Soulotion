@@ -8,10 +8,10 @@
     "getStarted": "Get In Touch"
   },
   "hero": {
-    "badge": "Leading IT Solutions Provider in UAE",
-    "title": "We Build Digital",
-    "titleHighlight": "Products That Matter",
-    "description": "NORKA SOLUTION delivers cutting-edge technology services from web and mobile development to ERP systems, IT infrastructure, and digital marketing across Abu Dhabi, Al Ain & Dubai.",
+    "badge": "Leading AI & Software Development Company in UAE",
+    "title": "We Build Intelligent",
+    "titleHighlight": "Applications That Matter",
+    "description": "NORKA SOLUTION is a premier software development company building AI-powered apps, custom web & mobile applications, and enterprise solutions across Abu Dhabi, Al Ain & Dubai.",
     "cta1": "Get In Touch",
     "cta2": "View Our Work",
     "statsProjects": "Projects",
@@ -26,7 +26,7 @@
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Comprehensive technology solutions tailored to your business needs",
+    "subtitle": "AI-integrated software solutions and custom applications built for your business",
     "badge": "What We Do",
     "viewAll": "View All Services",
     "learnMore": "Learn More",
@@ -128,8 +128,8 @@
     "subtitle": "Collaborating with industry leaders"
   },
   "cta": {
-    "title": "Ready to Transform Your Business?",
-    "description": "Contact us today to discuss how our IT solutions can help your business grow and thrive in the digital age.",
+    "title": "Ready to Build Your Next AI-Powered App?",
+    "description": "Contact us today to discuss how our custom software and AI-integrated solutions can take your business to the next level.",
     "button": "Get Started Now",
     "badge": "Ready to Start?",
     "callUs": "Call Us",
@@ -173,7 +173,7 @@
     "social": "Follow Us"
   },
   "footer": {
-    "description": "A leading provider of comprehensive IT services in the UAE, helping businesses leverage technology for growth and success.",
+    "description": "A leading software development company in the UAE, building AI-powered applications and custom digital products that drive business growth.",
     "quickLinks": "Quick Links",
     "ourServices": "Our Services",
     "contactUs": "Contact Us",
