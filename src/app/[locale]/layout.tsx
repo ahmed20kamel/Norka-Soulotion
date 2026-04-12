@@ -8,6 +8,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,10 +55,11 @@ export default async function LocaleLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>
             <Header locale={locale} />
-            <main className="min-h-screen grain relative">{children}</main>
+            <main id="main-content" className="min-h-screen grain relative">{children}</main>
             <Footer locale={locale} />
             <ChatWidget />
             <WhatsAppButton />
+            <ScrollToTop />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

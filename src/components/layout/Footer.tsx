@@ -3,12 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  ArrowUpRight,
-} from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { images } from "@/lib/images.config";
 
 interface FooterProps {
@@ -16,17 +11,18 @@ interface FooterProps {
 }
 
 export default function Footer({ locale }: FooterProps) {
-  const t = useTranslations("footer");
-  const navT = useTranslations("nav");
+  const t        = useTranslations("footer");
+  const navT     = useTranslations("nav");
   const servicesT = useTranslations("services");
-  const contactT = useTranslations("contact");
+  const contactT  = useTranslations("contact");
+  const isAr      = locale === "ar";
 
   const quickLinks = [
-    { href: `/${locale}`, label: navT("home") },
-    { href: `/${locale}/services`, label: navT("services") },
+    { href: `/${locale}`,           label: navT("home") },
+    { href: `/${locale}/services`,  label: navT("services") },
     { href: `/${locale}/portfolio`, label: navT("portfolio") },
-    { href: `/${locale}/about`, label: navT("about") },
-    { href: `/${locale}/contact`, label: navT("contact") },
+    { href: `/${locale}/about`,     label: navT("about") },
+    { href: `/${locale}/contact`,   label: navT("contact") },
   ];
 
   const serviceLinks = [
@@ -38,37 +34,77 @@ export default function Footer({ locale }: FooterProps) {
     servicesT("uiux.title"),
   ];
 
+  const socialLinks = [
+    { label: "Facebook",    href: "https://www.facebook.com/norkasolution",         Icon: Facebook },
+    { label: "Instagram",   href: "https://www.instagram.com/norkasolution",        Icon: Instagram },
+    { label: "LinkedIn",    href: "https://www.linkedin.com/company/norkasolution", Icon: Linkedin },
+    { label: "Twitter / X", href: "https://twitter.com/norkasolution",              Icon: Twitter },
+  ];
+
+  const contactItems = [
+    { Icon: MapPin, value: contactT("info.addressValue"), dir: undefined },
+    { Icon: Phone,  value: contactT("info.phoneValue"), href: `tel:${contactT("info.phoneValue")}`, dir: "ltr" as const },
+    { Icon: Mail,   value: contactT("info.emailValue"), href: `mailto:${contactT("info.emailValue")}`, dir: undefined },
+  ];
+
   return (
-    <footer className="bg-gray-950 text-gray-300">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="bg-gray-950 text-gray-400" role="contentinfo">
+      {/* ── Top divider accent ─────────────────────────────────── */}
+      <div className="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true" />
+
+      {/* ── Main body ──────────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
+
+          {/* ── Brand column ──────────────────────────────────── */}
           <div className="lg:col-span-1">
-            <Link href={`/${locale}`} className="flex items-center gap-3 mb-6">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white p-1">
+            <Link
+              href={`/${locale}`}
+              className="flex items-center gap-3 mb-5 group"
+              aria-label="Norka Solution — Home"
+            >
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1 shrink-0">
                 <Image
                   src={images.brand.logo.src}
-                  alt={images.brand.logo.alt}
+                  alt="Norka Solution"
                   fill
                   className="object-contain p-0.5"
                 />
               </div>
               <div>
-                <span className="text-lg font-bold text-white">Norka</span>
-                <span className="text-lg font-bold gradient-text">
-                  {" "}Solution
-                </span>
+                <span className="text-lg font-black text-white">Norka</span>
+                <span className="text-lg font-black gradient-text"> Solution</span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              {t("description")}
-            </p>
+
+            <p className="text-sm leading-relaxed mb-7 text-gray-500">{t("description")}</p>
+
+            {/* Social icons */}
+            <div>
+              <p className="text-white text-xs font-semibold uppercase tracking-widest mb-3">
+                {contactT("social")}
+              </p>
+              <div className="flex items-center gap-2" role="list" aria-label={isAr ? "مواقع التواصل الاجتماعي" : "Social media"}>
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="listitem"
+                    aria-label={label}
+                    className="w-9 h-9 rounded-xl bg-gray-800 hover:bg-accent text-gray-400 hover:text-dark flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20"
+                  >
+                    <Icon className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-6">
+          {/* ── Quick links ──────────────────────────────────── */}
+          <nav aria-label={isAr ? "روابط سريعة" : "Quick links"}>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("quickLinks")}
             </h3>
             <ul className="space-y-3">
@@ -76,19 +112,22 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors text-sm group"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors text-sm group"
                   >
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowUpRight
+                      className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                      aria-hidden="true"
+                    />
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-6">
+          {/* ── Services ─────────────────────────────────────── */}
+          <nav aria-label={isAr ? "خدماتنا" : "Our services"}>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("ourServices")}
             </h3>
             <ul className="space-y-3">
@@ -96,72 +135,79 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={service}>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors text-sm group"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors text-sm group"
                   >
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowUpRight
+                      className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                      aria-hidden="true"
+                    />
                     {service}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-6">
+          {/* ── Contact ──────────────────────────────────────── */}
+          <address className="not-italic">
+            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("contactUs")}
             </h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                <span className="text-sm text-gray-400">
-                  {contactT("info.addressValue")}
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-accent shrink-0" />
-                <a
-                  href={`tel:${contactT("info.phoneValue")}`}
-                  className="text-sm text-gray-400 hover:text-accent transition-colors"
-                  dir="ltr"
-                >
-                  {contactT("info.phoneValue")}
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-accent shrink-0" />
-                <a
-                  href={`mailto:${contactT("info.emailValue")}`}
-                  className="text-sm text-gray-400 hover:text-accent transition-colors"
-                >
-                  {contactT("info.emailValue")}
-                </a>
-              </li>
+              {contactItems.map(({ Icon, value, href, dir }) => {
+                const Tag = href ? "a" : "div";
+                return (
+                  <li key={value}>
+                    <Tag
+                      {...(href ? { href, dir } : {})}
+                      className="flex items-start gap-3 text-gray-500 hover:text-accent transition-colors text-sm group cursor-default"
+                    >
+                      <Icon className="w-4 h-4 text-accent mt-0.5 shrink-0" aria-hidden="true" />
+                      <span dir={dir}>{value}</span>
+                    </Tag>
+                  </li>
+                );
+              })}
             </ul>
-          </div>
+
+            {/* CTA card */}
+            <Link
+              href={`/${locale}/contact`}
+              className="mt-6 flex items-center gap-3 p-4 rounded-2xl border border-accent/20 hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 group"
+            >
+              <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors">
+                <Mail className="w-4 h-4 text-accent group-hover:text-dark transition-colors" aria-hidden="true" />
+              </div>
+              <div>
+                <div className="text-white text-sm font-semibold">
+                  {isAr ? "ابدأ مشروعك" : "Start your project"}
+                </div>
+                <div className="text-gray-600 text-xs">
+                  {isAr ? "رد خلال 24 ساعة" : "Reply within 24 hours"}
+                </div>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-accent ml-auto transition-colors" aria-hidden="true" />
+            </Link>
+          </address>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* ── Bottom bar ─────────────────────────────────────────── */}
+      <div className="border-t border-gray-800/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} Norka Solution. {t("rights")}
+            <p className="text-xs text-gray-600">
+              &copy; {new Date().getFullYear()} Norka Solution.{" "}
+              <span>{t("rights")}</span>
             </p>
-            <div className="flex items-center gap-6">
-              <a
-                href="#"
-                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-              >
+            <div className="flex items-center gap-1 text-xs text-gray-600">
+              <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.03] transition-all">
                 {t("privacy")}
-              </a>
-              <a
-                href="#"
-                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-              >
+              </Link>
+              <span aria-hidden="true">·</span>
+              <Link href={`/${locale}/terms`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.03] transition-all">
                 {t("terms")}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -2,20 +2,20 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megaphone, Building2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
 
 const serviceCards = [
-  { key: "software", image: "/images/services/web-applications.jpg" },
-  { key: "mobile", image: "/images/services/mobile-apps.jpg" },
-  { key: "erp", image: "/images/services/erp-systems.jpg" },
-  { key: "web", image: "/images/services/website-development.jpg" },
-  { key: "infrastructure", image: "/images/services/it-infrastructure.jpg" },
-  { key: "uiux", image: "/images/services/uiux-design.jpg" },
-  { key: "marketing", image: "/images/services/social-media.jpg" },
-  { key: "consulting", image: "/images/services/company-setup.jpg" },
+  { key: "software",       image: "/images/services/web-applications.jpg",  Icon: Code2,       span: "lg:col-span-2 lg:row-span-2" },
+  { key: "mobile",         image: "/images/services/mobile-apps.jpg",        Icon: Smartphone,  span: "" },
+  { key: "erp",            image: "/images/services/erp-systems.jpg",         Icon: BarChart3,   span: "" },
+  { key: "web",            image: "/images/services/website-development.jpg", Icon: Globe,       span: "" },
+  { key: "infrastructure", image: "/images/services/it-infrastructure.jpg",   Icon: Server,      span: "" },
+  { key: "uiux",           image: "/images/services/uiux-design.jpg",         Icon: Palette,     span: "lg:col-span-2" },
+  { key: "marketing",      image: "/images/services/social-media.jpg",        Icon: Megaphone,   span: "" },
+  { key: "consulting",     image: "/images/services/company-setup.jpg",       Icon: Building2,   span: "" },
 ] as const;
 
 interface ServicesPreviewProps {
@@ -26,109 +26,128 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
   const t = useTranslations("services");
 
   return (
-    <section id="services" className="py-32 bg-surface dark:bg-surface-dark/40 overflow-hidden">
+    <section
+      id="services"
+      className="py-28 md:py-36 bg-surface dark:bg-surface-dark/40 overflow-hidden"
+      aria-labelledby="services-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Heading */}
+        {/* ── Heading ─────────────────────────────────────────── */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
-          className="text-center mb-20"
+          transition={{ duration: .6 }}
+          className="max-w-2xl mb-16 md:mb-20"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 dark:bg-accent/20 text-accent text-sm font-semibold mb-4">
-            {t("badge")}
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-5">
+          <span className="badge badge-accent mb-5">{t("badge")}</span>
+          <h2
+            id="services-heading"
+            className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-5 leading-tight"
+          >
             {t("title")}
           </h2>
-          <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
             {t("subtitle")}
           </p>
-          <div className="mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
+          <div className="divider-accent mt-6" />
         </motion.div>
 
-        {/* Cards grid — 4 columns with image + text */}
+        {/* ── Bento Grid ──────────────────────────────────────── */}
         <motion.div
-          variants={staggerContainer(0.08)}
+          variants={staggerContainer(.06)}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[280px] gap-4"
+          role="list"
+          aria-label={`${t("title")} list`}
         >
-          {serviceCards.map((card) => (
-            <motion.div
-              key={card.key}
+          {serviceCards.map(({ key, image, Icon, span }) => (
+            <motion.article
+              key={key}
               variants={staggerItem}
-              className="group relative bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent/10"
+              role="listitem"
+              className={`group relative overflow-hidden rounded-3xl cursor-pointer ${span}`}
             >
-              {/* Image */}
-              <div className="relative h-52 overflow-hidden">
+              {/* Background image */}
+              <div className="absolute inset-0">
                 <Image
-                  src={card.image}
-                  alt={t(`${card.key}.title`)}
+                  src={image}
+                  alt={t(`${key}.title`)}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-
-                {/* Title overlay on image */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="text-lg font-bold text-white drop-shadow-lg">
-                    {t(`${card.key}.title`)}
-                  </h3>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/40 to-gray-950/10 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/8 transition-colors duration-500" />
               </div>
 
-              {/* Content below image */}
-              <div className="p-6">
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  {t(`${card.key}.description`)}
+              {/* Content */}
+              <div className="relative h-full flex flex-col justify-end p-6 md:p-7">
+                {/* Icon pill */}
+                <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-accent/15 border border-accent/30 backdrop-blur-sm transition-all duration-300 group-hover:bg-accent group-hover:border-accent">
+                  <Icon
+                    className="w-5 h-5 text-accent transition-colors duration-300 group-hover:text-dark"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <h3 className="font-heading text-lg font-bold text-white mb-2 leading-tight">
+                  {t(`${key}.title`)}
+                </h3>
+                <p className="text-gray-300/70 text-sm leading-relaxed mb-4 line-clamp-2">
+                  {t(`${key}.description`)}
                 </p>
 
-                {/* Features */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {(t.raw(`${card.key}.features`) as string[]).slice(0, 3).map((f: string) => (
+                {/* Feature chips */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {(t.raw(`${key}.features`) as string[]).slice(0, 3).map((f: string) => (
                     <span
                       key={f}
-                      className="px-2.5 py-1 text-xs font-medium rounded-full bg-accent/10 dark:bg-accent/20 text-accent"
+                      className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-white/10 text-white/70 border border-white/15 backdrop-blur-sm"
                     >
                       {f}
                     </span>
                   ))}
                 </div>
 
-                {/* Link */}
+                {/* CTA link */}
                 <Link
                   href={`/${locale}/services`}
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:text-accent-dark transition-colors group/link"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:gap-2.5 transition-all duration-300"
+                  aria-label={`${t("learnMore")} — ${t(`${key}.title`)}`}
                 >
                   {t("learnMore")}
-                  <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
               </div>
 
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </motion.div>
+              <div
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-light scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                aria-hidden="true"
+              />
+            </motion.article>
           ))}
         </motion.div>
 
-        {/* View All */}
+        {/* ── View All CTA ─────────────────────────────────────── */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
-          className="text-center mt-16"
+          transition={{ duration: .5, delay: .2 }}
+          className="flex justify-center mt-14"
         >
           <Link
             href={`/${locale}/services`}
-            className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-lg font-bold text-dark bg-accent hover:bg-accent-dark hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-1 transition-all duration-300"
+            className="btn btn-primary text-base px-8 py-4"
+            aria-label={t("viewAll")}
           >
             {t("viewAll")}
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5" aria-hidden="true" />
           </Link>
         </motion.div>
       </div>

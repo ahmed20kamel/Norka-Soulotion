@@ -57,11 +57,14 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
+      // Skip the first welcome message (assistant greeting) — only send real conversation history
+      const conversationHistory = newMessages.slice(1);
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: newMessages.filter((m) => m !== newMessages[0] || m.role === "user"),
+          messages: conversationHistory,
           locale,
         }),
       });

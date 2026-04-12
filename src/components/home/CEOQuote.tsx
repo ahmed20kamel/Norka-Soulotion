@@ -5,6 +5,7 @@ import Image from "next/image";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Quote } from "lucide-react";
 import { images } from "@/lib/images.config";
+import { COMPANY_STATS } from "@/lib/constants";
 
 interface CEOQuoteProps {
   locale?: string;
@@ -13,25 +14,33 @@ interface CEOQuoteProps {
 export default function CEOQuote({ locale }: CEOQuoteProps) {
   const isAr = locale === "ar";
 
+  const stats = [
+    { value: COMPANY_STATS.years,        label: isAr ? "سنوات قيادة"  : "Years Leading" },
+    { value: COMPANY_STATS.projects,     label: isAr ? "مشروع منجز"  : "Projects Done" },
+    { value: COMPANY_STATS.satisfaction, label: isAr ? "رضا العملاء" : "Satisfaction" },
+  ];
+
   return (
-    <section className="relative py-32 overflow-hidden bg-gray-950">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_#C9A96E22,_transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_#1a1a2e44,_transparent_60%)]" />
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
+    <section
+      className="relative py-28 md:py-36 overflow-hidden bg-gray-950"
+      aria-label={isAr ? "رسالة المدير التنفيذي" : "Managing Director message"}
+    >
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(201,169,110,.1),_transparent_60%)]" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(26,26,46,.6),_transparent_60%)]" aria-hidden="true" />
+      <div
+        className="absolute inset-0 opacity-[.04] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+          backgroundSize: "36px 36px",
+        }}
+        aria-hidden="true"
+      />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Photo side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+
+          {/* ── Photo ───────────────────────────────────────── */}
           <motion.div
             variants={fadeLeft}
             initial="hidden"
@@ -41,94 +50,89 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
           >
             <div className="relative">
               {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/40 to-accent-light/40 blur-2xl scale-110" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/30 to-accent-light/20 blur-3xl scale-110" aria-hidden="true" />
 
-              {/* Avatar Circle with real photo */}
-              <div className="relative w-72 h-72 rounded-full border-4 border-white/10 overflow-hidden">
+              {/* Photo */}
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-white/10 overflow-hidden shadow-2xl">
                 <Image
                   src={images.team.nourhan.src}
                   alt={images.team.nourhan.alt}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 256px, 320px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-transparent" />
               </div>
 
-              {/* Badge */}
+              {/* Name badge */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
+                initial={{ opacity: 0, scale: .7 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={viewport}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="absolute -bottom-4 -right-4 bg-accent px-5 py-3 rounded-2xl shadow-2xl"
+                transition={{ delay: .5, type: "spring" }}
+                className="absolute -bottom-5 -right-5 bg-accent px-5 py-3 rounded-2xl shadow-2xl shadow-accent/30"
               >
-                <div className="text-dark text-sm font-bold">
+                <div className="text-dark font-bold text-sm leading-tight">
+                  {isAr ? "م. نورهان" : "Eng. Nourhan"}
+                </div>
+                <div className="text-dark/70 text-xs mt-0.5">
                   {isAr ? "المدير التنفيذي" : "Managing Director"}
                 </div>
-                <div className="text-dark/70 text-xs">Norka Solution</div>
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Quote side */}
+          {/* ── Quote ───────────────────────────────────────── */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
           >
-            <div className="mb-8">
-              <Quote className="w-16 h-16 text-accent/40" />
+            {/* Quote icon */}
+            <div className="mb-7 opacity-30" aria-hidden="true">
+              <Quote className="w-14 h-14 text-accent" />
             </div>
 
-            <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed mb-8">
+            <blockquote className="text-xl md:text-2xl lg:text-3xl font-light text-white leading-relaxed mb-9">
               {isAr ? (
                 <>
                   &ldquo;في نوركا سوليوشن، نحن لا نبني التكنولوجيا فقط &mdash;
-                  <span className="font-bold bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
-                    {" "}نحن نهندس مستقبل{" "}
-                  </span>
+                  <span className="font-bold gradient-text"> نحن نهندس مستقبل </span>
                   أعمالك. كل حل نقدمه مصنوع بدقة وشغف وهدف.&rdquo;
                 </>
               ) : (
                 <>
                   &ldquo;At Norka Solution, we don&apos;t just build technology &mdash;
-                  <span className="font-bold bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
-                    {" "}we engineer the future{" "}
-                  </span>
-                  of your business. Every solution we deliver is crafted with
-                  precision, passion, and purpose.&rdquo;
+                  <span className="font-bold gradient-text"> we engineer the future </span>
+                  of your business. Every solution we deliver is crafted with precision, passion, and purpose.&rdquo;
                 </>
               )}
             </blockquote>
 
             {/* Signature */}
-            <div className="flex items-center gap-5">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-accent to-accent-light" />
+            <div className="flex items-center gap-5 mb-12">
+              <div className="w-14 h-0.5 bg-gradient-to-r from-accent to-accent-light" aria-hidden="true" />
               <div>
                 <div className="text-white font-bold text-xl">
                   {isAr ? "م. نورهان" : "Eng. Nourhan"}
                 </div>
                 <div className="text-gray-400 text-sm">
-                  {isAr
-                    ? "المدير التنفيذي، نوركا سوليوشن"
-                    : "Managing Director, Norka Solution"}
+                  {isAr ? "المدير التنفيذي، نوركا سوليوشن" : "Managing Director, Norka Solution"}
                 </div>
               </div>
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
-              {[
-                { value: "5+", label: isAr ? "سنوات قيادة" : "Years Leading" },
-                { value: "150+", label: isAr ? "مشروع منجز" : "Projects Done" },
-                { value: "99%", label: isAr ? "رضا العملاء" : "Client Satisfaction" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-500 text-sm mt-1">{stat.label}</div>
+            <div
+              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10"
+              role="list"
+              aria-label={isAr ? "إنجازاتنا" : "Achievements"}
+            >
+              {stats.map((stat) => (
+                <div key={stat.label} role="listitem">
+                  <div className="text-3xl font-black gradient-text mb-1">{stat.value}</div>
+                  <div className="text-gray-500 text-sm">{stat.label}</div>
                 </div>
               ))}
             </div>

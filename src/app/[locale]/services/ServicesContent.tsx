@@ -1,0 +1,181 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { CheckCircle, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megaphone, Building2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import CTASection from "@/components/home/CTASection";
+import { services } from "@/lib/data/services";
+import { images } from "@/lib/images.config";
+import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
+
+const serviceImages: Record<string, string> = {
+  software:       "/images/services/web-applications.jpg",
+  mobile:         "/images/services/mobile-apps.jpg",
+  erp:            "/images/services/erp-systems.jpg",
+  web:            "/images/services/website-development.jpg",
+  infrastructure: "/images/services/it-infrastructure.jpg",
+  uiux:           "/images/services/uiux-design.jpg",
+  marketing:      "/images/services/social-media.jpg",
+  consulting:     "/images/services/company-setup.jpg",
+};
+
+const serviceIcons: Record<string, typeof Code2> = {
+  software:       Code2,
+  mobile:         Smartphone,
+  erp:            BarChart3,
+  web:            Globe,
+  infrastructure: Server,
+  uiux:           Palette,
+  marketing:      Megaphone,
+  consulting:     Building2,
+};
+
+export default function ServicesContent() {
+  const t      = useTranslations("services");
+  const navT   = useTranslations("nav");
+  const params = useParams();
+  const locale = params.locale as string;
+  const isAr   = locale === "ar";
+
+  return (
+    <>
+      {/* ── Hero Banner ─────────────────────────────────────────── */}
+      <section className="relative pt-40 pb-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.pageHeroes.services.src}
+            alt={images.pageHeroes.services.alt}
+            fill className="object-cover scale-105" priority sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gray-950/78" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.nav
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            className="text-white/50 text-sm mb-6 font-medium"
+            aria-label={isAr ? "مسار التنقل" : "Breadcrumb"}
+          >
+            <Link href={`/${locale}`} className="hover:text-white/70 transition-colors">{navT("home")}</Link>
+            <span className="mx-2" aria-hidden="true">/</span>
+            <span className="text-accent">{t("title")}</span>
+          </motion.nav>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .1 }}
+            className="font-heading text-display font-black text-white mb-5"
+          >
+            {t("title")}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .25 }}
+            className="text-lg md:text-xl text-gray-300/80 max-w-2xl mx-auto"
+          >
+            {t("subtitle")}
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ── Services Alternating Layout ─────────────────────────── */}
+      <section className="py-20 md:py-28 bg-background dark:bg-background-dark" aria-labelledby="services-list-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 id="services-list-heading" className="sr-only">{t("title")}</h2>
+
+          <div className="space-y-24 md:space-y-32">
+            {services.map((service, index) => {
+              const isEven  = index % 2 === 0;
+              const Icon    = serviceIcons[service.key] ?? Code2;
+              const imgSrc  = serviceImages[service.key];
+
+              return (
+                <motion.article
+                  key={service.key}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: .65 }}
+                  className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 xl:gap-20 items-center`}
+                  aria-label={t(`${service.key}.title`)}
+                >
+                  {/* Image */}
+                  <motion.div
+                    variants={isEven ? fadeLeft : fadeRight}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewport}
+                    className="w-full lg:w-[48%] shrink-0"
+                  >
+                    <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl group">
+                      <Image
+                        src={imgSrc}
+                        alt={t(`${service.key}.title`)}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 48vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-950/30 to-transparent" />
+
+                      {/* Icon badge */}
+                      <div className="absolute top-5 left-5 w-12 h-12 rounded-2xl bg-accent flex items-center justify-center shadow-lg">
+                        <Icon className="w-6 h-6 text-dark" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Content */}
+                  <motion.div
+                    variants={isEven ? fadeRight : fadeLeft}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewport}
+                    className="flex-1"
+                  >
+                    <span className="badge badge-accent mb-5">
+                      {isAr ? `خدمة ${index + 1}` : `Service 0${index + 1}`}
+                    </span>
+
+                    <h3 className="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 leading-tight">
+                      {t(`${service.key}.title`)}
+                    </h3>
+
+                    <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
+                      {t(`${service.key}.description`)}
+                    </p>
+
+                    {/* Features grid */}
+                    <ul
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
+                      aria-label={isAr ? "المميزات" : "Features"}
+                    >
+                      {(t.raw(`${service.key}.features`) as string[]).map((feature: string) => (
+                        <li key={feature} className="flex items-center gap-2.5">
+                          <CheckCircle className="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
+                          <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="btn btn-outline text-sm"
+                      aria-label={`${isAr ? "استفسر عن" : "Inquire about"} ${t(`${service.key}.title`)}`}
+                    >
+                      {isAr ? "استفسر الآن" : "Get a quote"}
+                    </Link>
+                  </motion.div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <CTASection locale={locale} />
+    </>
+  );
+}

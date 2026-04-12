@@ -4,30 +4,50 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Users, Trophy, Rocket, Handshake } from "lucide-react";
+import { ArrowRight, Users, Trophy, Rocket, Handshake, CheckCircle } from "lucide-react";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { images } from "@/lib/images.config";
+import { COMPANY_STATS } from "@/lib/constants";
 
 interface AboutPreviewProps {
   locale: string;
 }
 
 export default function AboutPreview({ locale }: AboutPreviewProps) {
-  const t = useTranslations("about");
+  const t      = useTranslations("about");
   const statsT = useTranslations("stats");
+  const isAr   = locale === "ar";
 
   const stats = [
-    { icon: Trophy, value: "5+", label: statsT("years") },
-    { icon: Rocket, value: "150+", label: statsT("projects") },
-    { icon: Handshake, value: "80+", label: statsT("clients") },
-    { icon: Users, value: "30+", label: statsT("team") },
+    { icon: Trophy,    value: COMPANY_STATS.years,    label: statsT("years"),    color: "text-amber-400" },
+    { icon: Rocket,    value: COMPANY_STATS.projects, label: statsT("projects"), color: "text-blue-400" },
+    { icon: Handshake, value: COMPANY_STATS.clients,  label: statsT("clients"),  color: "text-emerald-400" },
+    { icon: Users,     value: COMPANY_STATS.team,     label: statsT("team"),     color: "text-purple-400" },
   ];
 
+  const highlights = isAr
+    ? ["فريق متخصص من المطورين والمصممين", "حلول مخصصة لكل عميل", "دعم فني على مدار الساعة", "خبرة في السوق الإماراتي والخليجي"]
+    : ["Specialized team of developers & designers", "Tailored solutions for each client", "24/7 technical support", "Deep expertise in the UAE & Gulf market"];
+
   return (
-    <section className="py-32 bg-white dark:bg-gray-950 overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Image */}
+    <section
+      className="py-28 md:py-36 bg-white dark:bg-gray-950 overflow-hidden relative"
+      aria-labelledby="about-preview-heading"
+    >
+      {/* Subtle background grid */}
+      <div
+        className="absolute inset-0 opacity-[.025] dark:opacity-[.04] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, #C9A96E 1px, transparent 0)",
+          backgroundSize: "40px 40px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+
+          {/* ── Left: Image stack ─────────────────────────────── */}
           <motion.div
             variants={fadeLeft}
             initial="hidden"
@@ -35,73 +55,116 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
             viewport={viewport}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
+            {/* Main image */}
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
               <Image
                 src={images.about.team.src}
                 alt={images.about.team.alt}
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
             </div>
 
-            {/* Decorative accent frame */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2 border-accent/20 -z-10" />
+            {/* Decorative frame */}
+            <div
+              className="absolute -bottom-5 -right-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10"
+              aria-hidden="true"
+            />
 
-            {/* Floating stat card */}
+            {/* Floating team card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: .85, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={viewport}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700"
+              transition={{ delay: .45, duration: .5, type: "spring" }}
+              className="absolute -bottom-7 -right-7 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700 z-10"
             >
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center">
-                  <Users className="w-5 h-5 text-white" />
+                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center shrink-0">
+                  <Users className="w-5 h-5 text-dark" aria-hidden="true" />
                 </div>
                 <div>
-                  <div className="text-2xl font-black text-gray-900 dark:text-white leading-none">30+</div>
+                  <div className="text-2xl font-black text-gray-900 dark:text-white leading-none">
+                    {COMPANY_STATS.team}
+                  </div>
                   <div className="text-xs text-gray-500 mt-0.5">{t("teamMembers")}</div>
                 </div>
               </div>
             </motion.div>
+
+            {/* Satisfaction badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: .85, x: 20 }}
+              whileInView={{ opacity: 1, scale: 1, x: 0 }}
+              viewport={viewport}
+              transition={{ delay: .6, duration: .5, type: "spring" }}
+              className="absolute -top-5 -left-5 bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700 z-10 flex items-center gap-2"
+            >
+              <span className="text-accent text-lg font-black">{COMPANY_STATS.satisfaction}</span>
+              <span className="text-xs text-gray-500 leading-tight max-w-[60px]">
+                {isAr ? "رضا العملاء" : "Client Satisfaction"}
+              </span>
+            </motion.div>
           </motion.div>
 
-          {/* Right: Text */}
+          {/* ── Right: Text ───────────────────────────────────── */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 dark:bg-accent/20 text-accent text-sm font-semibold mb-5">
-              {t("story")}
-            </span>
-            <h2 className="font-heading text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
+            <span className="badge badge-accent mb-6">{t("story")}</span>
+
+            <h2
+              id="about-preview-heading"
+              className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-6 leading-tight"
+            >
               {t("title")}
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
+
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
               {t("storyText")}
             </p>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+            {/* Highlight list */}
+            <ul className="space-y-3 mb-10" aria-label={isAr ? "ما يميزنا" : "What sets us apart"}>
+              {highlights.map((item) => (
+                <li key={item} className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
+                  <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Stats grid */}
+            <div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
+              role="list"
+              aria-label={isAr ? "إحصاءات" : "Statistics"}
+            >
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
-                  <stat.icon className="w-5 h-5 text-accent mx-auto mb-2" />
+                <div
+                  key={stat.label}
+                  role="listitem"
+                  className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-100 dark:border-gray-800 hover:border-accent/30 transition-colors"
+                >
+                  <stat.icon className={`w-5 h-5 mx-auto mb-2 ${stat.color}`} aria-hidden="true" />
                   <div className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</div>
-                  <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                  <div className="text-[11px] text-gray-500 mt-1 leading-tight">{stat.label}</div>
                 </div>
               ))}
             </div>
 
             <Link
               href={`/${locale}/about`}
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-accent font-semibold border-2 border-accent hover:bg-accent hover:text-white transition-all duration-300"
+              className="btn btn-outline text-sm"
+              aria-label={t("learnMore")}
             >
               {t("learnMore")}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
           </motion.div>
         </div>
