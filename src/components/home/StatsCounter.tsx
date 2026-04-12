@@ -25,9 +25,9 @@ export default function StatsCounter() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950" aria-hidden="true" />
       <div
-        className="absolute inset-0 opacity-[.05] pointer-events-none"
+        className="absolute inset-0 opacity-[.04] pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(201,169,110,.8) 1px, transparent 0)",
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(59,98,252,.9) 1px, transparent 0)",
           backgroundSize: "32px 32px",
         }}
         aria-hidden="true"

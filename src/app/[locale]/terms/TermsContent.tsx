@@ -82,7 +82,7 @@ export default function TermsContent() {
     <>
       {/* Hero */}
       <section className="relative pt-36 pb-20 bg-gray-950 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#C9A96E15,_transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(59,98,252,.08),_transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}

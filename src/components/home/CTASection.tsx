@@ -44,8 +44,8 @@ export default function CTASection({ locale }: CTASectionProps) {
       aria-labelledby="cta-heading"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#111008] to-gray-950" aria-hidden="true" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(201,169,110,.08),_transparent_65%)]" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#080D1E] to-gray-950" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(59,98,252,.10),_transparent_65%)]" aria-hidden="true" />
 
       {/* Grid dots */}
       <div
@@ -62,7 +62,7 @@ export default function CTASection({ locale }: CTASectionProps) {
       <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] border border-white/[.04] rounded-full animate-spin-slow pointer-events-none" style={{ animationDirection: "reverse" }} aria-hidden="true" />
 
       {/* Accent glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-accent/[.07] rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-accent/[.09] rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -114,17 +114,17 @@ export default function CTASection({ locale }: CTASectionProps) {
             {/* Primary CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-3xl bg-accent hover:bg-accent-light hover:shadow-[0_20px_60px_rgba(201,169,110,.3)] hover:-translate-y-1 transition-all duration-300"
+              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-3xl bg-accent hover:bg-accent-dark hover:shadow-[0_20px_60px_rgba(59,98,252,.35)] hover:-translate-y-1 transition-all duration-300"
               aria-label={t("button")}
             >
-              <span className="font-heading text-xl font-black text-dark">{t("button")}</span>
+              <span className="font-heading text-xl font-black text-white">{t("button")}</span>
               <motion.div
-                className="p-3 rounded-2xl bg-dark/10 group-hover:bg-dark/20 transition-colors"
+                className="p-3 rounded-2xl bg-white/15 group-hover:bg-white/25 transition-colors"
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 aria-hidden="true"
               >
-                <ArrowRight className="w-6 h-6 text-dark" />
+                <ArrowRight className="w-6 h-6 text-white" />
               </motion.div>
             </Link>
 

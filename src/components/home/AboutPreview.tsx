@@ -38,7 +38,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
       <div
         className="absolute inset-0 opacity-[.025] dark:opacity-[.04] pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, #C9A96E 1px, transparent 0)",
+          backgroundImage: "radial-gradient(circle at 1px 1px, #3B62FC 1px, transparent 0)",
           backgroundSize: "40px 40px",
         }}
         aria-hidden="true"

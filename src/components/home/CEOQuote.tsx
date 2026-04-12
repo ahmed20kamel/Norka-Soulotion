@@ -26,7 +26,7 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
       aria-label={isAr ? "رسالة المدير التنفيذي" : "Managing Director message"}
     >
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(201,169,110,.1),_transparent_60%)]" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,98,252,.12),_transparent_60%)]" aria-hidden="true" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(26,26,46,.6),_transparent_60%)]" aria-hidden="true" />
       <div
         className="absolute inset-0 opacity-[.04] pointer-events-none"
