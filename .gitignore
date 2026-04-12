@@ -43,6 +43,3 @@ next-env.d.ts
 # large video files (keep in public/ for dev, but too large for git)
 /your-video.mp4
 /public/your-video.mp4
-/public/videos/
-*.mov
-*.mp4
