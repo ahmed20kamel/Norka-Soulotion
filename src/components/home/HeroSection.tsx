@@ -1,115 +1,88 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
+import { useRef } from "react";
 
 interface HeroSectionProps {
   locale: string;
 }
 
-/* Floating code lines that animate across the background */
-const codeLines = [
-  "const ai = new NorkaAI({ model: 'gpt-4o' })",
-  "await app.deploy({ region: 'ae-central' })",
-  "export function buildSolution(client) {",
-  "  return ai.integrate(client.needs);",
-  "}",
-  "db.connect({ host: 'cloud.norkasolution.com' })",
-  "import { Innovation } from '@norka/core';",
-  "const result = await api.solve(problem);",
-  "server.listen(3000, '0.0.0.0');",
-  "git commit -m 'feat: delivered on time'",
-];
-
 export default function HeroSection({ locale }: HeroSectionProps) {
   const t    = useTranslations("hero");
   const isAr = locale === "ar";
+  const ref  = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const yBg       = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const opacityBg = useTransform(scrollYProgress, [0, .55], [1, 0]);
 
   return (
     <section
+      ref={ref}
       className="relative min-h-screen flex items-center overflow-hidden bg-[#060B18]"
       aria-label={isAr ? "القسم الرئيسي" : "Hero section"}
     >
-      {/* ── Animated grid ───────────────────────────────────── */}
-      <div
-        className="absolute inset-0 opacity-[.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(99,130,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(99,130,255,.6) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-        aria-hidden="true"
-      />
+      {/* ── Video Background ─────────────────────────────────── */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: yBg }}>
+        {/* Fallback image — shows before video loads */}
+        <Image
+          src={images.hero.fallback.src}
+          alt={images.hero.fallback.alt}
+          fill
+          className="object-cover"
+          priority
+          quality={85}
+          sizes="100vw"
+        />
 
-      {/* ── Radial glow spots ───────────────────────────────── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        {/* Primary blue glow — top right */}
+        {/* Actual video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          aria-hidden="true"
+        >
+          <source src={images.hero.video.src} type={images.hero.video.type} />
+        </video>
+
+        {/* Layered overlays for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#060B18]/80 via-[#060B18]/65 to-[#060B18]/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060B18]/75 via-[#060B18]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060B18]/60 via-transparent to-[#060B18]/30" />
+      </motion.div>
+
+      {/* ── Animated accent glow on top of video ─────────────── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [.55, .8, .55] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,98,252,.28) 0%, transparent 65%)" }}
+          animate={{ scale: [1, 1.2, 1], opacity: [.3, .55, .3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(59,98,252,.22) 0%, transparent 65%)" }}
         />
-        {/* Secondary indigo glow — bottom left */}
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [.35, .6, .35] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute -bottom-60 -left-40 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(99,60,220,.22) 0%, transparent 65%)" }}
-        />
-        {/* Center subtle glow */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(ellipse, rgba(59,98,252,.18) 0%, transparent 70%)" }}
+          animate={{ scale: [1, 1.15, 1], opacity: [.2, .4, .2] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          className="absolute -bottom-40 -left-20 w-[500px] h-[500px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(99,132,255,.18) 0%, transparent 65%)" }}
         />
       </div>
 
-      {/* ── Floating code lines ──────────────────────────────── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
-        {codeLines.map((line, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-            animate={{ opacity: [0, .18, .18, 0], x: 0 }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              delay: i * 1.6,
-              ease: "easeInOut",
-            }}
-            className="absolute font-mono text-[11px] text-blue-300/50 whitespace-nowrap"
-            style={{
-              top: `${8 + i * 8.5}%`,
-              left: i % 3 === 0 ? "5%" : i % 3 === 1 ? "38%" : "65%",
-            }}
-          >
-            {line}
-          </motion.div>
-        ))}
-      </div>
-
-      {/* ── Horizontal scan line ────────────────────────────── */}
-      <motion.div
-        animate={{ top: ["5%", "95%", "5%"] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent pointer-events-none"
-        aria-hidden="true"
-      />
-
-      {/* ── Corner accent brackets ───────────────────────────── */}
-      <div className="absolute top-8 left-8 w-10 h-10 border-t-2 border-l-2 border-blue-400/20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-8 right-8 w-10 h-10 border-t-2 border-r-2 border-blue-400/20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-8 left-8 w-10 h-10 border-b-2 border-l-2 border-blue-400/20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-8 right-8 w-10 h-10 border-b-2 border-r-2 border-blue-400/20 pointer-events-none" aria-hidden="true" />
+      {/* ── Corner brackets ──────────────────────────────────── */}
+      <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-white/15 z-[2] pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-white/15 z-[2] pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-white/15 z-[2] pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-white/15 z-[2] pointer-events-none" aria-hidden="true" />
 
       {/* ── Content ─────────────────────────────────────────── */}
-      <div className="relative z-10 w-full">
+      <motion.div style={{ opacity: opacityBg }} className="relative z-10 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-40 md:py-52">
           <div className="max-w-2xl">
 
@@ -144,7 +117,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: .6, delay: .22 }}
-              className="text-base md:text-lg text-slate-400 max-w-xl mb-10 leading-relaxed"
+              className="text-base md:text-lg text-slate-300/75 max-w-xl mb-10 leading-relaxed"
             >
               {t("description")}
             </motion.p>
@@ -165,7 +138,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               </Link>
               <Link
                 href={`/${locale}/portfolio`}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-slate-300 border border-white/10 hover:border-white/25 hover:text-white transition-all duration-300"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-slate-300 border border-white/12 hover:border-white/28 hover:text-white backdrop-blur-sm transition-all duration-300"
               >
                 {t("cta2")}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -177,7 +150,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: .75, duration: .6 }}
-              className="flex flex-wrap gap-10 mt-14 pt-8 border-t border-white/[.06]"
+              className="flex flex-wrap gap-10 mt-14 pt-8 border-t border-white/[.07]"
               role="list"
               aria-label={isAr ? "إحصاءات" : "Statistics"}
             >
@@ -198,11 +171,11 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* ── Bottom fade ─────────────────────────────────────── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background dark:from-background-dark to-transparent z-10"
+        className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-background dark:from-background-dark to-transparent z-10"
         aria-hidden="true"
       />
 
@@ -217,9 +190,9 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         <motion.div
           animate={{ y: [0, 7, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-5 h-8 rounded-full border border-white/12 flex items-start justify-center pt-1.5"
+          className="w-5 h-8 rounded-full border border-white/15 flex items-start justify-center pt-1.5"
         >
-          <span className="w-0.5 h-1.5 bg-white/20 rounded-full" />
+          <span className="w-0.5 h-1.5 bg-white/25 rounded-full" />
         </motion.div>
       </motion.div>
     </section>

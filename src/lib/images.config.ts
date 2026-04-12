@@ -22,7 +22,7 @@ export const images = {
   /** Hero section */
   hero: {
     video: {
-      src: "/your-video.mp4",
+      src: "/videos/hero.mov",
       type: "video/mp4",
     },
     // Fallback image if video doesn't load
