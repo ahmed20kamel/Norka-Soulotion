@@ -134,9 +134,12 @@ export default function ServicesContent() {
                     viewport={viewport}
                     className="flex-1"
                   >
-                    <span className="badge badge-accent mb-5">
-                      {isAr ? `خدمة ${index + 1}` : `Service 0${index + 1}`}
-                    </span>
+                    <div
+                      className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-accent/10 dark:bg-accent/15 border border-accent/20 mb-5"
+                      aria-hidden="true"
+                    >
+                      <Icon className="w-5 h-5 text-accent" />
+                    </div>
 
                     <h3 className="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 leading-tight">
                       {t(`${service.key}.title`)}

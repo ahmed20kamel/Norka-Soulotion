@@ -130,7 +130,7 @@ export default function PrivacyContent() {
                 >
                 <Card className="block p-8 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-200 dark:ring-gray-800">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                    {i + 1}. {section.title}
+                    {section.title}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                     {section.content}
