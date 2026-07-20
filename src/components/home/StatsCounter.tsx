@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
+import { Card } from "@/components/ui/card";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { Trophy, Rocket, Handshake, UsersRound } from "lucide-react";
 import { COMPANY_STATS } from "@/lib/constants";
@@ -64,7 +65,7 @@ export default function StatsCounter() {
               role="listitem"
               className="group relative text-center"
             >
-              <div className="relative p-6 md:p-8 rounded-3xl bg-white/[.04] backdrop-blur-sm border border-white/[.08] hover:bg-white/[.07] hover:border-white/[.15] transition-all duration-400 hover:-translate-y-2">
+              <Card className="relative block p-6 md:p-8 rounded-3xl bg-white/[.04] backdrop-blur-sm ring-white/[.08] hover:bg-white/[.07] hover:ring-white/[.15] transition-all duration-400 hover:-translate-y-2">
                 {/* Icon */}
                 <div
                   className={`mb-5 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${color} border border-white/10 group-hover:scale-110 transition-transform duration-400`}
@@ -74,7 +75,7 @@ export default function StatsCounter() {
 
                 {/* Counter */}
                 <AnimatedCounter end={end} suffix={suffix} label={label} />
-              </div>
+              </Card>
             </motion.div>
           ))}
         </motion.div>

@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { fadeUp, viewport } from "@/lib/animations";
 import { testimonials } from "@/lib/data/testimonials";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface TestimonialsProps {
   locale: string;
@@ -82,15 +84,10 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                     : "bg-surface dark:bg-surface-dark border-2 border-transparent hover:border-gray-200 dark:hover:border-gray-700"
                 }`}
               >
-                <div className="relative w-10 h-10 rounded-xl overflow-hidden shrink-0">
-                  <Image
-                    src={item.image}
-                    alt={item.name[lang]}
-                    fill
-                    className="object-cover"
-                    sizes="40px"
-                  />
-                </div>
+                <Avatar className="shrink-0 size-10">
+                  <AvatarImage src={item.image} alt={item.name[lang]} />
+                  <AvatarFallback>{item.name[lang].charAt(0)}</AvatarFallback>
+                </Avatar>
                 <div className="overflow-hidden">
                   <div className="text-sm font-bold text-gray-900 dark:text-white truncate">{item.name[lang]}</div>
                   <div className="text-xs text-gray-500 truncate">{item.company[lang]}</div>
@@ -114,8 +111,8 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: isAr ? 40 : -40, scale: .97 }}
                 transition={{ duration: .45, ease: [.25, .46, .45, .94] }}
-                className="relative bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 border border-gray-100 dark:border-gray-700 shadow-xl"
               >
+              <Card className="relative block bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 ring-gray-100 dark:ring-gray-700 shadow-xl">
                 {/* Big quote icon */}
                 <div className="absolute top-8 right-8 opacity-5" aria-hidden="true">
                   <Quote className="w-28 h-28 text-accent" />
@@ -140,15 +137,10 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                 {/* Author + nav */}
                 <div className="flex items-center justify-between flex-wrap gap-6">
                   <div className="flex items-center gap-4">
-                    <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-md ring-2 ring-accent/20">
-                      <Image
-                        src={testimonials[active].image}
-                        alt={testimonials[active].name[lang]}
-                        fill
-                        className="object-cover"
-                        sizes="56px"
-                      />
-                    </div>
+                    <Avatar className="size-14 shadow-md ring-2 ring-accent/20">
+                      <AvatarImage src={testimonials[active].image} alt={testimonials[active].name[lang]} />
+                      <AvatarFallback>{testimonials[active].name[lang].charAt(0)}</AvatarFallback>
+                    </Avatar>
                     <div>
                       <div className="font-bold text-gray-900 dark:text-white text-lg leading-tight">
                         {testimonials[active].name[lang]}
@@ -162,22 +154,27 @@ export default function Testimonials({ locale }: TestimonialsProps) {
 
                   {/* Arrow controls */}
                   <div className="flex gap-2" role="group" aria-label={isAr ? "التنقل بين الشهادات" : "Navigate testimonials"}>
-                    <button
+                    <Button
+                      variant="outline"
+                      size="icon"
                       onClick={prev}
                       aria-label={isAr ? "السابق" : "Previous testimonial"}
-                      className="p-3 rounded-xl bg-surface dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-accent hover:text-dark hover:border-accent transition-all duration-300 cursor-pointer"
+                      className="rounded-xl hover:bg-accent hover:text-dark hover:border-accent"
                     >
                       <ChevronLeft className="w-5 h-5" aria-hidden="true" />
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
                       onClick={next}
                       aria-label={isAr ? "التالي" : "Next testimonial"}
-                      className="p-3 rounded-xl bg-surface dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-accent hover:text-dark hover:border-accent transition-all duration-300 cursor-pointer"
+                      className="rounded-xl hover:bg-accent hover:text-dark hover:border-accent"
                     >
                       <ChevronRight className="w-5 h-5" aria-hidden="true" />
-                    </button>
+                    </Button>
                   </div>
                 </div>
+              </Card>
               </motion.div>
             </AnimatePresence>
 

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
+import { buttonVariants } from "@/components/ui/button";
 import { useRef } from "react";
 
 interface HeroSectionProps {
@@ -132,7 +133,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             >
               <Link
                 href={`/${locale}/contact`}
-                className="btn btn-primary text-sm px-7 py-3.5"
+                className={buttonVariants({ className: "text-sm px-7 py-3.5 h-auto rounded-xl" })}
               >
                 {t("cta1")}
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

@@ -7,6 +7,8 @@ import Link from "next/link";
 import { ArrowRight, ExternalLink, ArrowUpRight } from "lucide-react";
 import { fadeUp, fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { projects } from "@/lib/data/projects";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 
 interface FeaturedProjectsProps {
   locale: string;
@@ -50,7 +52,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
           >
             <Link
               href={`/${locale}/portfolio`}
-              className="btn btn-outline text-sm"
+              className={buttonVariants({ variant: "outline", className: "text-sm h-auto px-6 py-3 rounded-xl" })}
               aria-label={t("viewAll")}
             >
               {t("viewAll")}
@@ -90,9 +92,9 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                 <div className="flex-1">
-                  <span className="inline-block px-3 py-1 rounded-full bg-accent text-dark text-xs font-bold uppercase tracking-wider mb-3">
+                  <Badge className="bg-accent text-dark text-xs font-bold uppercase tracking-wider mb-3">
                     {featured[0].category}
-                  </span>
+                  </Badge>
                   <h3 className="text-2xl md:text-4xl font-black text-white mb-3 leading-tight">
                     {featured[0].title[lang]}
                   </h3>
@@ -101,18 +103,19 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
                     {featured[0].techStack.slice(0, 5).map((tech) => (
-                      <span
+                      <Badge
                         key={tech}
-                        className="px-2.5 py-1 text-xs rounded-full bg-white/15 text-white/80 border border-white/10 backdrop-blur-sm"
+                        variant="outline"
+                        className="text-xs bg-white/15 text-white/80 border-white/10 backdrop-blur-sm"
                       >
                         {tech}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                 </div>
                 <Link
                   href={`/${locale}/portfolio/${featured[0].slug}`}
-                  className="shrink-0 btn btn-primary"
+                  className={buttonVariants({ className: "shrink-0 h-auto" })}
                   aria-label={`${t("viewDetails")} — ${featured[0].title[lang]}`}
                 >
                   {t("viewDetails")}
@@ -169,15 +172,15 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
 
               {/* Default content */}
               <div className="absolute bottom-0 left-0 right-0 p-7 group-hover:opacity-0 transition-opacity duration-300">
-                <span className="inline-block px-2.5 py-1 rounded-full bg-accent text-dark text-xs font-bold uppercase tracking-wider mb-2">
+                <Badge className="bg-accent text-dark text-xs font-bold uppercase tracking-wider mb-2">
                   {project.category}
-                </span>
+                </Badge>
                 <h3 className="text-xl font-black text-white mb-2">{project.title[lang]}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {project.techStack.slice(0, 3).map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 text-xs rounded-full bg-white/15 text-white/80">
+                    <Badge key={tech} variant="outline" className="text-xs bg-white/15 text-white/80 border-transparent">
                       {tech}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
               </div>

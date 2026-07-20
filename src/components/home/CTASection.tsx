@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, Phone, Mail, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
+import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 
 interface CTASectionProps {
   locale: string;
@@ -88,13 +90,15 @@ export default function CTASection({ locale }: CTASectionProps) {
 
             {/* Social proof */}
             <div className="flex items-center gap-4">
-              <div className="flex -space-x-2" aria-hidden="true">
+              <AvatarGroup aria-hidden="true">
                 {[1,2,3,4].map((i) => (
-                  <div key={i} className="w-9 h-9 rounded-full border-2 border-gray-950 bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center text-accent text-xs font-bold">
-                    {String.fromCharCode(64 + i)}
-                  </div>
+                  <Avatar key={i} className="size-9 border-2 border-gray-950">
+                    <AvatarFallback className="bg-gradient-to-br from-accent/30 to-accent/10 text-accent text-xs font-bold">
+                      {String.fromCharCode(64 + i)}
+                    </AvatarFallback>
+                  </Avatar>
                 ))}
-              </div>
+              </AvatarGroup>
               <p className="text-sm text-gray-400">
                 <span className="text-white font-bold">80+</span>{" "}
                 {isAr ? "عميل سعيد بخدماتنا" : "happy clients trust us"}
@@ -136,15 +140,17 @@ export default function CTASection({ locale }: CTASectionProps) {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={ariaLabel}
-                  className="group flex flex-col gap-2 p-4 rounded-2xl bg-white/[.06] border border-white/[.08] hover:bg-white/[.1] hover:border-accent/30 transition-all duration-300 cursor-pointer"
+                  className="group block"
                 >
-                  <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
-                  <div>
-                    <div className="text-white font-semibold text-sm">{label}</div>
-                    <div className="text-gray-400 text-xs mt-0.5 group-hover:text-accent transition-colors" dir="ltr">
-                      {value}
+                  <Card className="flex-col gap-2 p-4 rounded-2xl bg-white/[.06] ring-white/[.08] group-hover:bg-white/[.1] group-hover:ring-accent/30 transition-all duration-300 cursor-pointer">
+                    <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
+                    <div>
+                      <div className="text-white font-semibold text-sm">{label}</div>
+                      <div className="text-gray-400 text-xs mt-0.5 group-hover:text-accent transition-colors" dir="ltr">
+                        {value}
+                      </div>
                     </div>
-                  </div>
+                  </Card>
                 </a>
               ))}
             </div>

@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { fadeUp, viewport } from "@/lib/animations";
+import { Card } from "@/components/ui/card";
 
 const row1 = [
   {
@@ -143,9 +144,9 @@ function MarqueeRow({ items, reverse = false }: { items: typeof row1; reverse?: 
 
       <div className={`flex gap-8 w-max ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}>
         {doubled.map((tech, i) => (
-          <div
+          <Card
             key={`${tech.name}-${i}`}
-            className="group flex items-center gap-4 px-8 py-5 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-200 dark:border-gray-800 hover:border-accent/40 hover:shadow-xl transition-all duration-300 shrink-0"
+            className="group flex-row items-center gap-4 px-8 py-5 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-200 dark:ring-gray-800 hover:ring-accent/40 hover:shadow-xl transition-all duration-300 shrink-0"
           >
             <div className="text-gray-500 dark:text-gray-400 group-hover:scale-110 transition-transform duration-300">
               {tech.logo}
@@ -153,7 +154,7 @@ function MarqueeRow({ items, reverse = false }: { items: typeof row1; reverse?: 
             <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-accent transition-colors whitespace-nowrap">
               {tech.name}
             </span>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
@@ -173,16 +174,16 @@ export default function TechStack() {
           viewport={viewport}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 dark:bg-accent/20 text-accent text-sm font-semibold mb-4">
+          <span className="badge badge-accent mb-4">
             {t("badge")}
           </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
+          <h2 className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-4">
             {t("title")}
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
-          <div className="mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full mx-auto" />
+          <div className="divider-accent mt-6 mx-auto" />
         </motion.div>
       </div>
 

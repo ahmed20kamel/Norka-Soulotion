@@ -8,6 +8,8 @@ import { ArrowRight, Users, Trophy, Rocket, Handshake, CheckCircle } from "lucid
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
+import { buttonVariants } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 interface AboutPreviewProps {
   locale: string;
@@ -31,7 +33,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
   return (
     <section
-      className="py-28 md:py-36 bg-white dark:bg-gray-950 overflow-hidden relative"
+      className="section-py bg-white dark:bg-gray-950 overflow-hidden relative"
       aria-labelledby="about-preview-heading"
     >
       {/* Subtle background grid */}
@@ -146,21 +148,21 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
               aria-label={isAr ? "إحصاءات" : "Statistics"}
             >
               {stats.map((stat) => (
-                <div
+                <Card
                   key={stat.label}
                   role="listitem"
-                  className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-100 dark:border-gray-800 hover:border-accent/30 transition-colors"
+                  className="block text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-100 dark:ring-gray-800 hover:ring-accent/30 transition-colors"
                 >
                   <stat.icon className={`w-5 h-5 mx-auto mb-2 ${stat.color}`} aria-hidden="true" />
                   <div className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</div>
                   <div className="text-[11px] text-gray-500 mt-1 leading-tight">{stat.label}</div>
-                </div>
+                </Card>
               ))}
             </div>
 
             <Link
               href={`/${locale}/about`}
-              className="btn btn-outline text-sm"
+              className={buttonVariants({ variant: "outline", className: "text-sm h-auto px-6 py-3 rounded-xl" })}
               aria-label={t("learnMore")}
             >
               {t("learnMore")}

@@ -6,6 +6,8 @@ import { ArrowRight, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megap
 import Image from "next/image";
 import Link from "next/link";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 
 const serviceCards = [
   { key: "software",       image: "/images/services/web-applications.jpg",  Icon: Code2,       span: "lg:col-span-2 lg:row-span-2" },
@@ -104,12 +106,13 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
                 {/* Feature chips */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {(t.raw(`${key}.features`) as string[]).slice(0, 3).map((f: string) => (
-                    <span
+                    <Badge
                       key={f}
-                      className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-white/10 text-white/70 border border-white/15 backdrop-blur-sm"
+                      variant="outline"
+                      className="text-[11px] font-medium bg-white/10 text-white/70 border-white/15 backdrop-blur-sm"
                     >
                       {f}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
 
@@ -143,7 +146,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
         >
           <Link
             href={`/${locale}/services`}
-            className="btn btn-primary text-base px-8 py-4"
+            className={buttonVariants({ size: "lg", className: "text-base px-8 py-4 h-auto rounded-xl" })}
             aria-label={t("viewAll")}
           >
             {t("viewAll")}
