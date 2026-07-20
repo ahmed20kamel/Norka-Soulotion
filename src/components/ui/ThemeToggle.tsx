@@ -8,6 +8,9 @@ export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Mount-flag pattern recommended by next-themes to avoid SSR/CSR hydration
+  // mismatch (theme is unknown until the client reads localStorage/media query).
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {

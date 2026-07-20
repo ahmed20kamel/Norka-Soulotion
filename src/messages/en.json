@@ -73,8 +73,8 @@
   },
   "portfolio": {
     "title": "Our Portfolio",
-    "subtitle": "Showcasing our best work across different industries and technologies",
-    "badge": "Our Work",
+    "subtitle": "Sample projects illustrating the type of work we deliver — real case studies coming soon",
+    "badge": "Sample Work",
     "viewAll": "View All Projects",
     "viewProject": "View Project",
     "viewDemo": "Live Demo",
@@ -120,12 +120,8 @@
   },
   "testimonials": {
     "title": "What Our Clients Say",
-    "subtitle": "Trusted by businesses across the region",
-    "badge": "Testimonials"
-  },
-  "partners": {
-    "title": "Our Partners",
-    "subtitle": "Collaborating with industry leaders"
+    "subtitle": "Illustrative examples — real client reviews coming soon",
+    "badge": "Sample Testimonials"
   },
   "cta": {
     "title": "Ready to Build Your Next AI-Powered App?",

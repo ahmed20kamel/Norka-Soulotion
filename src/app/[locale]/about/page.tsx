@@ -39,6 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function AboutPage({ params }: Props) {
+export default function AboutPage() {
   return <AboutContent />;
 }

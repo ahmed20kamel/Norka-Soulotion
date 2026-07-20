@@ -22,10 +22,18 @@ export default function Header({ locale }: HeaderProps) {
   const [langOpen,  setLangOpen]  = useState(false);
   const [prevY,     setPrevY]     = useState(0);
   const [visible,   setVisible]   = useState(true);
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
   const otherLocale    = locale === "en" ? "ar" : "en";
   const switchPath     = pathname.replace(`/${locale}`, `/${otherLocale}`);
   const isAr           = locale === "ar";
+
+  /* Close menu on route change (adjusted during render, not in an effect) */
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+    setLangOpen(false);
+  }
 
   /* ── Scroll behavior: hide on scroll-down, show on scroll-up ── */
   const handleScroll = useCallback(() => {
@@ -40,12 +48,6 @@ export default function Header({ locale }: HeaderProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
-
-  /* Close menu on route change */
-  useEffect(() => {
-    setMenuOpen(false);
-    setLangOpen(false);
-  }, [pathname]);
 
   /* Lock body scroll when mobile menu is open */
   useEffect(() => {

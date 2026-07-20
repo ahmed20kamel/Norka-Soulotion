@@ -7,7 +7,6 @@ import FeaturedProjects from "@/components/home/FeaturedProjects";
 import TechStack from "@/components/home/TechStack";
 import CEOQuote from "@/components/home/CEOQuote";
 import Testimonials from "@/components/home/Testimonials";
-import Partners from "@/components/home/Partners";
 import CTASection from "@/components/home/CTASection";
 
 type Props = {
@@ -55,7 +54,6 @@ export default async function HomePage({
       <TechStack />
       <CEOQuote locale={locale} />
       <Testimonials locale={locale} />
-      <Partners />
       <CTASection locale={locale} />
     </>
   );

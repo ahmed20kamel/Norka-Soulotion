@@ -97,85 +97,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://norkasolution.com"),
 };
 
-// Organization structured data for Google Knowledge Panel
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Norka Solution",
-  alternateName: "NORKA SOLUTION",
-  url: "https://norkasolution.com",
-  logo: "https://norkasolution.com/logo.svg",
-  image: "https://norkasolution.com/og-image.png",
-  description:
-    "Leading software development company in UAE specializing in AI-powered applications, custom web & mobile apps, ERP systems, and digital transformation solutions.",
-  foundingDate: "2020",
-  founder: {
-    "@type": "Person",
-    name: "Ahmed Kamel",
-    jobTitle: "CEO & Founder",
-  },
-  address: [
-    {
-      "@type": "PostalAddress",
-      addressLocality: "Abu Dhabi",
-      addressCountry: "AE",
-    },
-    {
-      "@type": "PostalAddress",
-      addressLocality: "Al Ain",
-      addressCountry: "AE",
-    },
-    {
-      "@type": "PostalAddress",
-      addressLocality: "Dubai",
-      addressCountry: "AE",
-    },
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+971-50-725-7157",
-    contactType: "customer service",
-    email: "info@norkasolution.com",
-    availableLanguage: ["English", "Arabic"],
-    areaServed: "AE",
-  },
-  sameAs: [
-    "https://www.facebook.com/norkasolution",
-    "https://www.instagram.com/norkasolution",
-    "https://www.linkedin.com/company/norkasolution",
-    "https://twitter.com/norkasolution",
-  ],
-  knowsAbout: [
-    "AI Application Development",
-    "Artificial Intelligence Integration",
-    "Custom Software Development",
-    "Web Application Development",
-    "Mobile App Development",
-    "ERP Systems",
-    "Machine Learning Solutions",
-    "Digital Transformation",
-    "UI/UX Design",
-    "IT Consulting",
-  ],
-  areaServed: {
-    "@type": "Country",
-    name: "United Arab Emirates",
-  },
-  priceRange: "$$",
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      {children}
-    </>
-  );
+  return children;
 }

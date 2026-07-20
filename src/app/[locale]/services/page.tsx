@@ -1,5 +1,4 @@
 import { type Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import ServicesContent from "./ServicesContent";
 
 type Props = {
@@ -41,6 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ServicesPage({ params }: Props) {
+export default function ServicesPage() {
   return <ServicesContent />;
 }

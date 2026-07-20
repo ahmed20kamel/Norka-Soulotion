@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  SAMPLE / PLACEHOLDER DATA — replace with real client testimonials before
+//  launch. These names, companies, and quotes are illustrative only.
+// ─────────────────────────────────────────────────────────────────────────────
+
 export interface Testimonial {
   name: { en: string; ar: string };
   role: { en: string; ar: string };

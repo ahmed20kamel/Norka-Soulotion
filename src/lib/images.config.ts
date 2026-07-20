@@ -22,8 +22,8 @@ export const images = {
   /** Hero section */
   hero: {
     video: {
-      src: "/videos/hero.mov",
-      type: "video/mp4",
+      webm: "/videos/hero.webm",
+      mp4: "/videos/hero.mp4",
     },
     // Fallback image if video doesn't load
     fallback: {
@@ -131,11 +131,6 @@ export const images = {
   /** Testimonials */
   testimonials: {
     basePath: "/images/testimonials",
-  },
-
-  /** Partners */
-  partners: {
-    basePath: "/images/partners",
   },
 } as const;
 

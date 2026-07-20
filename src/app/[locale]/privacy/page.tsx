@@ -25,6 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PrivacyPage({ params }: Props) {
+export default function PrivacyPage() {
   return <PrivacyContent />;
 }

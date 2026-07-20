@@ -25,6 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function TermsPage({ params }: Props) {
+export default function TermsPage() {
   return <TermsContent />;
 }

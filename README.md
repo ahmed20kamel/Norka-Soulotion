@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Norka Solution — Website
+
+Marketing site for Norka Solution, built with Next.js 16 (App Router), Tailwind CSS v4, next-intl (English/Arabic, RTL-aware), and Framer Motion.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local   # then fill in the values, see below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [.env.example](.env.example) for the full list. In short:
 
-## Learn More
+| Variable | Required for | Notes |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | AI chat widget | [console.anthropic.com](https://console.anthropic.com) |
+| `RESEND_API_KEY` | Contact form emails | [resend.com](https://resend.com) |
+| `CONTACT_EMAIL` | Contact form recipient | defaults to `info@norkasolution.com` |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp button | defaults to `971507257157` |
 
-To learn more about Next.js, take a look at the following resources:
+Without these, the site still builds and runs — the chat widget and contact form will just fail at request time until keys are set.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/[locale]/` — localized pages (`en`/`ar`), routed via `src/proxy.ts` (next-intl middleware)
+- `src/components/` — UI components, split into `home/`, `layout/`, `ui/`, `portfolio/`
+- `src/lib/data/` — editable content: `projects.ts`, `services.ts`, `testimonials.ts`
+- `src/messages/` — i18n strings (`en.json`, `ar.json`)
 
-## Deploy on Vercel
+**Note:** `src/lib/data/projects.ts` and `testimonials.ts` currently contain placeholder/sample content (marked in code comments and in the UI as "Sample Work" / "Sample Testimonials"). Replace with real case studies and client reviews before launch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev      # start dev server (Turbopack)
+npm run build    # production build
+npm run start    # run the production build locally
+npm run lint     # ESLint
+```
+
+## Deployment
+
+Deployed on [Vercel](https://vercel.com). Push to `master` (or connect the repo in the Vercel dashboard) and set the environment variables above under Project Settings → Environment Variables.

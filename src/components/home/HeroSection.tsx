@@ -50,7 +50,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
         >
-          <source src={images.hero.video.src} type={images.hero.video.type} />
+          <source src={images.hero.video.webm} type="video/webm" />
+          <source src={images.hero.video.mp4} type="video/mp4" />
         </video>
 
         {/* Layered overlays for readability */}

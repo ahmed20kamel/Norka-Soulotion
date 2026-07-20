@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Loader2, MessageCircle, Bot, User } from "lucide-react";
+import { X, Send, Loader2, Bot, User } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
