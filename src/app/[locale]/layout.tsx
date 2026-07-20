@@ -2,7 +2,9 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "next-themes";
-import { Inter, Syne, Cairo } from "next/font/google";
+import { Cairo } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { routing } from "@/i18n/routing";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -79,16 +81,6 @@ const jsonLd = {
   priceRange: "$$",
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
-});
-
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-cairo",
@@ -123,7 +115,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${syne.variable} ${cairo.variable} antialiased bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
+        className={`${GeistSans.variable} ${GeistMono.variable} ${cairo.variable} antialiased bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>

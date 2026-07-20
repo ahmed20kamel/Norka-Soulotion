@@ -49,8 +49,9 @@
   --color-gray-950: #060B18;
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-sans:    var(--font-inter), var(--font-cairo), system-ui, sans-serif;
-  --font-heading: var(--font-syne), var(--font-cairo), system-ui, sans-serif;
+  --font-sans:    var(--font-geist-sans), var(--font-cairo), system-ui, sans-serif;
+  --font-heading: var(--font-geist-sans), var(--font-cairo), system-ui, sans-serif;
+  --font-mono:    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* ── Spacing scale ───────────────────────────────────────── */
   --spacing-section:    clamp(5rem, 10vw, 8rem);
@@ -189,7 +190,7 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), var(--font-cairo), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), var(--font-cairo), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -213,20 +214,21 @@ html.dark body {
 
 /* ── Typography ─────────────────────────────────────────────── */
 .font-heading {
-  font-family: var(--font-syne), var(--font-cairo), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), var(--font-cairo), system-ui, sans-serif;
 }
 
-/* Fluid heading sizes */
+/* Fluid heading sizes — tuned for Geist's tighter, more compact metrics
+   (Syne was wider/rounder and needed a larger, looser scale) */
 .text-display {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .text-display-sm {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
 }
 
 /* ── Gradient text ──────────────────────────────────────────── */
@@ -532,7 +534,7 @@ img {
 }
 
 /* ── Prose override for legal pages ─────────────────────────── */
-.prose h2 { font-family: var(--font-syne), var(--font-cairo), system-ui, sans-serif; }
+.prose h2 { font-family: var(--font-geist-sans), var(--font-cairo), system-ui, sans-serif; }
 
 /* ── Custom scale utilities ─────────────────────────────────── */
 .scale-108 { transform: scale(1.08); }
