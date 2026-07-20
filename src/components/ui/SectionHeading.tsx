@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { viewport } from "@/lib/animations";
 
 interface SectionHeadingProps {
   title: string;
@@ -19,12 +20,12 @@ export default function SectionHeading({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={viewport}
       transition={{ duration: 0.6 }}
       className={`mb-16 ${center ? "text-center" : ""}`}
     >
       <h2
-        className={`font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${
+        className={`font-heading text-display-sm font-black mb-4 ${
           light ? "text-white" : "text-gray-900 dark:text-white"
         }`}
       >
@@ -39,11 +40,7 @@ export default function SectionHeading({
           {subtitle}
         </p>
       )}
-      <div
-        className={`mt-6 h-1 w-20 bg-gradient-to-r from-accent to-accent-light rounded-full ${
-          center ? "mx-auto" : ""
-        }`}
-      />
+      <div className={`divider-accent mt-6 ${center ? "mx-auto" : ""}`} />
     </motion.div>
   );
 }

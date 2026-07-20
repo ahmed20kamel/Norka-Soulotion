@@ -109,7 +109,7 @@ export default function ContactContent() {
       </section>
 
       {/* ── Contact Section ─────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-background dark:bg-background-dark">
+      <section className="section-py bg-background dark:bg-background-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 xl:gap-16">
 
@@ -178,7 +178,7 @@ export default function ContactContent() {
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="bg-surface dark:bg-surface-dark rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
+                className="bg-surface dark:bg-surface-dark rounded-2xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
                 aria-label={isAr ? "نموذج الاتصال" : "Contact form"}
                 noValidate
               >

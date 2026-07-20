@@ -22,7 +22,7 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
 
   return (
     <section
-      className="relative py-28 md:py-36 overflow-hidden bg-gray-950"
+      className="relative section-py overflow-hidden bg-gray-950"
       aria-label={isAr ? "رسالة المدير التنفيذي" : "Managing Director message"}
     >
       {/* Background effects */}

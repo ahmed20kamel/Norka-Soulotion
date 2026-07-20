@@ -19,7 +19,7 @@ export default function StatsCounter() {
 
   return (
     <section
-      className="relative py-20 overflow-hidden"
+      className="relative section-py-sm overflow-hidden"
       aria-label="Company statistics"
     >
       {/* Background */}

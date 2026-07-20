@@ -232,6 +232,30 @@ html.dark body {
   border: 1px solid rgba(255,255,255,.08);
 }
 
+/* ── Mockup frame bar (browser chrome for screenshots) ───────── */
+.mockup-bar {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: .375rem;
+  padding-inline: .875rem;
+  background: rgba(6,11,24,.55);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  z-index: 2;
+}
+
+.mockup-bar-dot {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.25);
+}
+
 /* ── Card system ────────────────────────────────────────────── */
 .card {
   background: #fff;
@@ -249,7 +273,7 @@ html.dark body {
 .card:hover {
   box-shadow: var(--shadow-card-hover);
   transform: translateY(-3px);
-  border-color: rgba(37,99,235,.2);
+  border-color: rgba(59,98,252,.25);
 }
 
 /* ── Button system ──────────────────────────────────────────── */
@@ -301,6 +325,8 @@ html.dark body {
 .btn-outline:hover {
   background: var(--color-accent);
   color: #fff;
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-2px);
 }
 
 .btn-ghost {
@@ -314,6 +340,7 @@ html.dark body {
 .btn-ghost:hover {
   background: rgba(255,255,255,.16);
   border-color: rgba(255,255,255,.30);
+  transform: translateY(-2px);
 }
 
 /* ── Section spacing ────────────────────────────────────────── */

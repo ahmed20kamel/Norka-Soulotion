@@ -34,7 +34,7 @@ export default function Testimonials({ locale }: TestimonialsProps) {
 
   return (
     <section
-      className="py-28 md:py-36 bg-background dark:bg-background-dark overflow-hidden"
+      className="section-py bg-background dark:bg-background-dark overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

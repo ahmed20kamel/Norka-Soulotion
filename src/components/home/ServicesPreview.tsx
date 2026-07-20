@@ -28,7 +28,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
   return (
     <section
       id="services"
-      className="py-28 md:py-36 bg-surface dark:bg-surface-dark/40 overflow-hidden"
+      className="section-py bg-surface dark:bg-surface-dark/40 overflow-hidden"
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +69,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
               key={key}
               variants={staggerItem}
               role="listitem"
-              className={`group relative overflow-hidden rounded-3xl cursor-pointer ${span}`}
+              className={`group relative overflow-hidden rounded-2xl cursor-pointer ${span}`}
             >
               {/* Background image */}
               <div className="absolute inset-0">
@@ -80,8 +80,8 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/40 to-gray-950/10 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/8 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/40 to-gray-950/10 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/8 transition-colors duration-300" />
               </div>
 
               {/* Content */}

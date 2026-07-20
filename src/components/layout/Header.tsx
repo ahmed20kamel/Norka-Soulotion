@@ -183,7 +183,7 @@ export default function Header({ locale }: HeaderProps) {
                     <div
                       role="listbox"
                       aria-label={isAr ? "اختيار اللغة" : "Language selection"}
-                      className="absolute top-full mt-2 right-0 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden min-w-[140px] z-50"
+                      className="absolute top-full mt-2 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden min-w-[140px] z-50"
                     >
                       <Link
                         href={switchPath}
@@ -192,7 +192,7 @@ export default function Header({ locale }: HeaderProps) {
                         onClick={() => setLangOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-3 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-surface dark:hover:bg-gray-800 transition-colors"
                       >
-                        <span className="text-base">{locale === "en" ? "🇦🇪" : "🇬🇧"}</span>
+                        <Globe className="w-4 h-4 text-accent" aria-hidden="true" />
                         {locale === "en" ? "العربية" : "English"}
                       </Link>
                     </div>
@@ -209,7 +209,7 @@ export default function Header({ locale }: HeaderProps) {
                   "hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300",
                   scrolled
                     ? "bg-accent text-dark hover:bg-accent-dark hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-px"
-                    : "bg-white text-gray-900 hover:bg-gray-50 hover:shadow-lg hover:-translate-y-px"
+                    : "bg-white text-gray-900 hover:bg-gray-50 hover:shadow-lg hover:shadow-black/10 hover:-translate-y-px"
                 )}
                 aria-label={t("getStarted")}
               >
@@ -247,7 +247,7 @@ export default function Header({ locale }: HeaderProps) {
         id="mobile-menu"
         aria-hidden={!menuOpen}
         className={cn(
-          "fixed inset-0 z-40 lg:hidden transition-all duration-400",
+          "fixed inset-0 z-40 lg:hidden transition-all duration-300",
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         role="dialog"
@@ -264,7 +264,7 @@ export default function Header({ locale }: HeaderProps) {
         {/* Panel */}
         <div
           className={cn(
-            "absolute top-[72px] left-3 right-3 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-350",
+            "absolute top-[72px] left-3 right-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden transition-all duration-300",
             menuOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
           )}
         >

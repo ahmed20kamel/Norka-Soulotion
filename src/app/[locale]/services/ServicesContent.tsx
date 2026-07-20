@@ -80,7 +80,7 @@ export default function ServicesContent() {
       </section>
 
       {/* ── Services Alternating Layout ─────────────────────────── */}
-      <section className="py-20 md:py-28 bg-background dark:bg-background-dark" aria-labelledby="services-list-heading">
+      <section className="section-py bg-background dark:bg-background-dark" aria-labelledby="services-list-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 id="services-list-heading" className="sr-only">{t("title")}</h2>
 
@@ -95,7 +95,7 @@ export default function ServicesContent() {
                   key={service.key}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
+                  viewport={viewport}
                   transition={{ duration: .65 }}
                   className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 xl:gap-20 items-center`}
                   aria-label={t(`${service.key}.title`)}

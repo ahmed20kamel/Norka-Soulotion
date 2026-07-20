@@ -164,7 +164,7 @@ export default function TechStack() {
   const t = useTranslations("techStack");
 
   return (
-    <section className="py-24 bg-white dark:bg-gray-950 overflow-hidden">
+    <section className="section-py bg-white dark:bg-gray-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}

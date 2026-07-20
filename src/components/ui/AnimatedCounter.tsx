@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { viewport } from "@/lib/animations";
 
 interface AnimatedCounterProps {
   end: number;
@@ -20,7 +21,7 @@ export default function AnimatedCounter({
 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, viewport);
 
   useEffect(() => {
     if (!isInView) return;
@@ -45,7 +46,7 @@ export default function AnimatedCounter({
       ref={ref}
       initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={viewport}
       transition={{ duration: 0.5 }}
       className="text-center"
     >

@@ -25,7 +25,7 @@ export default function ScrollToTop() {
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
           onClick={scrollUp}
           aria-label="Scroll to top"
-          className="fixed bottom-24 right-5 z-40 w-11 h-11 rounded-2xl bg-accent text-dark shadow-xl shadow-accent/25 hover:bg-accent-light hover:shadow-accent/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center cursor-pointer"
+          className="fixed bottom-24 right-6 z-40 w-11 h-11 rounded-2xl bg-accent text-dark shadow-xl shadow-accent/25 hover:bg-accent-light hover:shadow-accent/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center cursor-pointer"
         >
           <ArrowUp className="w-5 h-5" aria-hidden="true" />
         </motion.button>

@@ -112,7 +112,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors text-sm group"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -135,7 +135,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={service}>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors text-sm group"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -182,11 +182,11 @@ export default function Footer({ locale }: FooterProps) {
                 <div className="text-white text-sm font-semibold">
                   {isAr ? "ابدأ مشروعك" : "Start your project"}
                 </div>
-                <div className="text-gray-600 text-xs">
+                <div className="text-gray-500 text-xs">
                   {isAr ? "رد خلال 24 ساعة" : "Reply within 24 hours"}
                 </div>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-accent ml-auto transition-colors" aria-hidden="true" />
+              <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-accent ml-auto transition-colors duration-200" aria-hidden="true" />
             </Link>
           </address>
         </div>
@@ -196,16 +196,16 @@ export default function Footer({ locale }: FooterProps) {
       <div className="border-t border-gray-800/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-gray-500">
               &copy; {new Date().getFullYear()} Norka Solution.{" "}
               <span>{t("rights")}</span>
             </p>
-            <div className="flex items-center gap-1 text-xs text-gray-600">
-              <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.03] transition-all">
+            <div className="flex items-center gap-1 text-xs text-gray-500">
+              <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.06] transition-all duration-200">
                 {t("privacy")}
               </Link>
               <span aria-hidden="true">·</span>
-              <Link href={`/${locale}/terms`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.03] transition-all">
+              <Link href={`/${locale}/terms`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.06] transition-all duration-200">
                 {t("terms")}
               </Link>
             </div>

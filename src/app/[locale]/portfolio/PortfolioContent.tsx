@@ -72,7 +72,7 @@ export default function PortfolioContent() {
       </section>
 
       {/* ── Portfolio Grid ───────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-background dark:bg-background-dark" aria-labelledby="portfolio-heading">
+      <section className="section-py bg-background dark:bg-background-dark" aria-labelledby="portfolio-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 id="portfolio-heading" className="sr-only">{t("title")}</h2>
 
@@ -132,7 +132,13 @@ export default function PortfolioContent() {
                   className="group card overflow-hidden"
                 >
                   {/* Image */}
-                  <div className="relative h-56 overflow-hidden rounded-t-[calc(1.5rem-1px)]">
+                  <div className="relative h-56 overflow-hidden rounded-t-[calc(1.25rem-1px)]">
+                    {/* Browser chrome bar */}
+                    <div className="mockup-bar" aria-hidden="true">
+                      <span className="mockup-bar-dot" />
+                      <span className="mockup-bar-dot" />
+                      <span className="mockup-bar-dot" />
+                    </div>
                     <Image
                       src={project.image}
                       alt={project.title[lang]}
@@ -143,18 +149,18 @@ export default function PortfolioContent() {
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/20 to-transparent" />
 
                     {/* Category badge */}
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-12 left-4 z-[3]">
                       <span className="px-3 py-1 text-xs font-bold rounded-full bg-accent/90 text-dark uppercase tracking-wider backdrop-blur-sm">
                         {project.category}
                       </span>
                     </div>
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/85 flex items-center justify-center gap-4 transition-all duration-400">
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent group-hover:from-gray-950/95 group-hover:via-gray-950/60 group-hover:bg-accent/10 flex items-center justify-center gap-4 transition-all duration-300">
                       <motion.div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
                         <Link
                           href={`/${locale}/portfolio/${project.slug}`}
-                          className="p-3.5 rounded-2xl bg-dark/30 hover:bg-dark/50 text-white backdrop-blur-sm transition-all hover:scale-110"
+                          className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
                           aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
                         >
                           <ArrowRight className="w-5 h-5" aria-hidden="true" />
@@ -164,7 +170,7 @@ export default function PortfolioContent() {
                             href={project.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3.5 rounded-2xl bg-dark/30 hover:bg-dark/50 text-white backdrop-blur-sm transition-all hover:scale-110"
+                            className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
                             aria-label={`${t("viewDemo")} — ${project.title[lang]}`}
                           >
                             <ExternalLink className="w-5 h-5" aria-hidden="true" />

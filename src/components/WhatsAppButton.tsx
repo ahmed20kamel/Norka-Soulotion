@@ -43,7 +43,7 @@ export default function WhatsAppButton() {
         transition={{ type: "spring", damping: 15, stiffness: 200, delay: 1 }}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        className="flex items-center justify-center w-[60px] h-[60px] rounded-full bg-[#25D366] hover:bg-[#20BD5A] shadow-2xl shadow-[#25D366]/30 hover:shadow-[#25D366]/50 hover:scale-110 transition-all duration-300"
+        className="flex items-center justify-center w-15 h-15 rounded-full bg-[#25D366] hover:bg-[#20BD5A] shadow-2xl shadow-[#25D366]/30 hover:shadow-[#25D366]/50 hover:scale-110 transition-all duration-300"
         aria-label={tooltip}
       >
         <svg

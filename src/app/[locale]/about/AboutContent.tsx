@@ -92,7 +92,7 @@ export default function AboutContent() {
       </section>
 
       {/* ── Story + Image ────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-background dark:bg-background-dark" aria-labelledby="story-heading">
+      <section className="section-py bg-background dark:bg-background-dark" aria-labelledby="story-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
@@ -165,7 +165,7 @@ export default function AboutContent() {
       </section>
 
       {/* ── Timeline ─────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-surface dark:bg-surface-dark/50" aria-labelledby="timeline-heading">
+      <section className="section-py bg-surface dark:bg-surface-dark/50" aria-labelledby="timeline-heading">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
@@ -212,7 +212,7 @@ export default function AboutContent() {
       </section>
 
       {/* ── Team ─────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-background dark:bg-background-dark" aria-labelledby="team-heading">
+      <section className="section-py bg-background dark:bg-background-dark" aria-labelledby="team-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
@@ -266,7 +266,7 @@ export default function AboutContent() {
       </section>
 
       {/* ── Values ───────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-surface dark:bg-surface-dark/50" aria-labelledby="values-heading">
+      <section className="section-py bg-surface dark:bg-surface-dark/50" aria-labelledby="values-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}

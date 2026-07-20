@@ -40,7 +40,7 @@ export default function CTASection({ locale }: CTASectionProps) {
 
   return (
     <section
-      className="relative py-28 md:py-36 overflow-hidden"
+      className="relative section-py overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* Background */}
@@ -57,9 +57,8 @@ export default function CTASection({ locale }: CTASectionProps) {
         aria-hidden="true"
       />
 
-      {/* Rotating rings */}
+      {/* Rotating ring */}
       <div className="absolute -top-40 -right-40 w-[600px] h-[600px] border border-white/[.04] rounded-full animate-spin-slow pointer-events-none" aria-hidden="true" />
-      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] border border-white/[.04] rounded-full animate-spin-slow pointer-events-none" style={{ animationDirection: "reverse" }} aria-hidden="true" />
 
       {/* Accent glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-accent/[.09] rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
@@ -114,14 +113,14 @@ export default function CTASection({ locale }: CTASectionProps) {
             {/* Primary CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-3xl bg-accent hover:bg-accent-dark hover:shadow-[0_20px_60px_rgba(59,98,252,.35)] hover:-translate-y-1 transition-all duration-300"
+              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-2xl bg-accent hover:bg-accent-dark hover:shadow-[var(--shadow-accent)] hover:-translate-y-1 transition-all duration-300"
               aria-label={t("button")}
             >
               <span className="font-heading text-xl font-black text-white">{t("button")}</span>
               <motion.div
-                className="p-3 rounded-2xl bg-white/15 group-hover:bg-white/25 transition-colors"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+                className="p-3 rounded-xl bg-white/15 group-hover:bg-white/25 transition-colors duration-200"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 aria-hidden="true"
               >
                 <ArrowRight className="w-6 h-6 text-white" />
@@ -151,7 +150,7 @@ export default function CTASection({ locale }: CTASectionProps) {
             </div>
 
             {/* Trust line */}
-            <p className="text-center text-xs text-gray-600 flex items-center justify-center gap-2 mt-1">
+            <p className="text-center text-xs text-gray-500 flex items-center justify-center gap-2 mt-1">
               <span className="w-8 h-px bg-gray-700" aria-hidden="true" />
               {isAr ? "لا توجد رسوم استشارة مبدئية • رد خلال 24 ساعة" : "No initial consultation fee • Response within 24h"}
               <span className="w-8 h-px bg-gray-700" aria-hidden="true" />

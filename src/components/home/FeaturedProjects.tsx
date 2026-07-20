@@ -19,7 +19,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
 
   return (
     <section
-      className="py-28 md:py-36 bg-surface dark:bg-surface-dark/40 overflow-hidden"
+      className="section-py bg-surface dark:bg-surface-dark/40 overflow-hidden"
       aria-labelledby="projects-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,6 +68,12 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
             viewport={viewport}
             className="group relative rounded-3xl overflow-hidden mb-5 aspect-video md:aspect-[21/9] shadow-2xl"
           >
+            {/* Browser chrome bar */}
+            <div className="mockup-bar" aria-hidden="true">
+              <span className="mockup-bar-dot" />
+              <span className="mockup-bar-dot" />
+              <span className="mockup-bar-dot" />
+            </div>
             <Image
               src={featured[0].image}
               alt={featured[0].title[lang]}
@@ -78,7 +84,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
             />
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/30 to-transparent" />
-            <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500" />
+            <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-300" />
 
             {/* Content */}
             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
@@ -126,7 +132,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
               initial="hidden"
               whileInView="visible"
               viewport={viewport}
-              className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] shadow-xl"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer aspect-[4/3] shadow-xl"
             >
               <Image
                 src={project.image}
@@ -138,11 +144,11 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/40 to-transparent" />
 
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/85 transition-all duration-500 flex items-center justify-center gap-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent group-hover:from-gray-950/95 group-hover:via-gray-950/60 group-hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-4">
                 <motion.div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                   <Link
                     href={`/${locale}/portfolio/${project.slug}`}
-                    className="p-4 rounded-2xl bg-dark/30 hover:bg-dark/50 text-white backdrop-blur-sm transition-all hover:scale-110"
+                    className="glass-dark p-4 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
                     aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
                   >
                     <ArrowRight className="w-6 h-6" aria-hidden="true" />
@@ -152,7 +158,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-4 rounded-2xl bg-dark/30 hover:bg-dark/50 text-white backdrop-blur-sm transition-all hover:scale-110"
+                      className="glass-dark p-4 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
                       aria-label={`${t("viewDemo")} — ${project.title[lang]}`}
                     >
                       <ExternalLink className="w-6 h-6" aria-hidden="true" />
