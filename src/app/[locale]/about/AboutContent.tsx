@@ -10,6 +10,7 @@ import {
   Target, Eye, Users, Trophy, Rocket, Handshake,
 } from "lucide-react";
 import CTASection from "@/components/home/CTASection";
+import { Card } from "@/components/ui/card";
 import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
 import { staggerContainer, staggerItem, fadeLeft, fadeRight, viewport } from "@/lib/animations";
@@ -136,11 +137,11 @@ export default function AboutContent() {
               {/* Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8" role="list" aria-label={isAr ? "إحصاءات" : "Stats"}>
                 {stats.map((s) => (
-                  <div key={s.label} role="listitem" className="text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
+                  <Card key={s.label} role="listitem" className="block text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-100 dark:ring-gray-800">
                     <s.icon className="w-5 h-5 text-accent mx-auto mb-2" aria-hidden="true" />
                     <div className="text-2xl font-black text-gray-900 dark:text-white">{s.value}</div>
                     <div className="text-[11px] text-gray-500 mt-1">{s.label}</div>
-                  </div>
+                  </Card>
                 ))}
               </div>
 
@@ -150,13 +151,13 @@ export default function AboutContent() {
                   { icon: Target, title: t("mission"), body: t("missionText") },
                   { icon: Eye,    title: t("vision"),  body: t("visionText") },
                 ].map(({ icon: Icon, title, body }) => (
-                  <div key={title} className="p-5 rounded-2xl bg-accent/5 dark:bg-accent/10 border border-accent/15">
+                  <Card key={title} className="block p-5 rounded-2xl bg-accent/5 dark:bg-accent/10 ring-accent/15">
                     <div className="flex items-center gap-2 mb-2">
                       <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
                       <h3 className="font-bold text-gray-900 dark:text-white text-sm">{title}</h3>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body}</p>
-                  </div>
+                  </Card>
                 ))}
               </div>
             </motion.div>
@@ -193,11 +194,11 @@ export default function AboutContent() {
                   className={`relative flex flex-col md:flex-row gap-8 items-center ${i % 2 !== 0 ? "md:flex-row-reverse" : ""}`}
                 >
                   {/* Card */}
-                  <div className="flex-1 p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl transition-shadow">
+                  <Card className="flex-1 block p-6 rounded-2xl bg-white dark:bg-gray-800 ring-gray-100 dark:ring-gray-700 shadow-sm hover:shadow-xl transition-shadow">
                     <div className="text-3xl font-black text-accent mb-2">{item.year}</div>
                     <h3 className="font-heading text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.desc}</p>
-                  </div>
+                  </Card>
 
                   {/* Dot */}
                   <div className="shrink-0 w-5 h-5 rounded-full bg-accent border-4 border-background dark:border-background-dark shadow-lg hidden md:flex" aria-hidden="true" />
@@ -243,8 +244,9 @@ export default function AboutContent() {
                 key={member.name}
                 variants={staggerItem}
                 role="listitem"
-                className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-accent/30 hover:shadow-2xl transition-all duration-500"
+                className="group"
               >
+              <Card className="bg-white dark:bg-gray-800 rounded-3xl p-0 gap-0 overflow-hidden ring-gray-100 dark:ring-gray-700 hover:ring-accent/30 hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-72 overflow-hidden">
                   <Image
                     src={member.image}
@@ -259,6 +261,7 @@ export default function AboutContent() {
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{member.name}</h3>
                   <p className="text-accent font-semibold text-sm">{member.role}</p>
                 </div>
+              </Card>
               </motion.article>
             ))}
           </motion.div>
@@ -289,17 +292,18 @@ export default function AboutContent() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewport}
                   transition={{ duration: .5, delay: index * .1 }}
-                  className="card p-8 text-center group"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-6 shadow-lg shadow-accent/20 group-hover:scale-110 group-hover:shadow-accent/30 transition-all duration-400">
-                    <Icon className="w-8 h-8 text-dark" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-heading text-xl font-bold text-gray-900 dark:text-white mb-3">
-                    {t(`values.${value}.title`)}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {t(`values.${value}.description`)}
-                  </p>
+                  <Card className="p-8 text-center group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-6 shadow-lg shadow-accent/20 group-hover:scale-110 group-hover:shadow-accent/30 transition-all duration-400">
+                      <Icon className="w-8 h-8 text-dark" aria-hidden="true" />
+                    </div>
+                    <h3 className="font-heading text-xl font-bold text-gray-900 dark:text-white mb-3">
+                      {t(`values.${value}.title`)}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                      {t(`values.${value}.description`)}
+                    </p>
+                  </Card>
                 </motion.div>
               );
             })}

@@ -10,6 +10,9 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { projects } from "@/lib/data/projects";
 import { images } from "@/lib/images.config";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 const filterCategories = [
   { key: "all",    translationKey: "filterAll" },
@@ -83,20 +86,19 @@ export default function PortfolioContent() {
             aria-label={isAr ? "تصفية المشاريع" : "Filter projects"}
           >
             {filterCategories.map(({ key, translationKey }) => (
-              <button
+              <Button
                 key={key}
+                variant={activeFilter === key ? "default" : "secondary"}
                 role="tab"
                 aria-selected={activeFilter === key}
                 onClick={() => setActiveFilter(key)}
                 className={cn(
-                  "px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 cursor-pointer",
-                  activeFilter === key
-                    ? "bg-accent text-dark shadow-lg shadow-accent/25 scale-105"
-                    : "bg-surface dark:bg-surface-dark text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
+                  "h-auto px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300",
+                  activeFilter === key && "shadow-lg shadow-accent/25 scale-105"
                 )}
               >
                 {t(translationKey)}
-              </button>
+              </Button>
             ))}
           </div>
 
@@ -129,8 +131,9 @@ export default function PortfolioContent() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: .92 }}
                   transition={{ duration: .35 }}
-                  className="group card overflow-hidden"
+                  className="group"
                 >
+                <Card className="p-0 gap-0 overflow-hidden hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] hover:ring-accent/25 transition-all duration-350">
                   {/* Image */}
                   <div className="relative h-56 overflow-hidden rounded-t-[calc(1.25rem-1px)]">
                     {/* Browser chrome bar */}
@@ -150,9 +153,9 @@ export default function PortfolioContent() {
 
                     {/* Category badge */}
                     <div className="absolute top-12 left-4 z-[3]">
-                      <span className="px-3 py-1 text-xs font-bold rounded-full bg-accent/90 text-dark uppercase tracking-wider backdrop-blur-sm">
+                      <Badge className="text-xs font-bold bg-accent/90 text-dark uppercase tracking-wider backdrop-blur-sm">
                         {project.category}
-                      </span>
+                      </Badge>
                     </div>
 
                     {/* Hover overlay */}
@@ -192,12 +195,13 @@ export default function PortfolioContent() {
                     {/* Tech stack */}
                     <div className="flex flex-wrap gap-1.5 mb-5">
                       {project.techStack.slice(0, 4).map((tech) => (
-                        <span
+                        <Badge
                           key={tech}
-                          className="px-2.5 py-1 text-xs font-medium rounded-lg bg-surface dark:bg-gray-700 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+                          variant="outline"
+                          className="text-xs font-medium rounded-lg bg-surface dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600"
                         >
                           {tech}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
 
@@ -210,6 +214,7 @@ export default function PortfolioContent() {
                       <ArrowRight className="w-4 h-4" aria-hidden="true" />
                     </Link>
                   </div>
+                </Card>
                 </motion.article>
               ))}
             </AnimatePresence>

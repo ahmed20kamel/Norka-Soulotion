@@ -12,6 +12,18 @@ import {
   Send, CheckCircle, AlertCircle, Loader2, ArrowRight,
 } from "lucide-react";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 export default function ContactContent() {
   const t      = useTranslations("contact");
@@ -23,6 +35,7 @@ export default function ContactContent() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError]               = useState("");
+  const [formKey, setFormKey]           = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
 
   const contactInfo = [
@@ -58,6 +71,7 @@ export default function ContactContent() {
       if (!res.ok) throw new Error("Failed");
       setIsSubmitted(true);
       formRef.current?.reset();
+      setFormKey((k) => k + 1);
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch {
       setError(isAr ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Something went wrong. Please try again.");
@@ -65,8 +79,6 @@ export default function ContactContent() {
       setIsSubmitting(false);
     }
   };
-
-  const inputClass = "w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/40 focus:border-accent outline-none transition-all duration-200 text-sm";
 
   return (
     <>
@@ -125,22 +137,23 @@ export default function ContactContent() {
                 const Tag = href ? "a" : "div";
                 return (
                   <motion.div key={label} variants={staggerItem}>
-                    <Tag
-                      {...(href ? { href } : {})}
-                      className={`flex items-start gap-4 p-5 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-200 dark:border-gray-800 transition-all duration-300 ${href ? "hover:border-accent/40 hover:shadow-lg cursor-pointer group" : ""}`}
-                    >
-                      <div className="p-3 rounded-xl bg-accent/10 dark:bg-accent/15 shrink-0">
-                        <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">{label}</div>
-                        <div
-                          className={`text-sm font-semibold text-gray-900 dark:text-white truncate ${href ? "group-hover:text-accent transition-colors" : ""}`}
-                          dir={Icon === Phone ? "ltr" : undefined}
-                        >
-                          {value}
+                    <Tag {...(href ? { href } : {})} className={href ? "block group" : "block"}>
+                      <Card
+                        className={`flex-row items-start gap-4 p-5 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-200 dark:ring-gray-800 transition-all duration-300 ${href ? "group-hover:ring-accent/40 group-hover:shadow-lg cursor-pointer" : ""}`}
+                      >
+                        <div className="p-3 rounded-xl bg-accent/10 dark:bg-accent/15 shrink-0">
+                          <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
                         </div>
-                      </div>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">{label}</div>
+                          <div
+                            className={`text-sm font-semibold text-gray-900 dark:text-white truncate ${href ? "group-hover:text-accent transition-colors" : ""}`}
+                            dir={Icon === Phone ? "ltr" : undefined}
+                          >
+                            {value}
+                          </div>
+                        </div>
+                      </Card>
                     </Tag>
                   </motion.div>
                 );
@@ -148,7 +161,7 @@ export default function ContactContent() {
 
               {/* Quick CTA */}
               <motion.div variants={staggerItem}>
-                <div className="p-6 rounded-2xl bg-gray-950 dark:bg-gray-900 border border-gray-800">
+                <Card className="block p-6 rounded-2xl bg-gray-950 dark:bg-gray-900 ring-gray-800">
                   <p className="text-white font-semibold text-sm mb-4">
                     {isAr ? "هل تريد استشارة سريعة؟" : "Want a quick consultation?"}
                   </p>
@@ -156,7 +169,7 @@ export default function ContactContent() {
                     href="https://wa.me/971507257157"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-primary w-full justify-center text-sm py-3"
+                    className={buttonVariants({ className: "w-full justify-center text-sm py-3" })}
                     aria-label={isAr ? "تواصل عبر واتساب" : "Chat on WhatsApp"}
                   >
                     {isAr ? "واتساب مباشر" : "WhatsApp us now"}
@@ -165,7 +178,7 @@ export default function ContactContent() {
                   <p className="text-gray-600 text-xs text-center mt-3">
                     {isAr ? "رد فوري · بدون رسوم" : "Instant reply · No fees"}
                   </p>
-                </div>
+                </Card>
               </motion.div>
             </motion.div>
 
@@ -178,35 +191,35 @@ export default function ContactContent() {
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="bg-surface dark:bg-surface-dark rounded-2xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
                 aria-label={isAr ? "نموذج الاتصال" : "Contact form"}
                 noValidate
               >
+              <Card className="block bg-surface dark:bg-surface-dark rounded-2xl p-8 md:p-10 ring-gray-200 dark:ring-gray-800 shadow-sm">
                 <h2 className="font-heading text-2xl font-bold text-gray-900 dark:text-white mb-8">
                   {isAr ? "أرسل لنا رسالة" : "Send us a message"}
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label htmlFor="contact-name" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <Label htmlFor="contact-name" className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       {t("form.name")} <span className="text-red-500" aria-hidden="true">*</span>
-                    </label>
-                    <input
+                    </Label>
+                    <Input
                       id="contact-name"
                       type="text" name="name" required
-                      className={inputClass}
+                      className="h-auto px-4 py-3.5 rounded-2xl text-sm"
                       placeholder={t("form.name")}
                       autoComplete="name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <Label htmlFor="contact-email" className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       {t("form.email")} <span className="text-red-500" aria-hidden="true">*</span>
-                    </label>
-                    <input
+                    </Label>
+                    <Input
                       id="contact-email"
                       type="email" name="email" required
-                      className={inputClass}
+                      className="h-auto px-4 py-3.5 rounded-2xl text-sm"
                       placeholder={t("form.email")}
                       autoComplete="email"
                     />
@@ -215,44 +228,43 @@ export default function ContactContent() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label htmlFor="contact-phone" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <Label htmlFor="contact-phone" className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       {t("form.phone")}
-                    </label>
-                    <input
+                    </Label>
+                    <Input
                       id="contact-phone"
                       type="tel" name="phone"
-                      className={inputClass}
+                      className="h-auto px-4 py-3.5 rounded-2xl text-sm"
                       placeholder={t("form.phone")}
                       dir="ltr"
                       autoComplete="tel"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-service" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <Label htmlFor="contact-service" className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       {t("form.service")} <span className="text-red-500" aria-hidden="true">*</span>
-                    </label>
-                    <select
-                      id="contact-service"
-                      name="service" required
-                      className={inputClass}
-                      defaultValue=""
-                    >
-                      <option value="" disabled>{t("form.servicePlaceholder")}</option>
-                      {serviceOptions.map((opt) => (
-                        <option key={opt} value={opt}>{t(`form.serviceOptions.${opt}`)}</option>
-                      ))}
-                    </select>
+                    </Label>
+                    <Select key={formKey} name="service" required items={serviceOptions.map((opt) => ({ value: opt, label: t(`form.serviceOptions.${opt}`) }))}>
+                      <SelectTrigger id="contact-service" className="w-full h-auto px-4 py-3.5 rounded-2xl text-sm">
+                        <SelectValue placeholder={t("form.servicePlaceholder")} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {serviceOptions.map((opt) => (
+                          <SelectItem key={opt} value={opt}>{t(`form.serviceOptions.${opt}`)}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="contact-message" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  <Label htmlFor="contact-message" className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     {t("form.message")} <span className="text-red-500" aria-hidden="true">*</span>
-                  </label>
-                  <textarea
+                  </Label>
+                  <Textarea
                     id="contact-message"
                     name="message" required rows={5}
-                    className={`${inputClass} resize-none`}
+                    className="px-4 py-3.5 rounded-2xl text-sm resize-none"
                     placeholder={t("form.message")}
                   />
                 </div>
@@ -264,10 +276,10 @@ export default function ContactContent() {
                   </div>
                 )}
 
-                <button
+                <Button
                   type="submit"
                   disabled={isSubmitted || isSubmitting}
-                  className="btn btn-primary w-full sm:w-auto px-10 py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="w-full sm:w-auto h-auto px-10 py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   aria-live="polite"
                 >
                   {isSubmitted ? (
@@ -277,7 +289,7 @@ export default function ContactContent() {
                   ) : (
                     <><Send className="w-5 h-5" aria-hidden="true" /> {t("form.send")}</>
                   )}
-                </button>
+                </Button>
 
                 <p className="text-xs text-gray-400 mt-4">
                   {isAr
@@ -288,6 +300,7 @@ export default function ContactContent() {
                     {isAr ? "اقرأ المزيد" : "Read more"}
                   </Link>
                 </p>
+              </Card>
               </form>
             </motion.div>
           </div>

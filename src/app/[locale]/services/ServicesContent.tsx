@@ -7,6 +7,7 @@ import { CheckCircle, Code2, Smartphone, BarChart3, Globe, Server, Palette, Mega
 import Image from "next/image";
 import Link from "next/link";
 import CTASection from "@/components/home/CTASection";
+import { buttonVariants } from "@/components/ui/button";
 import { services } from "@/lib/data/services";
 import { images } from "@/lib/images.config";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
@@ -162,7 +163,7 @@ export default function ServicesContent() {
 
                     <Link
                       href={`/${locale}/contact`}
-                      className="btn btn-outline text-sm"
+                      className={buttonVariants({ variant: "outline", className: "text-sm h-auto px-6 py-3 rounded-xl" })}
                       aria-label={`${isAr ? "استفسر عن" : "Inquire about"} ${t(`${service.key}.title`)}`}
                     >
                       {isAr ? "استفسر الآن" : "Get a quote"}

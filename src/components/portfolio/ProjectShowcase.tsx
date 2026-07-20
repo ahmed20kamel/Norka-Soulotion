@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,6 +20,10 @@ import {
   Images,
 } from "lucide-react";
 import type { Project } from "@/lib/data/projects";
+import { Dialog, DialogPortal, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 
 interface ProjectShowcaseProps {
   project: Project;
@@ -72,9 +77,9 @@ export default function ProjectShowcase({
                 <ArrowLeft className="w-4 h-4" />
                 {t("title")}
               </Link>
-              <span className="block px-3 py-1 rounded-full bg-accent/90 text-dark text-xs font-semibold uppercase tracking-wider w-fit mb-4">
+              <Badge className="bg-accent/90 text-dark text-xs font-semibold uppercase tracking-wider w-fit mb-4">
                 {project.category}
-              </span>
+              </Badge>
               <h1 className="font-heading text-display font-black text-white mb-4">
                 {project.title[lang]}
               </h1>
@@ -137,55 +142,56 @@ export default function ProjectShowcase({
       )}
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={() => setLightboxOpen(false)}
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogPortal>
+          <DialogOverlay className="bg-black/90 backdrop-blur-md" />
+          <DialogPrimitive.Popup
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none"
           >
-            <button
-              onClick={() => setLightboxOpen(false)}
-              className="glass-dark absolute top-4 right-4 p-2 rounded-full text-white transition-colors duration-200 z-10"
+            <DialogTitle className="sr-only">
+              {locale === "ar" ? "معرض لقطات الشاشة" : "Screenshot gallery"}
+            </DialogTitle>
+
+            <DialogPrimitive.Close
+              className="glass-dark absolute top-4 right-4 p-2 rounded-full text-white transition-colors duration-200 z-10 cursor-pointer"
             >
               <X className="w-6 h-6" />
-            </button>
+            </DialogPrimitive.Close>
 
             <div className="glass-dark absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-white text-sm font-medium">
               {lightboxIndex + 1} / {allShots.length}
             </div>
 
-            <motion.div
-              key={lightboxIndex}
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.92 }}
-              transition={{ duration: 0.25 }}
-              className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={allShots[lightboxIndex]}
-                alt={`Screenshot ${lightboxIndex + 1}`}
-                fill
-                className="object-contain"
-                sizes="(max-width: 1200px) 100vw, 1200px"
-              />
-            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={lightboxIndex}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.92 }}
+                transition={{ duration: 0.25 }}
+                className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden"
+              >
+                <Image
+                  src={allShots[lightboxIndex]}
+                  alt={`Screenshot ${lightboxIndex + 1}`}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1200px) 100vw, 1200px"
+                />
+              </motion.div>
+            </AnimatePresence>
 
             {allShots.length > 1 && (
               <>
                 <button
-                  onClick={(e) => { e.stopPropagation(); prev(); }}
-                  className="glass-dark absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110"
+                  onClick={prev}
+                  className="glass-dark absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110 cursor-pointer"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
-                  onClick={(e) => { e.stopPropagation(); next(); }}
-                  className="glass-dark absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110"
+                  onClick={next}
+                  className="glass-dark absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110 cursor-pointer"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
@@ -196,8 +202,8 @@ export default function ProjectShowcase({
               {allShots.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={(e) => { e.stopPropagation(); setLightboxIndex(idx); }}
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  onClick={() => setLightboxIndex(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${
                     idx === lightboxIndex
                       ? "bg-white scale-125"
                       : "bg-white/40 hover:bg-white/70"
@@ -205,9 +211,9 @@ export default function ProjectShowcase({
                 />
               ))}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </DialogPrimitive.Popup>
+        </DialogPortal>
+      </Dialog>
 
       {/* Content */}
       <section className="section-py-sm bg-background dark:bg-background-dark">
@@ -230,8 +236,8 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="card p-8"
               >
+              <Card className="block p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-red-500/10 dark:bg-red-500/15 flex items-center justify-center shrink-0">
                     <Target className="w-5 h-5 text-red-500" />
@@ -243,6 +249,7 @@ export default function ProjectShowcase({
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   {project.challenge[lang]}
                 </p>
+              </Card>
               </motion.div>
 
               {/* Solution */}
@@ -250,8 +257,8 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="card p-8"
               >
+              <Card className="block p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-accent/10 dark:bg-accent/15 flex items-center justify-center shrink-0">
                     <Lightbulb className="w-5 h-5 text-accent" />
@@ -263,6 +270,7 @@ export default function ProjectShowcase({
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   {project.solution[lang]}
                 </p>
+              </Card>
               </motion.div>
 
               {/* Results */}
@@ -270,8 +278,8 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="card p-8"
               >
+              <Card className="block p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 flex items-center justify-center shrink-0">
                     <TrendingUp className="w-5 h-5 text-emerald-500" />
@@ -283,6 +291,7 @@ export default function ProjectShowcase({
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   {project.results[lang]}
                 </p>
+              </Card>
               </motion.div>
             </div>
 
@@ -293,21 +302,23 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="card p-6"
               >
+              <Card className="block p-6">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                   {t("techStack")}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
-                    <span
+                    <Badge
                       key={tech}
-                      className="px-3 py-1.5 text-sm font-medium rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600"
+                      variant="outline"
+                      className="text-sm font-medium rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-600"
                     >
                       {tech}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
+              </Card>
               </motion.div>
 
               {/* Key Features */}
@@ -315,8 +326,8 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="card p-6"
               >
+              <Card className="block p-6">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                   {t("keyFeatures")}
                 </h3>
@@ -330,6 +341,7 @@ export default function ProjectShowcase({
                     </li>
                   ))}
                 </ul>
+              </Card>
               </motion.div>
 
               {/* Demo Link */}
@@ -343,7 +355,7 @@ export default function ProjectShowcase({
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-primary w-full justify-center py-3.5"
+                    className={buttonVariants({ className: "w-full justify-center py-3.5" })}
                   >
                     <ExternalLink className="w-5 h-5" />
                     {t("viewDemo")}
@@ -356,8 +368,8 @@ export default function ProjectShowcase({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="bg-gray-950 dark:bg-gray-900 rounded-2xl p-6 text-white border border-gray-800"
               >
+              <Card className="block bg-gray-950 dark:bg-gray-900 rounded-2xl p-6 text-white ring-gray-800">
                 <MessageSquare className="w-8 h-8 mb-4 text-accent" />
                 <h3 className="text-lg font-bold mb-2">
                   {t("similarProject")}
@@ -367,10 +379,11 @@ export default function ProjectShowcase({
                 </p>
                 <Link
                   href={`/${locale}/contact`}
-                  className="btn btn-primary w-full justify-center text-sm py-3"
+                  className={buttonVariants({ className: "w-full justify-center text-sm py-3" })}
                 >
                   {t("contactUs")}
                 </Link>
+              </Card>
               </motion.div>
             </div>
           </div>

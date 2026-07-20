@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
 
 export default function PrivacyContent() {
   const navT = useTranslations("nav");
@@ -89,7 +90,7 @@ export default function PrivacyContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-heading text-4xl md:text-5xl font-black text-white mb-4"
+            className="font-heading text-display font-black text-white mb-4"
           >
             {footerT("privacy")}
           </motion.h1>
@@ -105,7 +106,7 @@ export default function PrivacyContent() {
       </section>
 
       {/* Content */}
-      <section className="py-20 bg-background dark:bg-background-dark">
+      <section className="section-py-sm bg-background dark:bg-background-dark">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -126,14 +127,15 @@ export default function PrivacyContent() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i + 0.3 }}
-                  className="p-8 rounded-2xl bg-surface dark:bg-surface-dark border border-gray-200 dark:border-gray-800"
                 >
+                <Card className="block p-8 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-200 dark:ring-gray-800">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                     {i + 1}. {section.title}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                     {section.content}
                   </p>
+                </Card>
                 </motion.div>
               ))}
             </div>
