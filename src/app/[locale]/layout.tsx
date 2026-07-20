@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ThemeProvider } from "next-themes";
 import { Inter, Syne, Cairo } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/ChatWidget";
@@ -121,18 +123,19 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${syne.variable} ${cairo.variable} ${
-          isRTL ? "font-[var(--font-cairo)]" : "font-[var(--font-inter)]"
-        } antialiased bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
+        className={`${inter.variable} ${syne.variable} ${cairo.variable} antialiased bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>
-            <Header locale={locale} />
-            <main id="main-content" className="min-h-screen grain relative">{children}</main>
-            <Footer locale={locale} />
-            <ChatWidget />
-            <WhatsAppButton />
-            <ScrollToTop />
+            <TooltipProvider delay={200}>
+              <Header locale={locale} />
+              <main id="main-content" className="min-h-screen grain relative">{children}</main>
+              <Footer locale={locale} />
+              <ChatWidget />
+              <WhatsAppButton />
+              <ScrollToTop />
+              <Toaster />
+            </TooltipProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
