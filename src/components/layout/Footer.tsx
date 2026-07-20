@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Mail, Phone, MapPin, ArrowUpRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { images } from "@/lib/images.config";
 
 interface FooterProps {
@@ -193,7 +194,8 @@ export default function Footer({ locale }: FooterProps) {
       </div>
 
       {/* ── Bottom bar ─────────────────────────────────────────── */}
-      <div className="border-t border-gray-800/60">
+      <Separator className="bg-gray-800/60" />
+      <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-gray-500">

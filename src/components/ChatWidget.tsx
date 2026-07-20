@@ -4,6 +4,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, Bot, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface Message {
   role: "user" | "assistant";
@@ -30,6 +33,7 @@ export default function ChatWidget() {
       ? "مرحباً! أنا مساعد نوركا الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنني الإجابة عن خدماتنا، الأسعار، أو أي استفسار آخر."
       : "Hello! I'm NORKA's AI assistant. How can I help you today? I can answer questions about our services, pricing, or anything else.",
     error: isAr ? "حدث خطأ، حاول مرة أخرى" : "Something went wrong, please try again",
+    openChat: isAr ? "تحدث معنا" : "Chat with us",
   };
 
   useEffect(() => {
@@ -85,17 +89,24 @@ export default function ChatWidget() {
       {/* Toggle Button — bottom-left */}
       <AnimatePresence>
         {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 left-6 z-50 p-4 rounded-full bg-gradient-to-br from-gray-900 to-gray-800 text-accent shadow-2xl shadow-black/30 hover:shadow-accent/20 hover:scale-105 transition-all duration-300 cursor-pointer group"
-            aria-label="Open chat"
-          >
-            <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
-            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-accent rounded-full border-2 border-white dark:border-gray-900 animate-pulse" />
-          </motion.button>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <motion.button
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  onClick={() => setIsOpen(true)}
+                  className="fixed bottom-6 left-6 z-50 p-4 rounded-full bg-gradient-to-br from-gray-900 to-gray-800 text-accent shadow-2xl shadow-black/30 hover:shadow-accent/20 hover:scale-105 transition-all duration-300 cursor-pointer group"
+                  aria-label={t.openChat}
+                />
+              }
+            >
+              <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-accent rounded-full border-2 border-white dark:border-gray-900 animate-pulse" />
+            </TooltipTrigger>
+            <TooltipContent side="right">{t.openChat}</TooltipContent>
+          </Tooltip>
         )}
       </AnimatePresence>
 
@@ -120,13 +131,15 @@ export default function ChatWidget() {
                   <p className="text-[11px] text-gray-400">{t.subtitle}</p>
                 </div>
               </div>
-              <button
+              <Button
+                variant="ghost"
+                size="icon-sm"
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
-                aria-label="Close chat"
+                className="text-white hover:bg-white/10"
+                aria-label={isAr ? "إغلاق المحادثة" : "Close chat"}
               >
                 <X className="w-5 h-5" />
-              </button>
+              </Button>
             </div>
 
             {/* Messages */}
@@ -180,29 +193,30 @@ export default function ChatWidget() {
             {/* Input */}
             <div className="px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-2">
-                <input
+                <Input
                   ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                   placeholder={t.placeholder}
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white text-sm placeholder-gray-400 outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+                  className="flex-1 h-auto px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 border-transparent text-gray-900 dark:text-white text-sm focus-visible:ring-accent/30"
                   dir={isAr ? "rtl" : "ltr"}
                   disabled={isLoading}
                 />
-                <button
+                <Button
+                  size="icon"
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="p-2.5 rounded-xl bg-accent text-dark hover:bg-accent-dark disabled:opacity-40 transition-all cursor-pointer"
-                  aria-label="Send"
+                  className="rounded-xl bg-accent text-dark hover:bg-accent-dark"
+                  aria-label={isAr ? "إرسال" : "Send"}
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <Send className="w-4 h-4" />
                   )}
-                </button>
+                </Button>
               </div>
             </div>
           </motion.div>

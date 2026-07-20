@@ -5,8 +5,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { Menu, X, Globe, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, Globe, ChevronDown, ArrowRight } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { images } from "@/lib/images.config";
 
@@ -19,7 +33,6 @@ export default function Header({ locale }: HeaderProps) {
   const pathname    = usePathname();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
-  const [langOpen,  setLangOpen]  = useState(false);
   const [prevY,     setPrevY]     = useState(0);
   const [visible,   setVisible]   = useState(true);
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -32,7 +45,6 @@ export default function Header({ locale }: HeaderProps) {
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setMenuOpen(false);
-    setLangOpen(false);
   }
 
   /* ── Scroll behavior: hide on scroll-down, show on scroll-up ── */
@@ -48,12 +60,6 @@ export default function Header({ locale }: HeaderProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
-
-  /* Lock body scroll when mobile menu is open */
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
 
   const navItems = [
     { href: `/${locale}`,           label: t("home") },
@@ -156,49 +162,29 @@ export default function Header({ locale }: HeaderProps) {
             <div className="flex items-center gap-2">
 
               {/* Language switcher */}
-              <div className="relative">
-                <button
-                  onClick={() => setLangOpen((v) => !v)}
-                  aria-expanded={langOpen}
-                  aria-haspopup="listbox"
-                  aria-label={isAr ? "تغيير اللغة" : "Change language"}
+              <DropdownMenu>
+                <DropdownMenuTrigger
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer",
+                    "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer outline-none",
                     scrolled
                       ? "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                       : "text-white/80 hover:text-white hover:bg-white/10"
                   )}
+                  aria-label={isAr ? "تغيير اللغة" : "Change language"}
                 >
                   <Globe className="w-4 h-4" aria-hidden="true" />
                   <span className="hidden sm:inline">{locale === "en" ? "EN" : "عر"}</span>
-                  <ChevronDown
-                    className={cn("w-3 h-3 transition-transform duration-200", langOpen && "rotate-180")}
-                    aria-hidden="true"
-                  />
-                </button>
-
-                {langOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} aria-hidden="true" />
-                    <div
-                      role="listbox"
-                      aria-label={isAr ? "اختيار اللغة" : "Language selection"}
-                      className="absolute top-full mt-2 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden min-w-[140px] z-50"
-                    >
-                      <Link
-                        href={switchPath}
-                        role="option"
-                        aria-selected={false}
-                        onClick={() => setLangOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-3 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-surface dark:hover:bg-gray-800 transition-colors"
-                      >
-                        <Globe className="w-4 h-4 text-accent" aria-hidden="true" />
-                        {locale === "en" ? "العربية" : "English"}
-                      </Link>
-                    </div>
-                  </>
-                )}
-              </div>
+                  <ChevronDown className="w-3 h-3" aria-hidden="true" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-[140px]">
+                  <DropdownMenuItem
+                    render={<Link href={switchPath} className="gap-2.5 cursor-pointer" />}
+                  >
+                    <Globe className="w-4 h-4 text-accent" aria-hidden="true" />
+                    {locale === "en" ? "العربية" : "English"}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <ThemeToggle />
 
@@ -218,57 +204,32 @@ export default function Header({ locale }: HeaderProps) {
               </Link>
 
               {/* Mobile hamburger */}
-              <button
-                onClick={() => setMenuOpen((v) => !v)}
-                aria-expanded={menuOpen}
-                aria-controls="mobile-menu"
-                aria-label={menuOpen
-                  ? (isAr ? "إغلاق القائمة" : "Close menu")
-                  : (isAr ? "فتح القائمة" : "Open menu")}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMenuOpen(true)}
+                aria-label={isAr ? "فتح القائمة" : "Open menu"}
                 className={cn(
-                  "lg:hidden p-2 rounded-xl transition-colors cursor-pointer",
+                  "lg:hidden",
                   scrolled
-                    ? "hover:bg-gray-100 dark:hover:bg-gray-800"
-                    : "hover:bg-white/10"
+                    ? "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    : "text-white hover:bg-white/10"
                 )}
               >
-                {menuOpen
-                  ? <X className={cn("w-6 h-6", scrolled ? "text-gray-800 dark:text-gray-200" : "text-white")} aria-hidden="true" />
-                  : <Menu className={cn("w-6 h-6", scrolled ? "text-gray-800 dark:text-gray-200" : "text-white")} aria-hidden="true" />
-                }
-              </button>
+                <Menu className="w-6 h-6" aria-hidden="true" />
+              </Button>
             </div>
           </div>
         </div>
       </header>
 
       {/* ── Mobile Menu ─────────────────────────────────────────── */}
-      <div
-        id="mobile-menu"
-        aria-hidden={!menuOpen}
-        className={cn(
-          "fixed inset-0 z-40 lg:hidden transition-all duration-300",
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        )}
-        role="dialog"
-        aria-modal="true"
-        aria-label={isAr ? "قائمة التنقل" : "Navigation menu"}
-      >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          onClick={() => setMenuOpen(false)}
-          aria-hidden="true"
-        />
-
-        {/* Panel */}
-        <div
-          className={cn(
-            "absolute top-[72px] left-3 right-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden transition-all duration-300",
-            menuOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
-          )}
-        >
-          <nav className="p-4" aria-label={isAr ? "قائمة الموبايل" : "Mobile navigation"}>
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+        <SheetContent side="right" className="w-3/4 sm:max-w-sm">
+          <SheetHeader>
+            <SheetTitle>{isAr ? "القائمة" : "Menu"}</SheetTitle>
+          </SheetHeader>
+          <nav className="px-4 flex-1" aria-label={isAr ? "قائمة الموبايل" : "Mobile navigation"}>
             <ul className="space-y-1">
               {navItems.map((item) => (
                 <li key={item.href}>
@@ -290,27 +251,26 @@ export default function Header({ locale }: HeaderProps) {
                 </li>
               ))}
             </ul>
-
-            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-3 px-1">
-              <Link
-                href={`/${locale}/contact`}
-                className="btn btn-primary w-full justify-center py-3.5"
-                aria-label={t("getStarted")}
-              >
-                {t("getStarted")}
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href={switchPath}
-                className="flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-surface dark:hover:bg-gray-800 transition-colors"
-              >
-                <Globe className="w-4 h-4" aria-hidden="true" />
-                {locale === "en" ? "العربية" : "English"}
-              </Link>
-            </div>
           </nav>
-        </div>
-      </div>
+          <SheetFooter className="border-t border-gray-100 dark:border-gray-800 pt-4">
+            <Link
+              href={`/${locale}/contact`}
+              className={buttonVariants({ className: "w-full justify-center py-3.5" })}
+              aria-label={t("getStarted")}
+            >
+              {t("getStarted")}
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link
+              href={switchPath}
+              className="flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-surface dark:hover:bg-gray-800 transition-colors"
+            >
+              <Globe className="w-4 h-4" aria-hidden="true" />
+              {locale === "en" ? "العربية" : "English"}
+            </Link>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </>
   );
 }
