@@ -4,12 +4,11 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Users, Trophy, Rocket, Handshake, CheckCircle } from "lucide-react";
+import { ArrowRight, Users, CheckCircle } from "lucide-react";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
 import { buttonVariants } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
 interface AboutPreviewProps {
   locale: string;
@@ -17,15 +16,7 @@ interface AboutPreviewProps {
 
 export default function AboutPreview({ locale }: AboutPreviewProps) {
   const t      = useTranslations("about");
-  const statsT = useTranslations("stats");
   const isAr   = locale === "ar";
-
-  const stats = [
-    { icon: Trophy,    value: COMPANY_STATS.years,    label: statsT("years"),    color: "text-amber-400" },
-    { icon: Rocket,    value: COMPANY_STATS.projects, label: statsT("projects"), color: "text-blue-400" },
-    { icon: Handshake, value: COMPANY_STATS.clients,  label: statsT("clients"),  color: "text-emerald-400" },
-    { icon: Users,     value: COMPANY_STATS.team,     label: statsT("team"),     color: "text-purple-400" },
-  ];
 
   const highlights = isAr
     ? ["فريق متخصص من المطورين والمصممين", "حلول مخصصة لكل عميل", "دعم فني على مدار الساعة", "خبرة في السوق الإماراتي والخليجي"]
@@ -140,25 +131,6 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
                 </li>
               ))}
             </ul>
-
-            {/* Stats grid */}
-            <div
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
-              role="list"
-              aria-label={isAr ? "إحصاءات" : "Statistics"}
-            >
-              {stats.map((stat) => (
-                <Card
-                  key={stat.label}
-                  role="listitem"
-                  className="block text-center p-4 rounded-2xl bg-surface dark:bg-surface-dark ring-gray-100 dark:ring-gray-800 hover:ring-accent/30 transition-colors"
-                >
-                  <stat.icon className={`w-5 h-5 mx-auto mb-2 ${stat.color}`} aria-hidden="true" />
-                  <div className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</div>
-                  <div className="text-[11px] text-gray-500 mt-1 leading-tight">{stat.label}</div>
-                </Card>
-              ))}
-            </div>
 
             <Link
               href={`/${locale}/about`}

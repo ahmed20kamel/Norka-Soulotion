@@ -5,7 +5,6 @@ import Image from "next/image";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Quote } from "lucide-react";
 import { images } from "@/lib/images.config";
-import { COMPANY_STATS } from "@/lib/constants";
 
 interface CEOQuoteProps {
   locale?: string;
@@ -13,12 +12,6 @@ interface CEOQuoteProps {
 
 export default function CEOQuote({ locale }: CEOQuoteProps) {
   const isAr = locale === "ar";
-
-  const stats = [
-    { value: COMPANY_STATS.years,        label: isAr ? "سنوات قيادة"  : "Years Leading" },
-    { value: COMPANY_STATS.projects,     label: isAr ? "مشروع منجز"  : "Projects Done" },
-    { value: COMPANY_STATS.satisfaction, label: isAr ? "رضا العملاء" : "Satisfaction" },
-  ];
 
   return (
     <section
@@ -111,7 +104,7 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
             </blockquote>
 
             {/* Signature */}
-            <div className="flex items-center gap-5 mb-12">
+            <div className="flex items-center gap-5">
               <div className="w-14 h-0.5 bg-gradient-to-r from-accent to-accent-light" aria-hidden="true" />
               <div>
                 <div className="text-white font-bold text-xl">
@@ -121,20 +114,6 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
                   {isAr ? "المدير التنفيذي، نوركا سوليوشن" : "Managing Director, Norka Solution"}
                 </div>
               </div>
-            </div>
-
-            {/* Stats row */}
-            <div
-              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10"
-              role="list"
-              aria-label={isAr ? "إنجازاتنا" : "Achievements"}
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} role="listitem">
-                  <div className="text-3xl font-black gradient-text mb-1">{stat.value}</div>
-                  <div className="text-gray-500 text-sm">{stat.label}</div>
-                </div>
-              ))}
             </div>
           </motion.div>
         </div>

@@ -2,80 +2,48 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
-import { Trophy, Rocket, Handshake, UsersRound } from "lucide-react";
 import { COMPANY_STATS } from "@/lib/constants";
 
 export default function StatsCounter() {
   const t = useTranslations("stats");
 
   const stats = [
-    { end: parseInt(COMPANY_STATS.years),    suffix: "+", label: t("years"),    icon: Trophy,      color: "from-amber-400/20 to-amber-400/5",    iconColor: "text-amber-400" },
-    { end: parseInt(COMPANY_STATS.projects), suffix: "+", label: t("projects"), icon: Rocket,      color: "from-blue-400/20 to-blue-400/5",       iconColor: "text-blue-400" },
-    { end: parseInt(COMPANY_STATS.clients),  suffix: "+", label: t("clients"),  icon: Handshake,   color: "from-emerald-400/20 to-emerald-400/5", iconColor: "text-emerald-400" },
-    { end: parseInt(COMPANY_STATS.team),     suffix: "+", label: t("team"),     icon: UsersRound,  color: "from-purple-400/20 to-purple-400/5",   iconColor: "text-purple-400" },
+    { value: COMPANY_STATS.years,    label: t("years") },
+    { value: COMPANY_STATS.projects, label: t("projects") },
+    { value: COMPANY_STATS.clients,  label: t("clients") },
+    { value: COMPANY_STATS.team,     label: t("team") },
   ];
 
   return (
     <section
-      className="relative section-py-sm overflow-hidden"
+      className="relative bg-gray-950 py-8 md:py-10"
       aria-label="Company statistics"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950" aria-hidden="true" />
-      <div
-        className="absolute inset-0 opacity-[.04] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(59,98,252,.9) 1px, transparent 0)",
-          backgroundSize: "32px 32px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Glow blobs */}
-      <motion.div
-        animate={{ scale: [1, 1.4, 1], opacity: [.08, .18, .08] }}
-        transition={{ duration: 6, repeat: Infinity }}
-        className="absolute top-0 left-1/4 w-64 h-64 bg-accent/30 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.3, 1], opacity: [.06, .14, .06] }}
-        transition={{ duration: 8, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent/25 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          variants={staggerContainer(.15)}
+          variants={staggerContainer(.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+          className="flex flex-wrap items-center justify-center"
           role="list"
           aria-label="Company achievement numbers"
         >
-          {stats.map(({ end, suffix, label, icon: Icon, color, iconColor }) => (
-            <motion.div
-              key={label}
-              variants={staggerItem}
-              role="listitem"
-              className="group relative text-center"
-            >
-              <Card className="relative block p-6 md:p-8 rounded-3xl bg-white/[.04] backdrop-blur-sm ring-white/[.08] hover:bg-white/[.07] hover:ring-white/[.15] transition-all duration-400 hover:-translate-y-2">
-                {/* Icon */}
-                <div
-                  className={`mb-5 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${color} border border-white/10 group-hover:scale-110 transition-transform duration-400`}
-                >
-                  <Icon className={`w-7 h-7 ${iconColor}`} aria-hidden="true" />
-                </div>
-
-                {/* Counter */}
-                <AnimatedCounter end={end} suffix={suffix} label={label} />
-              </Card>
+          {stats.map((stat, i) => (
+            <motion.div key={stat.label} variants={staggerItem} className="flex items-center">
+              <div role="listitem" className="flex items-baseline gap-2 px-6 py-1">
+                <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                  {stat.value}
+                </span>
+                <span className="text-xs md:text-sm text-gray-500 uppercase tracking-wider">
+                  {stat.label}
+                </span>
+              </div>
+              {i < stats.length - 1 && (
+                <Separator orientation="vertical" className="h-8 bg-white/10 hidden sm:block" />
+              )}
             </motion.div>
           ))}
         </motion.div>

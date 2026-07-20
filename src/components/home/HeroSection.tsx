@@ -6,7 +6,6 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { images } from "@/lib/images.config";
-import { COMPANY_STATS } from "@/lib/constants";
 import { buttonVariants } from "@/components/ui/button";
 import { useRef } from "react";
 
@@ -145,31 +144,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                 {t("cta2")}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: .75, duration: .6 }}
-              className="flex flex-wrap gap-10 mt-14 pt-8 border-t border-white/[.07]"
-              role="list"
-              aria-label={isAr ? "إحصاءات" : "Statistics"}
-            >
-              {[
-                { num: COMPANY_STATS.projects, label: t("statsProjects") },
-                { num: COMPANY_STATS.clients,  label: t("statsClients") },
-                { num: COMPANY_STATS.years,    label: t("statsYears") },
-              ].map((s) => (
-                <div key={s.label} role="listitem">
-                  <span className="block text-3xl font-black text-white leading-none tracking-tight">
-                    {s.num}
-                  </span>
-                  <span className="block text-[10px] text-slate-500 mt-1.5 uppercase tracking-[.18em] font-semibold">
-                    {s.label}
-                  </span>
-                </div>
-              ))}
             </motion.div>
           </div>
         </div>

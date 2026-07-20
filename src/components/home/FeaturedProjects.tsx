@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { fadeUp, fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { projects } from "@/lib/data/projects";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +17,7 @@ interface FeaturedProjectsProps {
 export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
   const t        = useTranslations("portfolio");
   const lang     = locale as "en" | "ar";
-  const featured = projects.filter((p) => p.featured).slice(0, 3);
+  const featured = projects.filter((p) => p.featured).slice(0, 1);
 
   return (
     <section
@@ -68,7 +68,7 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
-            className="group relative rounded-3xl overflow-hidden mb-5 aspect-video md:aspect-[21/9] shadow-2xl"
+            className="group relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] shadow-2xl"
           >
             {/* Browser chrome bar */}
             <div className="mockup-bar" aria-hidden="true">
@@ -125,68 +125,6 @@ export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
             </div>
           </motion.div>
         )}
-
-        {/* ── Side-by-side cards ───────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {featured.slice(1, 3).map((project, idx) => (
-            <motion.div
-              key={project.slug}
-              variants={idx === 0 ? fadeLeft : fadeRight}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewport}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer aspect-[4/3] shadow-xl"
-            >
-              <Image
-                src={project.image}
-                alt={project.title[lang]}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/40 to-transparent" />
-
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent group-hover:from-gray-950/95 group-hover:via-gray-950/60 group-hover:bg-accent/10 transition-all duration-300 flex items-center justify-center gap-4">
-                <motion.div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                  <Link
-                    href={`/${locale}/portfolio/${project.slug}`}
-                    className="glass-dark p-4 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
-                    aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
-                  >
-                    <ArrowRight className="w-6 h-6" aria-hidden="true" />
-                  </Link>
-                  {project.demoUrl && (
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="glass-dark p-4 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
-                      aria-label={`${t("viewDemo")} — ${project.title[lang]}`}
-                    >
-                      <ExternalLink className="w-6 h-6" aria-hidden="true" />
-                    </a>
-                  )}
-                </motion.div>
-              </div>
-
-              {/* Default content */}
-              <div className="absolute bottom-0 left-0 right-0 p-7 group-hover:opacity-0 transition-opacity duration-300">
-                <Badge className="bg-accent text-dark text-xs font-bold uppercase tracking-wider mb-2">
-                  {project.category}
-                </Badge>
-                <h3 className="text-xl font-black text-white mb-2">{project.title[lang]}</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.techStack.slice(0, 3).map((tech) => (
-                    <Badge key={tech} variant="outline" className="text-xs bg-white/15 text-white/80 border-transparent">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
