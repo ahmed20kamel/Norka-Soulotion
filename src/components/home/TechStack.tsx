@@ -137,7 +137,7 @@ function MarqueeRow({ items, reverse = false }: { items: typeof row1; reverse?: 
   const doubled = [...items, ...items];
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden" aria-hidden="true">
       {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-gray-950 to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-gray-950 to-transparent z-10" />
@@ -187,11 +187,17 @@ export default function TechStack() {
         </motion.div>
       </div>
 
-      {/* Full-width marquee rows */}
+      {/* Full-width marquee rows — decorative; the real list is exposed to assistive tech below */}
       <div className="space-y-6">
         <MarqueeRow items={row1} />
         <MarqueeRow items={row2} reverse />
       </div>
+
+      <ul className="sr-only" aria-label={t("badge")}>
+        {[...row1, ...row2].map((tech) => (
+          <li key={tech.name}>{tech.name}</li>
+        ))}
+      </ul>
     </section>
   );
 }

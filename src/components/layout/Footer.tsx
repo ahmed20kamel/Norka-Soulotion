@@ -33,6 +33,8 @@ export default function Footer({ locale }: FooterProps) {
     servicesT("erp.title"),
     servicesT("infrastructure.title"),
     servicesT("uiux.title"),
+    servicesT("marketing.title"),
+    servicesT("consulting.title"),
   ];
 
   const socialLinks = [

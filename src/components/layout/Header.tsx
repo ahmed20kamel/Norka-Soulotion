@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -33,9 +33,10 @@ export default function Header({ locale }: HeaderProps) {
   const pathname    = usePathname();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
-  const [prevY,     setPrevY]     = useState(0);
   const [visible,   setVisible]   = useState(true);
   const [prevPathname, setPrevPathname] = useState(pathname);
+  const prevY   = useRef(0);
+  const ticking = useRef(false);
 
   const otherLocale    = locale === "en" ? "ar" : "en";
   const switchPath     = pathname.replace(`/${locale}`, `/${otherLocale}`);
@@ -47,19 +48,24 @@ export default function Header({ locale }: HeaderProps) {
     setMenuOpen(false);
   }
 
-  /* ── Scroll behavior: hide on scroll-down, show on scroll-up ── */
-  const handleScroll = useCallback(() => {
-    const y = window.scrollY;
-    setScrolled(y > 24);
-    if (y > prevY && y > 80) setVisible(false);
-    else setVisible(true);
-    setPrevY(y);
-  }, [prevY]);
-
+  /* ── Scroll behavior: hide on scroll-down, show on scroll-up ──
+     rAF-gated so state updates happen at most once per frame, not
+     once per raw scroll event. */
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setScrolled(y > 24);
+        setVisible(y > prevY.current && y > 80 ? false : true);
+        prevY.current = y;
+        ticking.current = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navItems = [
     { href: `/${locale}`,           label: t("home") },
