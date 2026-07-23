@@ -2,7 +2,17 @@
 
 import { useTranslations } from "next-intl";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  LayoutGrid,
+  BarChart3,
+  Users,
+  Bell,
+  Settings,
+  Sparkles,
+  TrendingUp,
+} from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { staggerContainer, staggerItem } from "@/lib/animations";
@@ -12,15 +22,13 @@ interface HeroSectionProps {
   locale: string;
 }
 
-/** Abstract node-graph motif — evokes AI/data systems without stock imagery. */
-const NETWORK_NODES: [number, number][] = [
-  [60, 80], [180, 40], [320, 90], [90, 190], [230, 160],
-  [350, 220], [60, 320], [200, 300], [330, 350], [140, 260],
+const CHART_POINTS: [number, number][] = [
+  [0, 56], [40, 44], [80, 50], [120, 28], [160, 36], [200, 16], [240, 22],
 ];
-const NETWORK_EDGES: [number, number][] = [
-  [0, 1], [1, 2], [0, 3], [1, 4], [2, 4], [2, 5], [3, 4], [4, 5],
-  [3, 6], [3, 9], [4, 9], [9, 7], [5, 8], [7, 8], [6, 9],
-];
+const CHART_LINE = CHART_POINTS.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
+const CHART_AREA = `${CHART_LINE} L240,80 L0,80 Z`;
+
+const NAV_ICONS = [LayoutGrid, BarChart3, Users, Bell, Settings];
 
 export default function HeroSection({ locale }: HeroSectionProps) {
   const t             = useTranslations("hero");
@@ -38,9 +46,9 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       className="relative min-h-screen flex items-center overflow-hidden bg-[#060B18]"
       aria-label={isAr ? "القسم الرئيسي" : "Hero section"}
     >
-      {/* ── Abstract brand background ────────────────────────── */}
+      {/* ── Background: one dominant light source + soft depth ──── */}
       <motion.div className="absolute inset-0 z-0" style={{ y: prefersReduced ? 0 : yBg }} aria-hidden="true">
-        {/* Fine dot-grid texture — consistent with CEOQuote/AboutPreview/CTASection */}
+        {/* Fine dot-grid texture */}
         <div
           className="absolute inset-0 opacity-[.05]"
           style={{
@@ -49,70 +57,26 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           }}
         />
 
-        {/* Gradient mesh blobs */}
+        {/* Dominant glow — sits behind the product panel, the section's one clear light source */}
         <motion.div
           animate={
             prefersReduced
-              ? { scale: 1.08, opacity: .4 }
-              : { scale: [1, 1.2, 1], opacity: [.3, .55, .3] }
+              ? { opacity: .4 }
+              : { opacity: [.32, .42, .32] }
           }
           transition={
             prefersReduced
               ? { duration: 0 }
-              : { duration: 8, repeat: Infinity, ease: "easeInOut" }
+              : { duration: 10, repeat: Infinity, ease: "easeInOut" }
           }
-          className="absolute -top-32 -end-32 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,98,252,.28) 0%, transparent 65%)" }}
+          className="absolute top-[8%] end-[6%] w-[640px] h-[640px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(59,98,252,.35) 0%, transparent 68%)" }}
         />
-        <motion.div
-          animate={
-            prefersReduced
-              ? { scale: 1.05, opacity: .3 }
-              : { scale: [1, 1.15, 1], opacity: [.2, .4, .2] }
-          }
-          transition={
-            prefersReduced
-              ? { duration: 0 }
-              : { duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }
-          }
-          className="absolute -bottom-40 -start-20 w-[500px] h-[500px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(99,132,255,.2) 0%, transparent 65%)" }}
+        {/* Quiet secondary fill for depth — static, no competing motion */}
+        <div
+          className="absolute -bottom-32 -start-24 w-[480px] h-[480px] rounded-full opacity-[.14]"
+          style={{ background: "radial-gradient(circle, rgba(99,132,255,.5) 0%, transparent 70%)" }}
         />
-        <motion.div
-          animate={
-            prefersReduced
-              ? { scale: 1.05, opacity: .22 }
-              : { scale: [1, 1.12, 1], opacity: [.14, .3, .14] }
-          }
-          transition={
-            prefersReduced
-              ? { duration: 0 }
-              : { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }
-          }
-          className="absolute top-1/3 start-1/4 w-[380px] h-[380px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,98,252,.16) 0%, transparent 70%)" }}
-        />
-
-        {/* Abstract node-graph motif */}
-        <svg
-          className="absolute -end-24 top-1/2 -translate-y-1/2 w-[480px] h-[480px] hidden lg:block"
-          viewBox="0 0 400 400"
-          fill="none"
-        >
-          {NETWORK_EDGES.map(([a, b], i) => (
-            <line
-              key={i}
-              x1={NETWORK_NODES[a][0]} y1={NETWORK_NODES[a][1]}
-              x2={NETWORK_NODES[b][0]} y2={NETWORK_NODES[b][1]}
-              stroke="#3B62FC"
-              strokeOpacity=".18"
-              strokeWidth="1"
-            />
-          ))}
-          {NETWORK_NODES.map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 3.5 : 2.5} fill="#6384FF" fillOpacity=".45" />
-          ))}
-        </svg>
       </motion.div>
 
       {/* ── Corner brackets ──────────────────────────────────── */}
@@ -123,62 +87,184 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* ── Content ─────────────────────────────────────────── */}
       <motion.div style={{ opacity: opacityBg }} className="relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-40 md:py-52">
-          <motion.div
-            variants={staggerContainer(.15, .1)}
-            initial="hidden"
-            animate="visible"
-            className="max-w-2xl"
-          >
-            {/* Label */}
-            <motion.div variants={staggerItem} className="flex items-center gap-2 mb-7">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              <span className="text-[11px] font-mono font-semibold uppercase tracking-[.22em] text-blue-400/80">
-                {t("badge")}
-              </span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-16 xl:gap-20 items-center">
+
+            {/* ── Left: copy ──────────────────────────────────── */}
+            <motion.div
+              variants={staggerContainer(.15, .1)}
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Label */}
+              <motion.div variants={staggerItem} className="flex items-center gap-2 mb-7">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                <span className="text-[11px] font-mono font-semibold uppercase tracking-[.22em] text-blue-400/80">
+                  {t("badge")}
+                </span>
+              </motion.div>
+
+              {/* Headline */}
+              <motion.h1
+                variants={staggerItem}
+                className="font-heading text-display font-black text-white mb-5 leading-[1.02]"
+              >
+                {t("title")}
+                <span className="block gradient-text-animated">
+                  {t("titleHighlight")}
+                </span>
+              </motion.h1>
+
+              {/* Description */}
+              <motion.p
+                variants={staggerItem}
+                className="text-base md:text-lg text-slate-300/75 max-w-lg mb-10 leading-relaxed"
+              >
+                {t("description")}
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
+                <Link
+                  href={`/${locale}/contact`}
+                  className={buttonVariants({ className: "text-sm px-8 py-4 h-auto rounded-xl" })}
+                >
+                  {t("cta1")}
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+                <Link
+                  href={`/${locale}/portfolio`}
+                  className={buttonVariants({
+                    variant: "ghost",
+                    className:
+                      "text-sm px-8 py-4 h-auto rounded-xl border-white/15 text-white hover:bg-white/5 hover:border-white/30 hover:text-white dark:hover:bg-white/5 backdrop-blur-sm",
+                  })}
+                >
+                  {t("cta2")}
+                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              </motion.div>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1
-              variants={staggerItem}
-              className="font-heading text-display font-black text-white mb-5 leading-[1.02]"
-            >
-              {t("title")}
-              <span className="block gradient-text-animated">
-                {t("titleHighlight")}
-              </span>
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              variants={staggerItem}
-              className="text-base md:text-lg text-slate-300/75 max-w-lg mb-10 leading-relaxed"
-            >
-              {t("description")}
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
-              <Link
-                href={`/${locale}/contact`}
-                className={buttonVariants({ className: "text-sm px-8 py-4 h-auto rounded-xl" })}
+            {/* ── Right: abstracted product panel ──────────────── */}
+            <div className="relative hidden lg:block" aria-hidden="true">
+              {/* Outer wrapper owns the plain CSS float loop; the inner motion.div owns the
+                  entrance tilt — kept on separate elements since both animate `transform`
+                  and a CSS keyframe animation would otherwise win over the inline style. */}
+              <div className="animate-float">
+              <motion.div
+                initial={prefersReduced ? { opacity: 1, rotateY: -8, rotateX: 3, scale: 1, y: 0 } : { opacity: 0, rotateY: -14, rotateX: 6, scale: .92, y: 30 }}
+                animate={{ opacity: 1, rotateY: -8, rotateX: 3, scale: 1, y: 0 }}
+                transition={prefersReduced ? { duration: 0 } : { duration: 1, delay: .5, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformPerspective: 1600 }}
+                className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-gray-900/95 to-gray-950/95 shadow-2xl overflow-hidden backdrop-blur-sm"
               >
-                {t("cta1")}
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href={`/${locale}/portfolio`}
-                className={buttonVariants({
-                  variant: "ghost",
-                  className:
-                    "text-sm px-8 py-4 h-auto rounded-xl border-white/15 text-white hover:bg-white/5 hover:border-white/30 hover:text-white dark:hover:bg-white/5 backdrop-blur-sm",
-                })}
+                {/* Browser chrome */}
+                <div className="mockup-bar">
+                  <span className="mockup-bar-dot" />
+                  <span className="mockup-bar-dot" />
+                  <span className="mockup-bar-dot" />
+                </div>
+
+                <div className="flex pt-9">
+                  {/* Icon rail */}
+                  <div className="flex flex-col items-center gap-3 px-4 py-5 border-e border-white/[.06]">
+                    {NAV_ICONS.map((Icon, i) => (
+                      <div
+                        key={i}
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                          i === 0 ? "bg-accent text-dark" : "text-slate-500"
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Main panel content */}
+                  <div className="flex-1 min-w-0 p-5">
+                    {/* Stat tiles */}
+                    <div className="grid grid-cols-3 gap-3 mb-4">
+                      {[
+                        { label: isAr ? "الإيرادات" : "Revenue", value: "128K", trend: "+12%" },
+                        { label: isAr ? "المستخدمون" : "Active Users", value: "4.3K", trend: "+8%" },
+                        { label: isAr ? "وقت التشغيل" : "Uptime", value: "99.9%", trend: "+.1%" },
+                      ].map((stat) => (
+                        <div key={stat.label} className="rounded-xl bg-white/[.04] border border-white/[.06] p-3">
+                          <div className="text-[9px] uppercase tracking-wider text-slate-500 mb-1.5 truncate">
+                            {stat.label}
+                          </div>
+                          <div className="text-sm font-black text-white leading-none mb-1.5">{stat.value}</div>
+                          <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-400">
+                            <TrendingUp className="w-2.5 h-2.5" />
+                            {stat.trend}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Chart */}
+                    <div className="rounded-xl bg-white/[.04] border border-white/[.06] p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] uppercase tracking-wider text-slate-500">
+                          {isAr ? "الأداء" : "Performance"}
+                        </span>
+                        <span className="text-[10px] font-semibold text-accent-light">
+                          {isAr ? "آخر 30 يوم" : "Last 30 days"}
+                        </span>
+                      </div>
+                      <svg viewBox="0 0 240 80" fill="none" className="w-full h-16">
+                        <defs>
+                          <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#3B62FC" stopOpacity=".35" />
+                            <stop offset="100%" stopColor="#3B62FC" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                        <motion.path
+                          d={CHART_AREA}
+                          fill="url(#heroChartFill)"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: .6, delay: prefersReduced ? 0 : 1.3 }}
+                        />
+                        <motion.path
+                          d={CHART_LINE}
+                          stroke="#6384FF"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          initial={prefersReduced ? { pathLength: 1 } : { pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={prefersReduced ? { duration: 0 } : { duration: 1.1, delay: 1, ease: "easeOut" }}
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              </div>
+
+              {/* Floating AI-insight chip */}
+              <motion.div
+                initial={prefersReduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: .85, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={prefersReduced ? { duration: 0 } : { duration: .6, delay: 1.5, ease: "easeOut" }}
+                className="absolute -bottom-6 -start-8 flex items-center gap-3 rounded-2xl border border-white/10 bg-gray-900/95 backdrop-blur-md px-4 py-3 shadow-2xl max-w-[220px]"
               >
-                {t("cta2")}
-                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
-            </motion.div>
-          </motion.div>
+                <div className="w-9 h-9 rounded-xl bg-accent/15 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-accent-light" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white leading-tight">
+                    {isAr ? "رؤى الذكاء الاصطناعي" : "AI Insight"}
+                  </div>
+                  <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                    {isAr ? "كفاءة أعلى بنسبة 23% هذا الشهر" : "Efficiency up 23% this month"}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </motion.div>
 
