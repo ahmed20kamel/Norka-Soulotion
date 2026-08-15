@@ -37,7 +37,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-gray-950 pt-36 pb-14 md:pt-44 md:pb-16 overflow-hidden"
+      className="relative bg-white dark:bg-gray-950 pt-24 pb-14 md:pt-28 md:pb-16 overflow-hidden"
       aria-label={isAr ? "القسم الرئيسي" : "Hero section"}
     >
       {/* Soft brand-tinted glow, well behind the content — the one
@@ -56,13 +56,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             initial="hidden"
             animate="visible"
           >
-            <motion.div variants={staggerItem} className="flex items-center gap-2 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              <span className="text-[11px] font-mono font-semibold uppercase tracking-[.22em] text-accent">
-                {t("badge")}
-              </span>
-            </motion.div>
-
             <motion.h1
               variants={staggerItem}
               className="font-heading text-display font-black text-gray-900 dark:text-white mb-6 leading-[1.05]"

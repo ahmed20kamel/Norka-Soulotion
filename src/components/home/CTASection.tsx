@@ -44,7 +44,7 @@ export default function CTASection({ locale }: CTASectionProps) {
 
   return (
     <section
-      className="relative py-16 md:py-20 lg:py-24 overflow-hidden"
+      className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* Background — the one bold saturated-color moment on the page

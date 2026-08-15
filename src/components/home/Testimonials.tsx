@@ -20,7 +20,7 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
 
   return (
     <section
-      className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden"
+      className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-950 overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

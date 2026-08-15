@@ -24,7 +24,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
   return (
     <section
-      className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden relative"
+      className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-950 overflow-hidden relative"
       aria-labelledby="about-preview-heading"
     >
       {/* Subtle background grid */}

@@ -32,8 +32,8 @@ export const images = {
    *  change since every component reads from here. */
   home: {
     heroWorkspace: {
-      src: "https://images.unsplash.com/photo-1719400471588-575b23e27bd7?w=1600&q=80&auto=format&fit=crop",
-      alt: "Developer working across a multi-monitor coding setup",
+      src: "/images/home/hero-developer.jpg",
+      alt: "Developer typing code on a multi-monitor setup in a modern office",
     },
     ctaSkyline: {
       src: "https://images.unsplash.com/photo-1748373452031-ee1ae4eb624d?w=1600&q=80&auto=format&fit=crop",
