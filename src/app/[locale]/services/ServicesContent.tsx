@@ -4,24 +4,20 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megaphone, Building2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import CTASection from "@/components/home/CTASection";
 import { buttonVariants } from "@/components/ui/button";
 import { services } from "@/lib/data/services";
-import { images } from "@/lib/images.config";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import type { ServiceCopy } from "@/sanity/lib/fetch-content";
+import PageHeroArt from "@/components/art/PageHeroArt";
+import ServiceArt from "@/components/art/ServiceArt";
 
-const serviceImages: Record<string, string> = {
-  software:       "/images/services/web-applications.jpg",
-  mobile:         "/images/services/mobile-apps.jpg",
-  erp:            "/images/services/erp-systems.jpg",
-  web:            "/images/services/website-development.jpg",
-  infrastructure: "/images/services/it-infrastructure.jpg",
-  uiux:           "/images/services/uiux-design.jpg",
-  marketing:      "/images/services/social-media.jpg",
-  consulting:     "/images/services/company-setup.jpg",
+// Order here must match src/components/art/ServiceArt.tsx's GRADIENT_PAIRS
+// so each service gets a stable, distinct gradient.
+const serviceArtVariant: Record<string, number> = {
+  software: 0, mobile: 1, erp: 2, web: 3,
+  infrastructure: 4, uiux: 5, marketing: 6, consulting: 7,
 };
 
 const serviceIcons: Record<string, typeof Code2> = {
@@ -63,12 +59,8 @@ export default function ServicesContent({ serviceCopy }: ServicesContentProps) {
       {/* ── Hero Banner ─────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={images.pageHeroes.services.src}
-            alt={images.pageHeroes.services.alt}
-            fill className="object-cover scale-105" priority sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gray-950/78" />
+          <PageHeroArt variant="services" className="scale-105" />
+          <div className="absolute inset-0 bg-gray-950/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />
@@ -106,7 +98,6 @@ export default function ServicesContent({ serviceCopy }: ServicesContentProps) {
             {services.map((service, index) => {
               const isEven  = index % 2 === 0;
               const Icon    = serviceIcons[service.key] ?? Code2;
-              const imgSrc  = serviceImages[service.key];
               const copy    = copyFor(service.key);
 
               return (
@@ -128,12 +119,10 @@ export default function ServicesContent({ serviceCopy }: ServicesContentProps) {
                     className="w-full lg:w-[48%] shrink-0"
                   >
                     <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl group">
-                      <Image
-                        src={imgSrc}
-                        alt={copy.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 1024px) 100vw, 48vw"
+                      <ServiceArt
+                        Icon={Icon}
+                        variant={serviceArtVariant[service.key] ?? 0}
+                        className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-950/30 to-transparent" />
 

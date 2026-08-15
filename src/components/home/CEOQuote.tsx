@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Quote } from "lucide-react";
-import { images } from "@/lib/images.config";
+import MonogramAvatar from "@/components/art/MonogramAvatar";
 
 interface CEOQuoteProps {
   locale?: string;
@@ -47,12 +46,9 @@ export default function CEOQuote({ locale }: CEOQuoteProps) {
 
               {/* Photo */}
               <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-white/10 overflow-hidden shadow-2xl">
-                <Image
-                  src={images.team.nourhan.src}
-                  alt={images.team.nourhan.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 256px, 320px"
+                <MonogramAvatar
+                  name={isAr ? "م. نورهان" : "Eng. Nourhan"}
+                  className="absolute inset-0 text-6xl md:text-7xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-transparent" />
               </div>

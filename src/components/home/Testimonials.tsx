@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import type { Testimonial } from "@/lib/data/testimonials";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
+import MonogramAvatar from "@/components/art/MonogramAvatar";
 
 interface TestimonialsProps {
   locale: string;
@@ -75,10 +76,16 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
                 </blockquote>
 
                 <div className="flex items-center gap-3">
-                  <Avatar className="size-11 shrink-0 shadow-md ring-2 ring-accent/20">
-                    <AvatarImage src={item.image} alt={item.name[lang]} />
-                    <AvatarFallback>{item.name[lang].charAt(0)}</AvatarFallback>
-                  </Avatar>
+                  {item.image ? (
+                    <Avatar className="size-11 shrink-0 shadow-md ring-2 ring-accent/20">
+                      <AvatarImage src={item.image} alt={item.name[lang]} />
+                    </Avatar>
+                  ) : (
+                    <MonogramAvatar
+                      name={item.name[lang]}
+                      className="size-11 shrink-0 rounded-full shadow-md ring-2 ring-accent/20 text-sm"
+                    />
+                  )}
                   <div className="min-w-0">
                     <div className="font-bold text-gray-900 dark:text-white text-sm truncate">
                       {item.name[lang]}

@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Lightbulb, Award, Shield, HeadphonesIcon,
@@ -11,9 +10,11 @@ import {
 } from "lucide-react";
 import CTASection from "@/components/home/CTASection";
 import { Card } from "@/components/ui/card";
-import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
 import { staggerContainer, staggerItem, fadeLeft, fadeRight, viewport } from "@/lib/animations";
+import PageHeroArt from "@/components/art/PageHeroArt";
+import AboutArt from "@/components/art/AboutArt";
+import MonogramAvatar from "@/components/art/MonogramAvatar";
 
 const valueIcons = {
   innovation:  Lightbulb,
@@ -58,12 +59,8 @@ export default function AboutContent() {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={images.pageHeroes.about.src}
-            alt={images.pageHeroes.about.alt}
-            fill className="object-cover scale-105" priority sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gray-950/78" />
+          <PageHeroArt variant="about" className="scale-105" />
+          <div className="absolute inset-0 bg-gray-950/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />
@@ -99,12 +96,7 @@ export default function AboutContent() {
 
             <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={viewport} className="relative">
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-                <Image
-                  src={images.about.team.src}
-                  alt={images.about.team.alt}
-                  fill className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+                <AboutArt className="absolute inset-0" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent" />
               </div>
               <div className="absolute -bottom-5 -right-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10" aria-hidden="true" />
@@ -237,8 +229,8 @@ export default function AboutContent() {
             aria-label={isAr ? "قيادة الفريق" : "Leadership team"}
           >
             {[
-              { name: isAr ? "م. نورهان"  : "Eng. Nourhan",  role: isAr ? "المدير التنفيذي"         : "Managing Director", image: "/images/team/nourhan.jpg" },
-              { name: isAr ? "أحمد كامل" : "Ahmed Kamel",  role: isAr ? "المؤسس والرئيس التنفيذي" : "CEO & Founder",      image: "/images/team/ahmed.jpg" },
+              { name: isAr ? "م. نورهان"  : "Eng. Nourhan",  role: isAr ? "المدير التنفيذي"         : "Managing Director" },
+              { name: isAr ? "أحمد كامل" : "Ahmed Kamel",  role: isAr ? "المؤسس والرئيس التنفيذي" : "CEO & Founder" },
             ].map((member) => (
               <motion.article
                 key={member.name}
@@ -248,12 +240,9 @@ export default function AboutContent() {
               >
               <Card className="bg-white dark:bg-gray-800 rounded-3xl p-0 gap-0 overflow-hidden ring-gray-100 dark:ring-gray-700 hover:ring-accent/30 hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-72 overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 640px) 100vw, 50vw"
+                  <MonogramAvatar
+                    name={member.name}
+                    className="absolute inset-0 text-4xl group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-transparent to-transparent" />
                 </div>

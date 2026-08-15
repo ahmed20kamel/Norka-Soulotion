@@ -3,22 +3,22 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megaphone, Building2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { fadeLeft, staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import type { ServiceCopy } from "@/sanity/lib/fetch-content";
+import ServiceArt from "@/components/art/ServiceArt";
 
 const services = [
-  { key: "software",       image: "/images/services/web-applications.jpg",   Icon: Code2 },
-  { key: "mobile",         image: "/images/services/mobile-apps.jpg",        Icon: Smartphone },
-  { key: "erp",            image: "/images/services/erp-systems.jpg",        Icon: BarChart3 },
-  { key: "web",            image: "/images/services/website-development.jpg",Icon: Globe },
-  { key: "infrastructure", image: "/images/services/it-infrastructure.jpg",  Icon: Server },
-  { key: "uiux",           image: "/images/services/uiux-design.jpg",        Icon: Palette },
-  { key: "marketing",      image: "/images/services/social-media.jpg",       Icon: Megaphone },
-  { key: "consulting",     image: "/images/services/company-setup.jpg",      Icon: Building2 },
+  { key: "software",       Icon: Code2 },
+  { key: "mobile",         Icon: Smartphone },
+  { key: "erp",            Icon: BarChart3 },
+  { key: "web",            Icon: Globe },
+  { key: "infrastructure", Icon: Server },
+  { key: "uiux",           Icon: Palette },
+  { key: "marketing",      Icon: Megaphone },
+  { key: "consulting",     Icon: Building2 },
 ] as const;
 
 interface ServicesPreviewProps {
@@ -86,12 +86,10 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
             className="lg:col-span-3 group relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3] sm:aspect-[16/10]"
           >
             <div className="absolute inset-0">
-              <Image
-                src={featured.image}
-                alt={featuredCopy.title}
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                sizes="(max-width: 1024px) 100vw, 60vw"
+              <ServiceArt
+                Icon={FeaturedIcon}
+                variant={0}
+                className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-108"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/45 to-gray-950/10 transition-opacity duration-300" />
               <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/8 transition-colors duration-300" />

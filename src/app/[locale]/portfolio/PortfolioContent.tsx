@@ -8,11 +8,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/data/projects";
-import { images } from "@/lib/images.config";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import PageHeroArt from "@/components/art/PageHeroArt";
 
 const filterCategories = [
   { key: "all",    translationKey: "filterAll" },
@@ -44,12 +44,8 @@ export default function PortfolioContent({ projects }: PortfolioContentProps) {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={images.pageHeroes.portfolio.src}
-            alt={images.pageHeroes.portfolio.alt}
-            fill className="object-cover scale-105" priority sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gray-950/78" />
+          <PageHeroArt variant="portfolio" className="scale-105" />
+          <div className="absolute inset-0 bg-gray-950/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />

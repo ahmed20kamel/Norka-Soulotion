@@ -2,13 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Users, CheckCircle } from "lucide-react";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
-import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
 import { buttonVariants } from "@/components/ui/button";
+import AboutArt from "@/components/art/AboutArt";
 
 interface AboutPreviewProps {
   locale: string;
@@ -50,13 +49,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
           >
             {/* Main image */}
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-              <Image
-                src={images.about.team.src}
-                alt={images.about.team.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <AboutArt className="absolute inset-0" />
               <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
             </div>
 

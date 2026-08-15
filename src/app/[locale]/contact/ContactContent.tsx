@@ -4,15 +4,14 @@ import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
-import { images } from "@/lib/images.config";
 import {
   MapPin, Phone, Mail, Clock,
   Send, CheckCircle, AlertCircle, Loader2, ArrowRight,
 } from "lucide-react";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { Card } from "@/components/ui/card";
+import PageHeroArt from "@/components/art/PageHeroArt";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -90,13 +89,8 @@ export default function ContactContent() {
       {/* ── Hero Banner ─────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden" aria-label={isAr ? "ترويسة الصفحة" : "Page hero"}>
         <div className="absolute inset-0">
-          <Image
-            src={images.pageHeroes.contact.src}
-            alt={images.pageHeroes.contact.alt}
-            fill className="object-cover scale-105" priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gray-950/78" />
+          <PageHeroArt variant="contact" className="scale-105" />
+          <div className="absolute inset-0 bg-gray-950/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background dark:from-background-dark to-transparent" />

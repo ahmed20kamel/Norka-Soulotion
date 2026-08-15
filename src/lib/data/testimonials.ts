@@ -21,7 +21,7 @@ export const testimonials: Testimonial[] = [
       en: "Working with Norka Solution was a game-changer for our business. Their team developed a custom software solution that streamlined our operations and increased our productivity by 40%.",
       ar: "العمل مع نوركا سوليوشن كان نقطة تحول لأعمالنا. فريقهم طوّر حلاً برمجياً مخصصاً بسّط عملياتنا وزاد إنتاجيتنا بنسبة 40%.",
     },
-    image: "/images/testimonials/john.jpg",
+    image: "",
     rating: 5,
   },
   {
@@ -32,7 +32,7 @@ export const testimonials: Testimonial[] = [
       en: "The network infrastructure they built for us is rock-solid. Zero downtime in 6 months and our inter-branch communication has never been better.",
       ar: "البنية التحتية الشبكية التي بنوها لنا صلبة كالصخر. صفر انقطاع في 6 أشهر والاتصال بين فروعنا لم يكن أفضل من ذلك.",
     },
-    image: "/images/testimonials/sarah.jpg",
+    image: "",
     rating: 5,
   },
   {
@@ -43,7 +43,7 @@ export const testimonials: Testimonial[] = [
       en: "Their ERP system transformed how we manage our business. From inventory to HR, everything is now in one place. Highly recommended!",
       ar: "نظام ERP الخاص بهم حوّل طريقة إدارتنا لأعمالنا. من المخزون إلى الموارد البشرية، كل شيء الآن في مكان واحد. أنصح بهم بشدة!",
     },
-    image: "/images/testimonials/ahmed.jpg",
+    image: "",
     rating: 5,
   },
   {
@@ -54,7 +54,7 @@ export const testimonials: Testimonial[] = [
       en: "The AI-powered surveillance system Norka built for us is incredible. It detected threats we would have never caught with traditional CCTV.",
       ar: "نظام المراقبة الذكي الذي بنته نوركا لنا مذهل. اكتشف تهديدات لم نكن لنلاحظها أبداً مع كاميرات المراقبة التقليدية.",
     },
-    image: "/images/testimonials/maria.jpg",
+    image: "",
     rating: 5,
   },
 ];
