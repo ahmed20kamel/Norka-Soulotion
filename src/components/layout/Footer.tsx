@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Mail, Phone, MapPin, ArrowUpRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { images } from "@/lib/images.config";
+import { TikTokIcon } from "@/components/icons/SocialIcons";
 
 interface FooterProps {
   locale: string;
@@ -38,10 +39,11 @@ export default function Footer({ locale }: FooterProps) {
   ];
 
   const socialLinks = [
-    { label: "Facebook",    href: "https://www.facebook.com/norkasolution",         Icon: Facebook },
-    { label: "Instagram",   href: "https://www.instagram.com/norkasolution",        Icon: Instagram },
-    { label: "LinkedIn",    href: "https://www.linkedin.com/company/norkasolution", Icon: Linkedin },
-    { label: "Twitter / X", href: "https://twitter.com/norkasolution",              Icon: Twitter },
+    { label: "Facebook",  href: "https://www.facebook.com/profile.php?id=61592851251188", Icon: Facebook },
+    { label: "Instagram", href: "https://www.instagram.com/norka_soulotion/",              Icon: Instagram },
+    { label: "LinkedIn",  href: "https://www.linkedin.com/in/norka-solution-6a2140413/",   Icon: Linkedin },
+    { label: "YouTube",   href: "https://www.youtube.com/@NorkaSolution",                  Icon: Youtube },
+    { label: "TikTok",    href: "https://www.tiktok.com/@norkapinkw3",                     Icon: TikTokIcon },
   ];
 
   const contactItems = [

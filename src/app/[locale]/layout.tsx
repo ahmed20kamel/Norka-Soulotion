@@ -57,10 +57,11 @@ const jsonLd = {
     areaServed: "AE",
   },
   sameAs: [
-    "https://www.facebook.com/norkasolution",
-    "https://www.instagram.com/norkasolution",
-    "https://www.linkedin.com/company/norkasolution",
-    "https://twitter.com/norkasolution",
+    "https://www.facebook.com/profile.php?id=61592851251188",
+    "https://www.instagram.com/norka_soulotion/",
+    "https://www.linkedin.com/in/norka-solution-6a2140413/",
+    "https://www.youtube.com/@NorkaSolution",
+    "https://www.tiktok.com/@norkapinkw3",
   ],
   knowsAbout: [
     "AI Application Development",
