@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import type { ServiceCopy } from "@/sanity/lib/fetch-content";
 import ServiceArt from "@/components/art/ServiceArt";
+import { useTilt } from "@/hooks/useTilt";
 
 const services = [
   { key: "software",       Icon: Code2 },
@@ -44,6 +45,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
     };
   };
   const featuredCopy = copyFor(featured.key);
+  const { ref: tiltRef, onMouseMove: onTiltMove, onMouseLeave: onTiltLeave, style: tiltStyle } = useTilt<HTMLElement>({ max: 6 });
 
   return (
     <section
@@ -75,15 +77,19 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
         </motion.div>
 
         {/* ── Spotlight + list ───────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8" style={{ perspective: 1200 }}>
 
           {/* Spotlight panel */}
           <motion.article
+            ref={tiltRef}
+            onMouseMove={onTiltMove}
+            onMouseLeave={onTiltLeave}
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
-            className="lg:col-span-3 group relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3] sm:aspect-[16/10]"
+            style={tiltStyle}
+            className="lg:col-span-3 group relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3] sm:aspect-[16/10] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-accent)] transition-shadow duration-300"
           >
             <div className="absolute inset-0">
               <ServiceArt

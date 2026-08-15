@@ -56,7 +56,7 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
         >
           {testimonials.map((item) => (
             <motion.div key={item.name.en} variants={staggerItem} role="listitem">
-              <Card className="relative block h-full bg-white dark:bg-gray-800 rounded-2xl p-7 ring-white/10 shadow-xl">
+              <Card className="relative block h-full bg-white dark:bg-gray-800 rounded-2xl p-7 ring-white/10 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] transition-all duration-350">
                 <div className="absolute top-6 right-6 opacity-5" aria-hidden="true">
                   <Quote className="w-16 h-16 text-accent" />
                 </div>

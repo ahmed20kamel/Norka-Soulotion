@@ -4,9 +4,16 @@ import { useTranslations } from "next-intl";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { buttonVariants } from "@/components/ui/button";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { useRef } from "react";
+import { useCanRender3D } from "@/hooks/useCanRender3D";
+
+// Lazy-loaded and never server-rendered — this is the site's one signature
+// 3D element (see HeroScene.tsx), kept out of the initial JS bundle and
+// only fetched once useCanRender3D() actually says yes.
+const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
 
 interface HeroSectionProps {
   locale: string;
@@ -17,6 +24,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const isAr           = locale === "ar";
   const ref            = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
+  const canRender3D    = useCanRender3D();
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yBg       = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
@@ -59,6 +67,24 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           }}
         />
       </motion.div>
+
+      {/* ── Signature 3D element — one rotating low-poly shape + a sparse
+           particle field, layered over the gradient blobs on the "end"
+           side (right in LTR). Gated off on reduced-motion, small
+           viewports, and low-power devices via useCanRender3D(); the
+           gradient background above already looks complete without it,
+           so there's nothing to fall back to render instead. ────────── */}
+      {canRender3D && (
+        <div
+          className="absolute inset-y-0 end-0 w-full md:w-[55%] z-[1] pointer-events-none"
+          style={{
+            maskImage: `linear-gradient(to ${isAr ? "left" : "right"}, transparent, black 30%, black 85%, transparent)`,
+          }}
+          aria-hidden="true"
+        >
+          <HeroScene />
+        </div>
+      )}
 
       {/* ── Corner brackets ──────────────────────────────────── */}
       <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-white/15 z-[2] pointer-events-none" aria-hidden="true" />

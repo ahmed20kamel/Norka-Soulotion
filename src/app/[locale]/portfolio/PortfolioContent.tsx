@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import PageHeroArt from "@/components/art/PageHeroArt";
+import { useTilt } from "@/hooks/useTilt";
 
 const filterCategories = [
   { key: "all",    translationKey: "filterAll" },
@@ -20,6 +21,111 @@ const filterCategories = [
   { key: "web",    translationKey: "filterWeb" },
   { key: "mobile", translationKey: "filterMobile" },
 ];
+
+// Its own component (not inlined in the .map() below) so useTilt() — a
+// hook — can be called once per rendered card, as the Rules of Hooks
+// require, rather than inside a loop.
+function PortfolioCard({ project, locale, lang, t }: { project: Project; locale: string; lang: "en" | "ar"; t: (key: string) => string }) {
+  const { ref: tiltRef, onMouseMove: onTiltMove, onMouseLeave: onTiltLeave, style: tiltStyle } = useTilt<HTMLDivElement>({ max: 5 });
+
+  return (
+    <motion.article
+      role="listitem"
+      layout
+      initial={{ opacity: 0, scale: .92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: .92 }}
+      transition={{ duration: .35 }}
+      className="group"
+      style={{ perspective: 1000 }}
+    >
+      <motion.div ref={tiltRef} onMouseMove={onTiltMove} onMouseLeave={onTiltLeave} style={tiltStyle}>
+        <Card className="p-0 gap-0 overflow-hidden hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] hover:ring-accent/25 transition-all duration-350">
+          {/* Image */}
+          <div className="relative h-56 overflow-hidden rounded-t-[calc(1.25rem-1px)]">
+            {/* Browser chrome bar */}
+            <div className="mockup-bar" aria-hidden="true">
+              <span className="mockup-bar-dot" />
+              <span className="mockup-bar-dot" />
+              <span className="mockup-bar-dot" />
+            </div>
+            <Image
+              src={project.image}
+              alt={project.title[lang]}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/20 to-transparent" />
+
+            {/* Category badge */}
+            <div className="absolute top-12 left-4 z-[3]">
+              <Badge className="text-xs font-bold bg-accent/90 text-dark uppercase tracking-wider backdrop-blur-sm">
+                {project.category}
+              </Badge>
+            </div>
+
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent group-hover:from-gray-950/95 group-hover:via-gray-950/60 group-hover:bg-accent/10 flex items-center justify-center gap-4 transition-all duration-300">
+              <motion.div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                <Link
+                  href={`/${locale}/portfolio/${project.slug}`}
+                  className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
+                  aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
+                >
+                  <ArrowRight className="w-5 h-5" aria-hidden="true" />
+                </Link>
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
+                    aria-label={`${t("viewDemo")} — ${project.title[lang]}`}
+                  >
+                    <ExternalLink className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                )}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors leading-tight">
+              {project.title[lang]}
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+              {project.description[lang]}
+            </p>
+
+            {/* Tech stack */}
+            <div className="flex flex-wrap gap-1.5 mb-5">
+              {project.techStack.slice(0, 4).map((tech) => (
+                <Badge
+                  key={tech}
+                  variant="outline"
+                  className="text-xs font-medium rounded-lg bg-surface dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600"
+                >
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+
+            <Link
+              href={`/${locale}/portfolio/${project.slug}`}
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:gap-2.5 transition-all duration-300"
+              aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
+            >
+              {t("viewDetails")}
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </Card>
+      </motion.div>
+    </motion.article>
+  );
+}
 
 interface PortfolioContentProps {
   projects: Project[];
@@ -123,99 +229,7 @@ export default function PortfolioContent({ projects }: PortfolioContentProps) {
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
-                <motion.article
-                  key={project.slug}
-                  role="listitem"
-                  layout
-                  initial={{ opacity: 0, scale: .92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: .92 }}
-                  transition={{ duration: .35 }}
-                  className="group"
-                >
-                <Card className="p-0 gap-0 overflow-hidden hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] hover:ring-accent/25 transition-all duration-350">
-                  {/* Image */}
-                  <div className="relative h-56 overflow-hidden rounded-t-[calc(1.25rem-1px)]">
-                    {/* Browser chrome bar */}
-                    <div className="mockup-bar" aria-hidden="true">
-                      <span className="mockup-bar-dot" />
-                      <span className="mockup-bar-dot" />
-                      <span className="mockup-bar-dot" />
-                    </div>
-                    <Image
-                      src={project.image}
-                      alt={project.title[lang]}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/20 to-transparent" />
-
-                    {/* Category badge */}
-                    <div className="absolute top-12 left-4 z-[3]">
-                      <Badge className="text-xs font-bold bg-accent/90 text-dark uppercase tracking-wider backdrop-blur-sm">
-                        {project.category}
-                      </Badge>
-                    </div>
-
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent group-hover:from-gray-950/95 group-hover:via-gray-950/60 group-hover:bg-accent/10 flex items-center justify-center gap-4 transition-all duration-300">
-                      <motion.div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
-                        <Link
-                          href={`/${locale}/portfolio/${project.slug}`}
-                          className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
-                          aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
-                        >
-                          <ArrowRight className="w-5 h-5" aria-hidden="true" />
-                        </Link>
-                        {project.demoUrl && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="glass-dark p-3.5 rounded-2xl text-white transition-all duration-200 hover:scale-110 hover:border-accent/40"
-                            aria-label={`${t("viewDemo")} — ${project.title[lang]}`}
-                          >
-                            <ExternalLink className="w-5 h-5" aria-hidden="true" />
-                          </a>
-                        )}
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors leading-tight">
-                      {project.title[lang]}
-                    </h3>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
-                      {project.description[lang]}
-                    </p>
-
-                    {/* Tech stack */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {project.techStack.slice(0, 4).map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="outline"
-                          className="text-xs font-medium rounded-lg bg-surface dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <Link
-                      href={`/${locale}/portfolio/${project.slug}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:gap-2.5 transition-all duration-300"
-                      aria-label={`${t("viewDetails")} — ${project.title[lang]}`}
-                    >
-                      {t("viewDetails")}
-                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                    </Link>
-                  </div>
-                </Card>
-                </motion.article>
+                <PortfolioCard key={project.slug} project={project} locale={locale} lang={lang} t={t} />
               ))}
             </AnimatePresence>
           </motion.div>
