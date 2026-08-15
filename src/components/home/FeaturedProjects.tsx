@@ -35,7 +35,6 @@ export default function FeaturedProjects({ locale, projects }: FeaturedProjectsP
             whileInView="visible"
             viewport={viewport}
           >
-            <span className="badge badge-accent mb-5">{t("badge")}</span>
             <h2
               id="projects-heading"
               className="font-heading text-display-sm font-black text-gray-900 dark:text-white leading-tight"
