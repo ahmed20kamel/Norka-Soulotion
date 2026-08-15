@@ -6,13 +6,21 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
-import { staggerContainer, staggerItem } from "@/lib/animations";
+import CountUp from "@/components/ui/CountUp";
+import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { images } from "@/lib/images.config";
 import { COMPANY_STATS } from "@/lib/constants";
 import { useRef } from "react";
 
 interface HeroSectionProps {
   locale: string;
+}
+
+// COMPANY_STATS values are strings like "150+" — split into the numeric
+// part CountUp animates and the trailing suffix it appends once done.
+function splitStat(value: string) {
+  const match = value.match(/^(\d+)(.*)$/);
+  return { end: match ? Number(match[1]) : 0, suffix: match ? match[2] : "" };
 }
 
 export default function HeroSection({ locale }: HeroSectionProps) {
@@ -23,10 +31,10 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const prefersReduced = useReducedMotion();
 
   const stats = [
-    { value: COMPANY_STATS.years,    label: tStats("years") },
-    { value: COMPANY_STATS.projects, label: tStats("projects") },
-    { value: COMPANY_STATS.clients,  label: tStats("clients") },
-    { value: COMPANY_STATS.team,     label: tStats("team") },
+    { ...splitStat(COMPANY_STATS.years),    label: tStats("years") },
+    { ...splitStat(COMPANY_STATS.projects), label: tStats("projects") },
+    { ...splitStat(COMPANY_STATS.clients),  label: tStats("clients") },
+    { ...splitStat(COMPANY_STATS.team),     label: tStats("team") },
   ];
 
   // Subtle parallax on the photo only — a light, restrained animation
@@ -37,7 +45,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-gray-950 pt-24 pb-14 md:pt-28 md:pb-16 overflow-hidden"
+      className="relative bg-white dark:bg-gray-950 pt-24 pb-10 md:pt-28 md:pb-12 overflow-hidden"
       aria-label={isAr ? "القسم الرئيسي" : "Hero section"}
     >
       {/* Soft brand-tinted glow, well behind the content — the one
@@ -48,7 +56,9 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* items-start (not -center): centering a shorter text column
+            against a taller photo was leaving dead space under the text */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ── Text column ─────────────────────────────────────── */}
           <motion.div
@@ -92,24 +102,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </Link>
             </motion.div>
-
-            {/* Stats — plain inline row, not a separate floating card */}
-            <motion.div
-              variants={staggerItem}
-              className="flex flex-wrap gap-x-8 gap-y-3 mt-12 pt-8 border-t border-gray-100 dark:border-gray-800"
-              aria-label="Company statistics"
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex items-baseline gap-2">
-                  <span className="text-xl font-black text-gray-900 dark:text-white">
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
           </motion.div>
 
           {/* ── Photo column — a real software workspace, not a city
@@ -120,7 +112,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             transition={{ duration: .8, delay: .2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative"
           >
-            <div className="relative aspect-[4/3] lg:aspect-[5/4] rounded-3xl overflow-hidden shadow-[var(--shadow-card-hover)]">
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-card-hover)]">
               <motion.div style={{ y: prefersReduced ? 0 : photoY }} className="absolute inset-0 -top-[6%] h-[112%]">
                 <Image
                   src={images.home.heroWorkspace.src}
@@ -141,6 +133,28 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             />
           </motion.div>
         </div>
+
+        {/* ── Stats — full-width row so all four fit on one line,
+             instead of being squeezed into the (narrower) text column ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: .5 }}
+          className="flex flex-wrap justify-between gap-x-6 gap-y-4 mt-10 md:mt-12 pt-8 border-t border-gray-100 dark:border-gray-800"
+          aria-label="Company statistics"
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="flex items-baseline gap-2">
+              <span className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white">
+                <CountUp end={stat.end} suffix={stat.suffix} />
+              </span>
+              <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

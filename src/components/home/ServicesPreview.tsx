@@ -33,7 +33,6 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
   const t = useTranslations("services");
   const lang = locale as "en" | "ar";
   const [featured, ...rest] = services;
-  const FeaturedIcon = featured.Icon;
 
   // CMS copy (when present) wins over the i18n message catalog — same
   // fallback-safe pattern as the project/testimonial data fetches.
@@ -51,7 +50,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
   return (
     <section
       id="services"
-      className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-950 overflow-hidden"
+      className="pt-8 pb-12 md:pt-10 md:pb-16 lg:pt-12 lg:pb-20 bg-white dark:bg-gray-950 overflow-hidden"
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,13 +103,6 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
             </div>
 
             <div className="relative h-full flex flex-col justify-end p-7 md:p-9">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent/15 border border-accent/30 backdrop-blur-sm transition-all duration-300 group-hover:bg-accent group-hover:border-accent w-fit">
-                <FeaturedIcon
-                  className="w-6 h-6 text-accent transition-colors duration-300 group-hover:text-dark"
-                  aria-hidden="true"
-                />
-              </div>
-
               <h3 className="font-heading text-2xl md:text-3xl font-black text-white mb-2 leading-tight">
                 {featuredCopy.title}
               </h3>
