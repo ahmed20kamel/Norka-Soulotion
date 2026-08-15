@@ -18,10 +18,21 @@ export default function StatsCounter() {
 
   return (
     <section
-      className="relative bg-gray-950 py-8 md:py-10"
+      className="relative bg-gray-950 py-8 md:py-10 overflow-hidden"
       aria-label="Company statistics"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Seam blend into the light ServicesPreview section below — a soft
+          glow bleeding across the boundary reads as one continuous canvas
+          instead of a hard color cut. */}
+      <div
+        className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[900px] h-[240px] bg-accent/[.12] rounded-full blur-[100px] pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-surface dark:from-surface-dark/40 to-transparent pointer-events-none"
+        aria-hidden="true"
+      />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={staggerContainer(.08)}
           initial="hidden"
