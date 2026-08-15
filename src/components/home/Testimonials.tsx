@@ -59,7 +59,7 @@ export default function Testimonials({ locale }: TestimonialsProps) {
                   <Quote className="w-16 h-16 text-accent" />
                 </div>
 
-                <div className="flex gap-1 mb-5" aria-label={`${item.rating} out of 5 stars`}>
+                <div className="flex gap-1 mb-5" role="img" aria-label={`${item.rating} out of 5 stars`}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}

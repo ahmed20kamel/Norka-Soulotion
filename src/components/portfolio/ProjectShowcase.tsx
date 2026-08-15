@@ -154,6 +154,7 @@ export default function ProjectShowcase({
 
             <DialogPrimitive.Close
               className="glass-dark absolute top-4 right-4 p-2 rounded-full text-white transition-colors duration-200 z-10 cursor-pointer"
+              aria-label={locale === "ar" ? "إغلاق" : "Close"}
             >
               <X className="w-6 h-6" />
             </DialogPrimitive.Close>
@@ -186,23 +187,28 @@ export default function ProjectShowcase({
                 <button
                   onClick={prev}
                   className="glass-dark absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110 cursor-pointer"
+                  aria-label={locale === "ar" ? "الصورة السابقة" : "Previous screenshot"}
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={next}
                   className="glass-dark absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200 hover:scale-110 cursor-pointer"
+                  aria-label={locale === "ar" ? "الصورة التالية" : "Next screenshot"}
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
               </>
             )}
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" role="tablist" aria-label={locale === "ar" ? "اختيار لقطة الشاشة" : "Select screenshot"}>
               {allShots.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setLightboxIndex(idx)}
+                  role="tab"
+                  aria-selected={idx === lightboxIndex}
+                  aria-label={`${locale === "ar" ? "لقطة شاشة" : "Screenshot"} ${idx + 1}`}
                   className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${
                     idx === lightboxIndex
                       ? "bg-white scale-125"

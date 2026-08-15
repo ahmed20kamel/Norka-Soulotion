@@ -7,7 +7,14 @@
  *  2. Update the paths below
  *  3. All components reference this config — no hardcoded URLs in components
  *
- * Supported formats: .jpg, .png, .webp (static) | .mp4, .webm (video)
+ * Supported formats: .jpg, .png, .webp, .svg
+ *
+ * NOTE: several entries below (services, pageHeroes, about.team, team.nourhan)
+ * are being phased out in favor of the generative brand-art components in
+ * src/components/art/ (see ServiceArt, PageHeroArt, AboutArt, MonogramAvatar).
+ * Real photography can still replace those components' output at any time —
+ * just swap the component usage for an <Image src={...} /> pointing at a
+ * file dropped into /public/images/, using the paths below as the convention.
  */
 
 export const images = {
@@ -16,19 +23,6 @@ export const images = {
     logo: {
       src: "/logo.svg",
       alt: "Norka Solution",
-    },
-  },
-
-  /** Hero section */
-  hero: {
-    video: {
-      webm: "/videos/hero.webm",
-      mp4: "/videos/hero.mp4",
-    },
-    // Fallback image if video doesn't load
-    fallback: {
-      src: "/images/hero/hero-fallback.jpg",
-      alt: "NORKA SOLUTION office",
     },
   },
 
@@ -57,10 +51,6 @@ export const images = {
     team: {
       src: "/images/about/team.jpg",
       alt: "Norka Solution team at work",
-    },
-    office: {
-      src: "/images/about/office.jpg",
-      alt: "Norka Solution office",
     },
     ceo: {
       src: "/images/team/ahmed.jpg",

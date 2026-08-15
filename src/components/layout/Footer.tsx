@@ -64,12 +64,15 @@ export default function Footer({ locale }: FooterProps) {
             <Link
               href={`/${locale}`}
               className="flex items-center gap-3 mb-5 group"
-              aria-label="Norka Solution — Home"
             >
+              {/* Alt left empty — decorative alongside the adjacent visible
+                  wordmark, so the link's accessible name comes from that
+                  text alone instead of an aria-label that can drift out of
+                  sync with it. */}
               <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1 shrink-0">
                 <Image
                   src={images.brand.logo.src}
-                  alt="Norka Solution"
+                  alt=""
                   fill
                   className="object-contain p-0.5"
                 />
@@ -80,7 +83,7 @@ export default function Footer({ locale }: FooterProps) {
               </div>
             </Link>
 
-            <p className="text-sm leading-relaxed mb-7 text-gray-500">{t("description")}</p>
+            <p className="text-sm leading-relaxed mb-7 text-gray-400">{t("description")}</p>
 
             {/* Social icons */}
             <div>
@@ -115,7 +118,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors duration-200 text-sm group"
+                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -138,7 +141,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={service}>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors duration-200 text-sm group"
+                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -163,7 +166,7 @@ export default function Footer({ locale }: FooterProps) {
                   <li key={value}>
                     <Tag
                       {...(href ? { href, dir } : {})}
-                      className="flex items-start gap-3 text-gray-500 hover:text-accent transition-colors text-sm group cursor-default"
+                      className="flex items-start gap-3 text-gray-400 hover:text-accent transition-colors text-sm group cursor-default"
                     >
                       <Icon className="w-4 h-4 text-accent mt-0.5 shrink-0" aria-hidden="true" />
                       <span dir={dir}>{value}</span>
@@ -185,11 +188,11 @@ export default function Footer({ locale }: FooterProps) {
                 <div className="text-white text-sm font-semibold">
                   {isAr ? "ابدأ مشروعك" : "Start your project"}
                 </div>
-                <div className="text-gray-500 text-xs">
+                <div className="text-gray-400 text-xs">
                   {isAr ? "رد خلال 24 ساعة" : "Reply within 24 hours"}
                 </div>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-accent ml-auto transition-colors duration-200" aria-hidden="true" />
+              <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-accent ml-auto transition-colors duration-200" aria-hidden="true" />
             </Link>
           </address>
         </div>
@@ -200,11 +203,11 @@ export default function Footer({ locale }: FooterProps) {
       <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-400">
               &copy; {new Date().getFullYear()} Norka Solution.{" "}
               <span>{t("rights")}</span>
             </p>
-            <div className="flex items-center gap-1 text-xs text-gray-500">
+            <div className="flex items-center gap-1 text-xs text-gray-400">
               <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.06] transition-all duration-200">
                 {t("privacy")}
               </Link>

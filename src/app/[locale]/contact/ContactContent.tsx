@@ -56,11 +56,13 @@ export default function ContactContent() {
     setError("");
     const formData = new FormData(e.target as HTMLFormElement);
     const data = {
-      name:    formData.get("name") as string,
-      email:   formData.get("email") as string,
-      phone:   formData.get("phone") as string,
-      service: formData.get("service") as string,
-      message: formData.get("message") as string,
+      name:     formData.get("name") as string,
+      email:    formData.get("email") as string,
+      phone:    formData.get("phone") as string,
+      service:  formData.get("service") as string,
+      message:  formData.get("message") as string,
+      // Honeypot — left empty by humans, filled in by bots. Server rejects if non-empty.
+      website: formData.get("website") as string,
     };
     try {
       const res = await fetch("/api/contact", {
@@ -68,7 +70,10 @@ export default function ContactContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Failed");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || "Failed");
+      }
       setIsSubmitted(true);
       formRef.current?.reset();
       setFormKey((k) => k + 1);
@@ -267,6 +272,12 @@ export default function ContactContent() {
                     className="px-4 py-3.5 rounded-2xl text-sm resize-none"
                     placeholder={t("form.message")}
                   />
+                </div>
+
+                {/* Honeypot — hidden from real users, tabIndex -1 keeps it out of keyboard/AT flow */}
+                <div className="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="contact-website">Website</label>
+                  <input id="contact-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
                 </div>
 
                 {error && (
