@@ -109,8 +109,6 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
             whileInView="visible"
             viewport={viewport}
           >
-            <span className="badge badge-accent mb-6">{t("story")}</span>
-
             <h2
               id="about-preview-heading"
               className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-6 leading-tight"

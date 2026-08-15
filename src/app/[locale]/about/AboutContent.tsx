@@ -118,7 +118,6 @@ export default function AboutContent() {
             </motion.div>
 
             <motion.div variants={fadeRight} initial="hidden" whileInView="visible" viewport={viewport}>
-              <span className="badge badge-accent mb-6">{t("story")}</span>
               <h2 id="story-heading" className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-6 leading-tight">
                 {t("title")}
               </h2>
