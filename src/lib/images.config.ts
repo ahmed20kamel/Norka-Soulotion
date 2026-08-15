@@ -97,39 +97,42 @@ export const images = {
     },
   },
 
-  /** Services section — one image per service card */
+  /** Homepage services carousel — real photo per service key (matches the
+   *  `ServiceKey` union in src/lib/data/services.ts). A few categories
+   *  intentionally share a photo (verified, real, still on-topic) rather
+   *  than force a mismatched image just to make every key unique. */
   services: {
-    webApplications: {
-      src: "/images/services/web-applications.jpg",
-      alt: "Web application development",
+    software: {
+      src: "https://images.unsplash.com/photo-1760670399462-f5e479452c27?w=1200&q=80&auto=format&fit=crop",
+      alt: "Monitor displaying colorful source code",
     },
-    mobileApps: {
-      src: "/images/services/mobile-apps.jpg",
-      alt: "Mobile app development",
+    web: {
+      src: "https://images.unsplash.com/photo-1760670399462-f5e479452c27?w=1200&q=80&auto=format&fit=crop",
+      alt: "Monitor displaying colorful source code",
     },
-    erpSystems: {
-      src: "/images/services/erp-systems.jpg",
-      alt: "ERP system implementation",
+    mobile: {
+      src: "https://images.unsplash.com/photo-1750056393356-d1de9d222a29?w=1200&q=80&auto=format&fit=crop",
+      alt: "Hand holding a smartphone showing an app",
     },
-    websiteDevelopment: {
-      src: "/images/services/website-development.jpg",
-      alt: "Website development",
+    erp: {
+      src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
+      alt: "Analytics dashboard with charts on a laptop screen",
     },
-    itInfrastructure: {
-      src: "/images/services/it-infrastructure.jpg",
-      alt: "IT infrastructure and servers",
+    infrastructure: {
+      src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop",
+      alt: "Server rack with illuminated network cabling",
     },
-    uiuxDesign: {
-      src: "/images/services/uiux-design.jpg",
-      alt: "UI/UX design process",
+    uiux: {
+      src: "https://images.unsplash.com/photo-1758518729463-0bb73ed899ac?w=1200&q=80&auto=format&fit=crop",
+      alt: "Professionals in a modern office lobby",
     },
-    socialMedia: {
-      src: "/images/services/social-media.jpg",
-      alt: "Social media marketing",
+    marketing: {
+      src: "https://images.unsplash.com/photo-1758518731706-be5d5230e5a5?w=1200&q=80&auto=format&fit=crop",
+      alt: "Team collaborating in a modern office",
     },
-    companySetup: {
-      src: "/images/services/company-setup.jpg",
-      alt: "IT consulting and company setup",
+    consulting: {
+      src: "https://images.unsplash.com/photo-1758518731706-be5d5230e5a5?w=1200&q=80&auto=format&fit=crop",
+      alt: "Team collaborating in a modern office",
     },
   },
 
