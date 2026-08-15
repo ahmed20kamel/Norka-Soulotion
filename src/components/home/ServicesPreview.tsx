@@ -64,7 +64,6 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
           transition={{ duration: .6 }}
           className="max-w-2xl mb-10 md:mb-12"
         >
-          <span className="badge badge-accent mb-5">{t("badge")}</span>
           <h2
             id="services-heading"
             className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-5 leading-tight"

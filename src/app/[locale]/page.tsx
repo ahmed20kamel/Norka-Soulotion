@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
-import StatsCounter from "@/components/home/StatsCounter";
 import ServicesPreview from "@/components/home/ServicesPreview";
 import AboutPreview from "@/components/home/AboutPreview";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
@@ -57,7 +56,6 @@ export default async function HomePage({
   return (
     <>
       <HeroSection locale={locale} />
-      <StatsCounter />
       <ServicesPreview locale={locale} serviceCopy={serviceCopy} />
       <AboutPreview locale={locale} />
       <FeaturedProjects locale={locale} projects={projects} />

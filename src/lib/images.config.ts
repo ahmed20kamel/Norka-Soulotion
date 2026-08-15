@@ -31,9 +31,9 @@ export const images = {
    *  Solution photo the moment one is available; nothing else needs to
    *  change since every component reads from here. */
   home: {
-    heroSkyline: {
-      src: "https://images.unsplash.com/photo-1745750434535-5943ef2fd31a?w=1600&q=80&auto=format&fit=crop",
-      alt: "Dubai skyline with the Burj Khalifa, Business Bay",
+    heroWorkspace: {
+      src: "https://images.unsplash.com/photo-1719400471588-575b23e27bd7?w=1600&q=80&auto=format&fit=crop",
+      alt: "Developer working across a multi-monitor coding setup",
     },
     ctaSkyline: {
       src: "https://images.unsplash.com/photo-1748373452031-ee1ae4eb624d?w=1600&q=80&auto=format&fit=crop",
