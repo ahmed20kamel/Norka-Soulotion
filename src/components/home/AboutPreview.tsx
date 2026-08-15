@@ -3,11 +3,12 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Users, CheckCircle } from "lucide-react";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { COMPANY_STATS } from "@/lib/constants";
 import { buttonVariants } from "@/components/ui/button";
-import AboutArt from "@/components/art/AboutArt";
+import { images } from "@/lib/images.config";
 
 interface AboutPreviewProps {
   locale: string;
@@ -23,7 +24,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
   return (
     <section
-      className="section-py bg-white dark:bg-gray-950 overflow-hidden relative"
+      className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden relative"
       aria-labelledby="about-preview-heading"
     >
       {/* Subtle background grid */}
@@ -48,8 +49,14 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
             className="relative"
           >
             {/* Main image */}
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-              <AboutArt className="absolute inset-0" />
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-[var(--shadow-card-hover)]">
+              <Image
+                src={images.home.aboutTeam.src}
+                alt={images.home.aboutTeam.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
               <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
             </div>
 

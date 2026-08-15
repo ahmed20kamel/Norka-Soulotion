@@ -20,7 +20,7 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
 
   return (
     <section
-      className="pt-0 pb-24 md:pb-32 bg-gray-950 overflow-hidden"
+      className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,16 +31,16 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: .6 }}
-          className="text-center mb-14"
+          className="text-center mb-12"
         >
           <span className="badge badge-accent mb-5">{t("badge")}</span>
           <h2
             id="testimonials-heading"
-            className="font-heading text-display-sm font-black text-white mb-4"
+            className="font-heading text-display-sm font-black text-gray-900 dark:text-white mb-4"
           >
             {t("title")}
           </h2>
-          <p className="text-gray-400 text-lg max-w-lg mx-auto">{t("subtitle")}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-lg mx-auto">{t("subtitle")}</p>
           <div className="divider-accent mt-5 mx-auto" />
         </motion.div>
 
@@ -56,7 +56,7 @@ export default function Testimonials({ locale, testimonials }: TestimonialsProps
         >
           {testimonials.map((item) => (
             <motion.div key={item.name.en} variants={staggerItem} role="listitem">
-              <Card className="relative block h-full bg-white dark:bg-gray-800 rounded-2xl p-7 ring-white/10 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] transition-all duration-350">
+              <Card className="relative block h-full bg-white dark:bg-gray-800 rounded-2xl p-7 ring-gray-100 dark:ring-white/10 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-[3px] transition-all duration-350">
                 <div className="absolute top-6 right-6 opacity-5" aria-hidden="true">
                   <Quote className="w-16 h-16 text-accent" />
                 </div>

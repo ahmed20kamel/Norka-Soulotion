@@ -26,6 +26,33 @@ export const images = {
     },
   },
 
+  /** Home page — real curated photography (Unsplash), chosen for UAE/Gulf
+   *  relevance rather than generic stock. Swap any `src` for a real Norka
+   *  Solution photo the moment one is available; nothing else needs to
+   *  change since every component reads from here. */
+  home: {
+    heroSkyline: {
+      src: "https://images.unsplash.com/photo-1745750434535-5943ef2fd31a?w=1600&q=80&auto=format&fit=crop",
+      alt: "Dubai skyline with the Burj Khalifa, Business Bay",
+    },
+    ctaSkyline: {
+      src: "https://images.unsplash.com/photo-1748373452031-ee1ae4eb624d?w=1600&q=80&auto=format&fit=crop",
+      alt: "Dubai skyline and fountain at dusk",
+    },
+    aboutTeam: {
+      src: "https://images.unsplash.com/photo-1758518731706-be5d5230e5a5?w=1200&q=80&auto=format&fit=crop",
+      alt: "Team collaborating in a modern office",
+    },
+    ceoOffice: {
+      src: "https://images.unsplash.com/photo-1758518729463-0bb73ed899ac?w=1200&q=80&auto=format&fit=crop",
+      alt: "Professionals in a modern office lobby",
+    },
+    servicesCode: {
+      src: "https://images.unsplash.com/photo-1760670399462-f5e479452c27?w=1200&q=80&auto=format&fit=crop",
+      alt: "Monitor displaying colorful source code",
+    },
+  },
+
   /** Inner page hero backgrounds */
   pageHeroes: {
     services: {

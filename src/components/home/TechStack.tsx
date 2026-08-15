@@ -165,25 +165,14 @@ export default function TechStack() {
   const t = useTranslations("techStack");
 
   return (
-    <section className="relative section-py bg-white dark:bg-gray-950 overflow-hidden">
-      {/* Seam blend into the always-dark CEOQuote section below — fading
-          to gray-950 is a no-op in dark theme (this section is already
-          gray-950 there) and softens the light-theme boundary. */}
-      <div
-        className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[900px] h-[240px] bg-accent/[.1] rounded-full blur-[100px] pointer-events-none"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-gray-950 to-transparent pointer-events-none"
-        aria-hidden="true"
-      />
+    <section className="relative py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <span className="badge badge-accent mb-4">
             {t("badge")}

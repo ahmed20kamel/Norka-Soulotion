@@ -4,11 +4,12 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Code2, Smartphone, BarChart3, Globe, Server, Palette, Megaphone, Building2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { fadeLeft, staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import type { ServiceCopy } from "@/sanity/lib/fetch-content";
-import ServiceArt from "@/components/art/ServiceArt";
+import { images } from "@/lib/images.config";
 import { useTilt } from "@/hooks/useTilt";
 
 const services = [
@@ -50,7 +51,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
   return (
     <section
       id="services"
-      className="section-py bg-surface dark:bg-surface-dark/40 overflow-hidden"
+      className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-950 overflow-hidden"
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,7 +62,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: .6 }}
-          className="max-w-2xl mb-16 md:mb-20"
+          className="max-w-2xl mb-10 md:mb-12"
         >
           <span className="badge badge-accent mb-5">{t("badge")}</span>
           <h2
@@ -70,7 +71,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
           >
             {t("title")}
           </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
+          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 leading-relaxed">
             {t("subtitle")}
           </p>
           <div className="divider-accent mt-6" />
@@ -92,12 +93,14 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
             className="lg:col-span-3 group relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3] sm:aspect-[16/10] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-accent)] transition-shadow duration-300"
           >
             <div className="absolute inset-0">
-              <ServiceArt
-                Icon={FeaturedIcon}
-                variant={0}
-                className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-108"
+              <Image
+                src={images.home.servicesCode.src}
+                alt={featuredCopy.title}
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                sizes="(max-width: 1024px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/45 to-gray-950/10 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-gray-950/10 transition-opacity duration-300" />
               <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/8 transition-colors duration-300" />
             </div>
 

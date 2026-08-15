@@ -2,11 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight, Phone, Mail, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
+import { images } from "@/lib/images.config";
 
 interface CTASectionProps {
   locale: string;
@@ -42,28 +44,32 @@ export default function CTASection({ locale }: CTASectionProps) {
 
   return (
     <section
-      className="relative section-py overflow-hidden"
+      className="relative py-16 md:py-20 lg:py-24 overflow-hidden"
       aria-labelledby="cta-heading"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#080D1E] to-gray-950" aria-hidden="true" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(59,98,252,.10),_transparent_65%)]" aria-hidden="true" />
+      {/* Background — the one bold saturated-color moment on the page
+          (brand blue, not black), with the Dubai skyline for texture
+          under a scrim rather than a flat gradient. */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src={images.home.ctaSkyline.src}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/95 via-accent-dark/95 to-accent-dark" />
+      </div>
 
       {/* Grid dots */}
       <div
-        className="absolute inset-0 opacity-[.04] pointer-events-none"
+        className="absolute inset-0 opacity-[.06] pointer-events-none"
         style={{
           backgroundImage: "radial-gradient(circle at 1.5px 1.5px, white 1px, transparent 0)",
           backgroundSize: "32px 32px",
         }}
         aria-hidden="true"
       />
-
-      {/* Rotating ring */}
-      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] border border-white/[.04] rounded-full animate-spin-slow pointer-events-none" aria-hidden="true" />
-
-      {/* Accent glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-accent/[.09] rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -75,7 +81,7 @@ export default function CTASection({ locale }: CTASectionProps) {
             whileInView="visible"
             viewport={viewport}
           >
-            <span className="badge badge-accent mb-7">{t("badge")}</span>
+            <span className="badge bg-white/15 text-white border border-white/25 mb-7">{t("badge")}</span>
 
             <h2
               id="cta-heading"
@@ -84,7 +90,7 @@ export default function CTASection({ locale }: CTASectionProps) {
               {t("title")}
             </h2>
 
-            <p className="text-gray-300/75 text-xl leading-relaxed mb-10">
+            <p className="text-white/75 text-xl font-normal leading-relaxed mb-10">
               {t("description")}
             </p>
 
@@ -92,14 +98,14 @@ export default function CTASection({ locale }: CTASectionProps) {
             <div className="flex items-center gap-4">
               <AvatarGroup aria-hidden="true">
                 {[1,2,3,4].map((i) => (
-                  <Avatar key={i} className="size-9 border-2 border-gray-950">
-                    <AvatarFallback className="bg-gradient-to-br from-accent/30 to-accent/10 text-accent text-xs font-bold">
+                  <Avatar key={i} className="size-9 border-2 border-accent-dark">
+                    <AvatarFallback className="bg-white/20 text-white text-xs font-bold">
                       {String.fromCharCode(64 + i)}
                     </AvatarFallback>
                   </Avatar>
                 ))}
               </AvatarGroup>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-white/70">
                 <span className="text-white font-bold">80+</span>{" "}
                 {isAr ? "عميل سعيد بخدماتنا" : "happy clients trust us"}
               </p>
@@ -114,20 +120,21 @@ export default function CTASection({ locale }: CTASectionProps) {
             viewport={viewport}
             className="flex flex-col gap-4"
           >
-            {/* Primary CTA */}
+            {/* Primary CTA — inverted (white) so it reads against the
+                accent-blue section instead of blending into it */}
             <Link
               href={`/${locale}/contact`}
-              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-2xl bg-accent hover:bg-accent-dark hover:shadow-[var(--shadow-accent)] hover:-translate-y-1 transition-all duration-300"
+              className="group flex items-center justify-between gap-4 px-8 py-6 rounded-2xl bg-white hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
               aria-label={t("button")}
             >
-              <span className="font-heading text-xl font-black text-white">{t("button")}</span>
+              <span className="font-heading text-xl font-black text-accent">{t("button")}</span>
               <motion.div
-                className="p-3 rounded-xl bg-white/15 group-hover:bg-white/25 transition-colors duration-200"
+                className="p-3 rounded-xl bg-accent/10 group-hover:bg-accent/15 transition-colors duration-200"
                 whileHover={{ x: 4 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 aria-hidden="true"
               >
-                <ArrowRight className="w-6 h-6 text-white" />
+                <ArrowRight className="w-6 h-6 text-accent" />
               </motion.div>
             </Link>
 
@@ -142,11 +149,11 @@ export default function CTASection({ locale }: CTASectionProps) {
                   aria-label={ariaLabel}
                   className="group block"
                 >
-                  <Card className="flex-col gap-2 p-4 rounded-2xl bg-white/[.06] ring-white/[.08] group-hover:bg-white/[.1] group-hover:ring-accent/30 transition-all duration-300 cursor-pointer">
-                    <Icon className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <Card className="flex-col gap-2 p-4 rounded-2xl bg-white/[.1] ring-white/[.15] group-hover:bg-white/[.16] group-hover:ring-white/30 transition-all duration-300 cursor-pointer">
+                    <Icon className="w-5 h-5 text-white" aria-hidden="true" />
                     <div>
                       <div className="text-white font-semibold text-sm">{label}</div>
-                      <div className="text-gray-400 text-xs mt-0.5 group-hover:text-accent transition-colors" dir="ltr">
+                      <div className="text-white/70 text-xs mt-0.5 group-hover:text-white transition-colors" dir="ltr">
                         {value}
                       </div>
                     </div>
@@ -156,10 +163,10 @@ export default function CTASection({ locale }: CTASectionProps) {
             </div>
 
             {/* Trust line */}
-            <p className="text-center text-xs text-gray-500 flex items-center justify-center gap-2 mt-1">
-              <span className="w-8 h-px bg-gray-700" aria-hidden="true" />
+            <p className="text-center text-xs text-white/60 flex items-center justify-center gap-2 mt-1">
+              <span className="w-8 h-px bg-white/25" aria-hidden="true" />
               {isAr ? "لا توجد رسوم استشارة مبدئية • رد خلال 24 ساعة" : "No initial consultation fee • Response within 24h"}
-              <span className="w-8 h-px bg-gray-700" aria-hidden="true" />
+              <span className="w-8 h-px bg-white/25" aria-hidden="true" />
             </p>
           </motion.div>
         </div>

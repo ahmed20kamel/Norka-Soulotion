@@ -17,48 +17,40 @@ export default function StatsCounter() {
   ];
 
   return (
-    <section
-      className="relative bg-gray-950 py-8 md:py-10 overflow-hidden"
-      aria-label="Company statistics"
-    >
-      {/* Seam blend into the light ServicesPreview section below — a soft
-          glow bleeding across the boundary reads as one continuous canvas
-          instead of a hard color cut. */}
-      <div
-        className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[900px] h-[240px] bg-accent/[.12] rounded-full blur-[100px] pointer-events-none"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-surface dark:from-surface-dark/40 to-transparent pointer-events-none"
-        aria-hidden="true"
-      />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative z-10 -mt-10 md:-mt-14 px-4 sm:px-6 lg:px-8" aria-label="Company statistics">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={viewport}
+        transition={{ duration: .6 }}
+        className="max-w-5xl mx-auto bg-white dark:bg-gray-900 rounded-3xl shadow-[var(--shadow-card-hover)] ring-1 ring-gray-100 dark:ring-gray-800 px-6 md:px-10 py-8 md:py-9"
+      >
         <motion.div
           variants={staggerContainer(.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="flex flex-wrap items-center justify-center"
+          className="flex flex-wrap items-center justify-center md:justify-between"
           role="list"
           aria-label="Company achievement numbers"
         >
           {stats.map((stat, i) => (
             <motion.div key={stat.label} variants={staggerItem} className="flex items-center">
               <div role="listitem" className="flex items-baseline gap-2 px-6 py-1">
-                <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                <span className="text-2xl md:text-3xl font-black text-accent tracking-tight">
                   {stat.value}
                 </span>
-                <span className="text-xs md:text-sm text-gray-500 uppercase tracking-wider">
+                <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {stat.label}
                 </span>
               </div>
               {i < stats.length - 1 && (
-                <Separator orientation="vertical" className="h-8 bg-white/10 hidden sm:block" />
+                <Separator orientation="vertical" className="h-8 bg-gray-200 dark:bg-gray-700 hidden md:block" />
               )}
             </motion.div>
           ))}
         </motion.div>
-      </div>
-    </section>
+      </motion.div>
+    </div>
   );
 }

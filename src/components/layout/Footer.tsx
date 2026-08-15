@@ -51,7 +51,7 @@ export default function Footer({ locale }: FooterProps) {
   ];
 
   return (
-    <footer className="bg-gray-950 text-gray-400" role="contentinfo">
+    <footer className="bg-surface dark:bg-gray-950 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-transparent" role="contentinfo">
       {/* ── Top divider accent ─────────────────────────────────── */}
       <div className="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true" />
 
@@ -69,7 +69,7 @@ export default function Footer({ locale }: FooterProps) {
                   wordmark, so the link's accessible name comes from that
                   text alone instead of an aria-label that can drift out of
                   sync with it. */}
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1 shrink-0">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-1 shrink-0 ring-1 ring-gray-200 dark:ring-transparent">
                 <Image
                   src={images.brand.logo.src}
                   alt=""
@@ -78,16 +78,16 @@ export default function Footer({ locale }: FooterProps) {
                 />
               </div>
               <div>
-                <span className="text-lg font-black text-white">Norka</span>
+                <span className="text-lg font-black text-gray-900 dark:text-white">Norka</span>
                 <span className="text-lg font-black gradient-text"> Solution</span>
               </div>
             </Link>
 
-            <p className="text-sm leading-relaxed mb-7 text-gray-400">{t("description")}</p>
+            <p className="text-sm leading-relaxed mb-7 text-gray-600 dark:text-gray-400">{t("description")}</p>
 
             {/* Social icons */}
             <div>
-              <p className="text-white text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-gray-900 dark:text-white text-xs font-semibold uppercase tracking-widest mb-3">
                 {contactT("social")}
               </p>
               <div className="flex items-center gap-2" role="list" aria-label={isAr ? "مواقع التواصل الاجتماعي" : "Social media"}>
@@ -99,7 +99,7 @@ export default function Footer({ locale }: FooterProps) {
                     rel="noopener noreferrer"
                     role="listitem"
                     aria-label={label}
-                    className="w-9 h-9 rounded-xl bg-gray-800 hover:bg-accent text-gray-400 hover:text-dark flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20"
+                    className="w-9 h-9 rounded-xl bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-0 hover:bg-accent text-gray-500 dark:text-gray-400 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/20"
                   >
                     <Icon className="w-4 h-4" aria-hidden="true" />
                   </a>
@@ -110,7 +110,7 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* ── Quick links ──────────────────────────────────── */}
           <nav aria-label={isAr ? "روابط سريعة" : "Quick links"}>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
+            <h3 className="text-gray-900 dark:text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("quickLinks")}
             </h3>
             <ul className="space-y-3">
@@ -118,7 +118,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -133,7 +133,7 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* ── Services ─────────────────────────────────────── */}
           <nav aria-label={isAr ? "خدماتنا" : "Our services"}>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
+            <h3 className="text-gray-900 dark:text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("ourServices")}
             </h3>
             <ul className="space-y-3">
@@ -141,7 +141,7 @@ export default function Footer({ locale }: FooterProps) {
                 <li key={service}>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
                       className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
@@ -156,7 +156,7 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* ── Contact ──────────────────────────────────────── */}
           <address className="not-italic">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">
+            <h3 className="text-gray-900 dark:text-white font-semibold text-sm uppercase tracking-widest mb-6">
               {t("contactUs")}
             </h3>
             <ul className="space-y-4">
@@ -166,7 +166,7 @@ export default function Footer({ locale }: FooterProps) {
                   <li key={value}>
                     <Tag
                       {...(href ? { href, dir } : {})}
-                      className="flex items-start gap-3 text-gray-400 hover:text-accent transition-colors text-sm group cursor-default"
+                      className="flex items-start gap-3 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors text-sm group cursor-default"
                     >
                       <Icon className="w-4 h-4 text-accent mt-0.5 shrink-0" aria-hidden="true" />
                       <span dir={dir}>{value}</span>
@@ -179,16 +179,16 @@ export default function Footer({ locale }: FooterProps) {
             {/* CTA card */}
             <Link
               href={`/${locale}/contact`}
-              className="mt-6 flex items-center gap-3 p-4 rounded-2xl border border-accent/20 hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 group"
+              className="mt-6 flex items-center gap-3 p-4 rounded-2xl border border-accent/20 bg-white dark:bg-transparent hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 group"
             >
               <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors">
-                <Mail className="w-4 h-4 text-accent group-hover:text-dark transition-colors" aria-hidden="true" />
+                <Mail className="w-4 h-4 text-accent group-hover:text-white transition-colors" aria-hidden="true" />
               </div>
               <div>
-                <div className="text-white text-sm font-semibold">
+                <div className="text-gray-900 dark:text-white text-sm font-semibold">
                   {isAr ? "ابدأ مشروعك" : "Start your project"}
                 </div>
-                <div className="text-gray-400 text-xs">
+                <div className="text-gray-500 dark:text-gray-400 text-xs">
                   {isAr ? "رد خلال 24 ساعة" : "Reply within 24 hours"}
                 </div>
               </div>
@@ -199,20 +199,20 @@ export default function Footer({ locale }: FooterProps) {
       </div>
 
       {/* ── Bottom bar ─────────────────────────────────────────── */}
-      <Separator className="bg-gray-800/60" />
+      <Separator className="bg-gray-200 dark:bg-gray-800/60" />
       <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
               &copy; {new Date().getFullYear()} Norka Solution.{" "}
               <span>{t("rights")}</span>
             </p>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.06] transition-all duration-200">
+            <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
+              <Link href={`/${locale}/privacy`} className="px-3 py-1.5 rounded-lg hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[.06] transition-all duration-200">
                 {t("privacy")}
               </Link>
               <span aria-hidden="true">·</span>
-              <Link href={`/${locale}/terms`} className="px-3 py-1.5 rounded-lg hover:text-gray-300 hover:bg-white/[.06] transition-all duration-200">
+              <Link href={`/${locale}/terms`} className="px-3 py-1.5 rounded-lg hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[.06] transition-all duration-200">
                 {t("terms")}
               </Link>
             </div>
