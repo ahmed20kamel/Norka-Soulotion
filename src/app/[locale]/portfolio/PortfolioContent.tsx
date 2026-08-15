@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
-import { projects } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/projects";
 import { images } from "@/lib/images.config";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,11 @@ const filterCategories = [
   { key: "mobile", translationKey: "filterMobile" },
 ];
 
-export default function PortfolioContent() {
+interface PortfolioContentProps {
+  projects: Project[];
+}
+
+export default function PortfolioContent({ projects }: PortfolioContentProps) {
   const t       = useTranslations("portfolio");
   const navT    = useTranslations("nav");
   const params  = useParams();

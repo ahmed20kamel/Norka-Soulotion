@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import PortfolioContent from "./PortfolioContent";
+import { getProjects } from "@/sanity/lib/fetch-content";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PortfolioPage() {
-  return <PortfolioContent />;
+export default async function PortfolioPage() {
+  const projects = await getProjects();
+  return <PortfolioContent projects={projects} />;
 }

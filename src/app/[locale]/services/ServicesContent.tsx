@@ -11,6 +11,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { services } from "@/lib/data/services";
 import { images } from "@/lib/images.config";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
+import type { ServiceCopy } from "@/sanity/lib/fetch-content";
 
 const serviceImages: Record<string, string> = {
   software:       "/images/services/web-applications.jpg",
@@ -34,12 +35,28 @@ const serviceIcons: Record<string, typeof Code2> = {
   consulting:     Building2,
 };
 
-export default function ServicesContent() {
+interface ServicesContentProps {
+  serviceCopy?: ServiceCopy[] | null;
+}
+
+export default function ServicesContent({ serviceCopy }: ServicesContentProps) {
   const t      = useTranslations("services");
   const navT   = useTranslations("nav");
   const params = useParams();
   const locale = params.locale as string;
+  const lang   = locale as "en" | "ar";
   const isAr   = locale === "ar";
+
+  // CMS copy (when present) wins over the i18n message catalog — same
+  // fallback-safe pattern used on the homepage services preview.
+  const copyFor = (key: string) => {
+    const cms = serviceCopy?.find((s) => s.key === key);
+    return {
+      title: cms ? cms.title[lang] : t(`${key}.title`),
+      description: cms ? cms.description[lang] : t(`${key}.description`),
+      features: cms ? cms.features[lang] : (t.raw(`${key}.features`) as string[]),
+    };
+  };
 
   return (
     <>
@@ -90,6 +107,7 @@ export default function ServicesContent() {
               const isEven  = index % 2 === 0;
               const Icon    = serviceIcons[service.key] ?? Code2;
               const imgSrc  = serviceImages[service.key];
+              const copy    = copyFor(service.key);
 
               return (
                 <motion.article
@@ -99,7 +117,7 @@ export default function ServicesContent() {
                   viewport={viewport}
                   transition={{ duration: .65 }}
                   className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 xl:gap-20 items-center`}
-                  aria-label={t(`${service.key}.title`)}
+                  aria-label={copy.title}
                 >
                   {/* Image */}
                   <motion.div
@@ -112,7 +130,7 @@ export default function ServicesContent() {
                     <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl group">
                       <Image
                         src={imgSrc}
-                        alt={t(`${service.key}.title`)}
+                        alt={copy.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 1024px) 100vw, 48vw"
@@ -142,11 +160,11 @@ export default function ServicesContent() {
                     </div>
 
                     <h3 className="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 leading-tight">
-                      {t(`${service.key}.title`)}
+                      {copy.title}
                     </h3>
 
                     <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
-                      {t(`${service.key}.description`)}
+                      {copy.description}
                     </p>
 
                     {/* Features grid */}
@@ -154,7 +172,7 @@ export default function ServicesContent() {
                       className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
                       aria-label={isAr ? "المميزات" : "Features"}
                     >
-                      {(t.raw(`${service.key}.features`) as string[]).map((feature: string) => (
+                      {copy.features.map((feature: string) => (
                         <li key={feature} className="flex items-center gap-2.5">
                           <CheckCircle className="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
                           <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
@@ -167,7 +185,7 @@ export default function ServicesContent() {
                     <Link
                       href={`/${locale}/contact`}
                       className={buttonVariants({ variant: "outline", className: "text-sm h-auto px-6 py-3 rounded-xl" })}
-                      aria-label={`${isAr ? "استفسر عن" : "Inquire about"} ${t(`${service.key}.title`)}`}
+                      aria-label={`${isAr ? "استفسر عن" : "Inquire about"} ${copy.title}`}
                     >
                       {isAr ? "استفسر الآن" : "Get a quote"}
                     </Link>

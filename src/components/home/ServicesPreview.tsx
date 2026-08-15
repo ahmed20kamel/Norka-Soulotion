@@ -8,6 +8,7 @@ import Link from "next/link";
 import { fadeLeft, staggerContainer, staggerItem, viewport } from "@/lib/animations";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import type { ServiceCopy } from "@/sanity/lib/fetch-content";
 
 const services = [
   { key: "software",       image: "/images/services/web-applications.jpg",   Icon: Code2 },
@@ -22,12 +23,27 @@ const services = [
 
 interface ServicesPreviewProps {
   locale: string;
+  /** CMS copy from Sanity, when configured — falls back to i18n messages when null. */
+  serviceCopy?: ServiceCopy[] | null;
 }
 
-export default function ServicesPreview({ locale }: ServicesPreviewProps) {
+export default function ServicesPreview({ locale, serviceCopy }: ServicesPreviewProps) {
   const t = useTranslations("services");
+  const lang = locale as "en" | "ar";
   const [featured, ...rest] = services;
   const FeaturedIcon = featured.Icon;
+
+  // CMS copy (when present) wins over the i18n message catalog — same
+  // fallback-safe pattern as the project/testimonial data fetches.
+  const copyFor = (key: (typeof services)[number]["key"]) => {
+    const cms = serviceCopy?.find((s) => s.key === key);
+    return {
+      title: cms ? cms.title[lang] : t(`${key}.title`),
+      description: cms ? cms.description[lang] : t(`${key}.description`),
+      features: cms ? cms.features[lang] : (t.raw(`${key}.features`) as string[]),
+    };
+  };
+  const featuredCopy = copyFor(featured.key);
 
   return (
     <section
@@ -72,7 +88,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
             <div className="absolute inset-0">
               <Image
                 src={featured.image}
-                alt={t(`${featured.key}.title`)}
+                alt={featuredCopy.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                 sizes="(max-width: 1024px) 100vw, 60vw"
@@ -90,14 +106,14 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
               </div>
 
               <h3 className="font-heading text-2xl md:text-3xl font-black text-white mb-2 leading-tight">
-                {t(`${featured.key}.title`)}
+                {featuredCopy.title}
               </h3>
               <p className="text-gray-300/75 text-sm md:text-base leading-relaxed mb-5 max-w-md">
-                {t(`${featured.key}.description`)}
+                {featuredCopy.description}
               </p>
 
               <div className="flex flex-wrap gap-1.5 mb-6">
-                {(t.raw(`${featured.key}.features`) as string[]).map((f: string) => (
+                {featuredCopy.features.map((f: string) => (
                   <Badge
                     key={f}
                     variant="outline"
@@ -111,7 +127,7 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
               <Link
                 href={`/${locale}/services`}
                 className={buttonVariants({ className: "w-fit h-auto px-6 py-3 rounded-xl" })}
-                aria-label={`${t("learnMore")} — ${t(`${featured.key}.title`)}`}
+                aria-label={`${t("learnMore")} — ${featuredCopy.title}`}
               >
                 {t("learnMore")}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -129,19 +145,21 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
             role="list"
             aria-label={`${t("title")} list`}
           >
-            {rest.map(({ key, Icon }) => (
+            {rest.map(({ key, Icon }) => {
+              const { title } = copyFor(key);
+              return (
               <motion.div key={key} variants={staggerItem} role="listitem">
                 <Link
                   href={`/${locale}/services`}
                   className="group flex items-center gap-4 py-4 hover:px-2 transition-all duration-300"
-                  aria-label={`${t("learnMore")} — ${t(`${key}.title`)}`}
+                  aria-label={`${t("learnMore")} — ${title}`}
                 >
                   <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-accent/10 dark:bg-accent/15 border border-accent/20 group-hover:bg-accent group-hover:border-accent transition-all duration-300">
                     <Icon className="w-5 h-5 text-accent group-hover:text-dark transition-colors duration-300" aria-hidden="true" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="font-heading font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors truncate">
-                      {t(`${key}.title`)}
+                      {title}
                     </h4>
                   </div>
                   <ArrowRight
@@ -150,7 +168,8 @@ export default function ServicesPreview({ locale }: ServicesPreviewProps) {
                   />
                 </Link>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
 

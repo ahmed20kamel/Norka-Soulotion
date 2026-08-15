@@ -6,15 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { fadeUp, fadeLeft, fadeRight, viewport } from "@/lib/animations";
-import { projects } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 
 interface FeaturedProjectsProps {
   locale: string;
+  projects: Project[];
 }
 
-export default function FeaturedProjects({ locale }: FeaturedProjectsProps) {
+export default function FeaturedProjects({ locale, projects }: FeaturedProjectsProps) {
   const t        = useTranslations("portfolio");
   const lang     = locale as "en" | "ar";
   const featured = projects.filter((p) => p.featured).slice(0, 1);

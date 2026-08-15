@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import ServicesContent from "./ServicesContent";
+import { getServiceCopy } from "@/sanity/lib/fetch-content";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ServicesPage() {
-  return <ServicesContent />;
+export default async function ServicesPage() {
+  const serviceCopy = await getServiceCopy();
+  return <ServicesContent serviceCopy={serviceCopy} />;
 }

@@ -4,15 +4,16 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { staggerContainer, staggerItem, viewport } from "@/lib/animations";
-import { testimonials } from "@/lib/data/testimonials";
+import type { Testimonial } from "@/lib/data/testimonials";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 
 interface TestimonialsProps {
   locale: string;
+  testimonials: Testimonial[];
 }
 
-export default function Testimonials({ locale }: TestimonialsProps) {
+export default function Testimonials({ locale, testimonials }: TestimonialsProps) {
   const t    = useTranslations("testimonials");
   const lang = locale as "en" | "ar";
 

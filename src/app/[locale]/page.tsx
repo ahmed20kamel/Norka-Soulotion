@@ -8,6 +8,7 @@ import TechStack from "@/components/home/TechStack";
 import CEOQuote from "@/components/home/CEOQuote";
 import Testimonials from "@/components/home/Testimonials";
 import CTASection from "@/components/home/CTASection";
+import { getProjects, getTestimonials, getServiceCopy } from "@/sanity/lib/fetch-content";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -44,16 +45,25 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
+  // Fallback-safe: returns Sanity content when NEXT_PUBLIC_SANITY_PROJECT_ID
+  // is set, otherwise the local src/lib/data/*.ts files — see
+  // src/sanity/lib/fetch-content.ts.
+  const [projects, testimonials, serviceCopy] = await Promise.all([
+    getProjects(),
+    getTestimonials(),
+    getServiceCopy(),
+  ]);
+
   return (
     <>
       <HeroSection locale={locale} />
       <StatsCounter />
-      <ServicesPreview locale={locale} />
+      <ServicesPreview locale={locale} serviceCopy={serviceCopy} />
       <AboutPreview locale={locale} />
-      <FeaturedProjects locale={locale} />
+      <FeaturedProjects locale={locale} projects={projects} />
       <TechStack />
       <CEOQuote locale={locale} />
-      <Testimonials locale={locale} />
+      <Testimonials locale={locale} testimonials={testimonials} />
       <CTASection locale={locale} />
     </>
   );

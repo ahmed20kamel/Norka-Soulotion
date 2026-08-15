@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "via.placeholder.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
   async headers() {
@@ -30,9 +34,12 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://*.googleapis.com https://*.gstatic.com https://images.unsplash.com",
+              // cdn.sanity.io serves uploaded images; api.sanity.io is the
+              // embedded /studio app's own API traffic (browser-side, since
+              // Studio is a client-rendered admin tool).
+              "img-src 'self' data: blob: https://*.googleapis.com https://*.gstatic.com https://images.unsplash.com https://cdn.sanity.io",
               "frame-src 'self' https://www.google.com https://maps.google.com",
-              "connect-src 'self' https://*.googleapis.com https://*.anthropic.com",
+              "connect-src 'self' https://*.googleapis.com https://*.anthropic.com https://*.api.sanity.io https://*.apicdn.sanity.io",
             ].join("; "),
           },
         ],
