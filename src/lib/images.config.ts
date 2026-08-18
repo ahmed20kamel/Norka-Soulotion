@@ -21,7 +21,7 @@ export const images = {
   /** Site branding */
   brand: {
     logo: {
-      src: "/logo.svg",
+      src: "/logo.png",
       alt: "Norka Solution",
     },
   },

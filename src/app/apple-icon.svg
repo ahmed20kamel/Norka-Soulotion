@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
-  <rect width="180" height="180" rx="40" fill="#FAF7F2"/>
-  <rect x="6" y="6" width="168" height="168" rx="34" fill="none" stroke="#C9A96E" stroke-width="4" stroke-opacity="0.3"/>
-  <!-- Stylized N matching NORKA brand -->
-  <path d="M50 135V45h17l45 62V45h17v90h-17L67 73v62H50z" fill="#C9A96E"/>
-  <!-- Subtle gold accent line -->
-  <rect x="45" y="146" width="90" height="5" rx="2.5" fill="#C9A96E" fill-opacity="0.4"/>
-</svg>
