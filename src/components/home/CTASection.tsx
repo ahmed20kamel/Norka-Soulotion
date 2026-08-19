@@ -2,13 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ArrowRight, Phone, Mail, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { fadeLeft, fadeRight, viewport } from "@/lib/animations";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
-import { images } from "@/lib/images.config";
+import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 
 interface CTASectionProps {
   locale: string;
@@ -51,13 +50,7 @@ export default function CTASection({ locale }: CTASectionProps) {
           (brand blue, not black), with the Dubai skyline for texture
           under a scrim rather than a flat gradient. */}
       <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src={images.home.ctaSkyline.src}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
+        <PhotoPlaceholder />
         <div className="absolute inset-0 bg-gradient-to-br from-accent/95 via-accent-dark/95 to-accent-dark" />
       </div>
 
@@ -130,11 +123,11 @@ export default function CTASection({ locale }: CTASectionProps) {
               <span className="font-heading text-xl font-black text-accent">{t("button")}</span>
               <motion.div
                 className="p-3 rounded-xl bg-accent/10 group-hover:bg-accent/15 transition-colors duration-200"
-                whileHover={{ x: 4 }}
+                whileHover={{ x: isAr ? -4 : 4 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 aria-hidden="true"
               >
-                <ArrowRight className="w-6 h-6 text-accent" />
+                <ArrowRight className="w-6 h-6 text-accent rtl:rotate-180" />
               </motion.div>
             </Link>
 

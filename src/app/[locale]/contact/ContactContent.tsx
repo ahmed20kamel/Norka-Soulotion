@@ -4,8 +4,8 @@ import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import {
   MapPin, Phone, Mail, Clock,
   Send, CheckCircle, AlertCircle, Loader2, ArrowRight,
@@ -91,11 +91,11 @@ export default function ContactContent() {
       <section className="relative pt-40 pb-24 overflow-hidden" aria-label={isAr ? "ترويسة الصفحة" : "Page hero"}>
         <div className="absolute inset-0">
           <Image
-            src={images.home.ctaSkyline.src}
-            alt={images.home.ctaSkyline.alt}
+            src={images.pageHeroes.contact.src}
+            alt={images.pageHeroes.contact.alt}
             fill
             priority
-            className="object-cover scale-105"
+            className="object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gray-950/70" />
@@ -180,7 +180,7 @@ export default function ContactContent() {
                     aria-label={isAr ? "تواصل عبر واتساب" : "Chat on WhatsApp"}
                   >
                     {isAr ? "واتساب مباشر" : "WhatsApp us now"}
-                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
                   </a>
                   <p className="text-gray-600 text-xs text-center mt-3">
                     {isAr ? "رد فوري · بدون رسوم" : "Instant reply · No fees"}

@@ -123,7 +123,7 @@ export default function Footer({ locale }: FooterProps) {
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
-                      className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                      className="w-3 h-3 rtl:-scale-x-100 opacity-0 -translate-x-1 rtl:translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
                       aria-hidden="true"
                     />
                     {link.label}
@@ -146,7 +146,7 @@ export default function Footer({ locale }: FooterProps) {
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors duration-200 text-sm group"
                   >
                     <ArrowUpRight
-                      className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                      className="w-3 h-3 rtl:-scale-x-100 opacity-0 -translate-x-1 rtl:translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
                       aria-hidden="true"
                     />
                     {service}
@@ -194,7 +194,7 @@ export default function Footer({ locale }: FooterProps) {
                   {isAr ? "رد خلال 24 ساعة" : "Reply within 24 hours"}
                 </div>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-accent ml-auto transition-colors duration-200" aria-hidden="true" />
+              <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-accent ms-auto rtl:-scale-x-100 transition-colors duration-200" aria-hidden="true" />
             </Link>
           </address>
         </div>

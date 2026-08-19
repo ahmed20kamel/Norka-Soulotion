@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,7 +28,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const tStats        = useTranslations("stats");
   const isAr           = locale === "ar";
   const ref            = useRef<HTMLElement>(null);
-  const prefersReduced = useReducedMotion();
 
   const stats = [
     { ...splitStat(COMPANY_STATS.years),    label: tStats("years") },
@@ -36,11 +35,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     { ...splitStat(COMPANY_STATS.clients),  label: tStats("clients") },
     { ...splitStat(COMPANY_STATS.team),     label: tStats("team") },
   ];
-
-  // Subtle parallax on the photo only — a light, restrained animation
-  // beat instead of the old hero's full-bleed animated gradient system.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
   return (
     <section
@@ -89,7 +83,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                 className={buttonVariants({ className: "text-sm px-8 py-4 h-auto rounded-xl" })}
               >
                 {t("cta1")}
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
               </Link>
               <Link
                 href={`/${locale}/portfolio`}
@@ -99,7 +93,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                 })}
               >
                 {t("cta2")}
-                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                <ArrowUpRight className="w-4 h-4 rtl:-scale-x-100" aria-hidden="true" />
               </Link>
             </motion.div>
           </motion.div>
@@ -113,17 +107,15 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             className="relative"
           >
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-card-hover)]">
-              <motion.div style={{ y: prefersReduced ? 0 : photoY }} className="absolute inset-0 -top-[6%] h-[112%]">
-                <Image
-                  src={images.home.heroWorkspace.src}
-                  alt={images.home.heroWorkspace.alt}
-                  fill
-                  priority
-                  fetchPriority="high"
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </motion.div>
+              <Image
+                src={images.home.heroWorkspace.src}
+                alt={images.home.heroWorkspace.alt}
+                fill
+                priority
+                fetchPriority="high"
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/25 via-transparent to-transparent" />
             </div>
             {/* Decorative accent frame, same device already used on AboutPreview */}

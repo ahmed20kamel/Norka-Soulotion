@@ -33,12 +33,10 @@ export const projects: Project[] = [
     slug: "enterprise-erp-system",
     category: "erp",
     featured: true,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=700&fit=crop",
+    image: "/images/projects/enterprise-erp-system/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&h=700&fit=crop",
+      "/images/projects/enterprise-erp-system/cover.jpg",
+      "/images/projects/enterprise-erp-system/screen-1.jpg",
     ],
     techStack: ["React", "Node.js", "PostgreSQL", "Docker", "Redis"],
     title: {
@@ -76,11 +74,11 @@ export const projects: Project[] = [
     slug: "school-erp-system",
     category: "erp",
     featured: false,
-    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&h=700&fit=crop",
+    image: "/images/projects/school-erp-system/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&h=700&fit=crop",
+      "/images/projects/school-erp-system/cover.jpg",
+      "/images/projects/school-erp-system/screen-1.jpg",
+      "/images/projects/school-erp-system/screen-2.jpg",
     ],
     techStack: ["Vue.js", "Laravel", "MySQL", "AWS", "Pusher"],
     title: {
@@ -118,11 +116,11 @@ export const projects: Project[] = [
     slug: "restaurant-chain-erp",
     category: "erp",
     featured: false,
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=700&fit=crop",
+    image: "/images/projects/restaurant-chain-erp/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=700&fit=crop",
+      "/images/projects/restaurant-chain-erp/cover.jpg",
+      "/images/projects/restaurant-chain-erp/screen-1.jpg",
+      "/images/projects/restaurant-chain-erp/screen-2.jpg",
     ],
     techStack: ["React", "Express.js", "MongoDB", "Socket.io", "Stripe"],
     title: {
@@ -159,11 +157,10 @@ export const projects: Project[] = [
     slug: "hr-payroll-erp",
     category: "erp",
     featured: false,
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=700&fit=crop",
+    image: "/images/projects/hr-payroll-erp/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&h=700&fit=crop",
+      "/images/projects/hr-payroll-erp/cover.jpg",
+      "/images/projects/hr-payroll-erp/screen-1.jpg",
     ],
     techStack: ["Angular", ".NET Core", "SQL Server", "Azure", "Power BI"],
     title: {
@@ -204,12 +201,10 @@ export const projects: Project[] = [
     slug: "ecommerce-platform",
     category: "web",
     featured: true,
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=700&fit=crop",
+    image: "/images/projects/ecommerce-platform/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=700&fit=crop",
+      "/images/projects/ecommerce-platform/cover.jpg",
+      "/images/projects/ecommerce-platform/screen-1.jpg",
     ],
     techStack: ["Next.js", "TypeScript", "Prisma", "Stripe", "Vercel"],
     title: {
@@ -247,11 +242,9 @@ export const projects: Project[] = [
     slug: "corporate-website",
     category: "web",
     featured: false,
-    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=700&fit=crop",
+    image: "/images/projects/corporate-website/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1545239351-ef35f43d514b?w=1200&h=700&fit=crop",
+      "/images/projects/corporate-website/cover.jpg",
     ],
     techStack: ["Next.js", "Tailwind CSS", "Framer Motion", "Sanity CMS", "Vercel"],
     title: {
@@ -289,11 +282,9 @@ export const projects: Project[] = [
     slug: "real-estate-portal",
     category: "web",
     featured: false,
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=700&fit=crop",
+    image: "/images/projects/real-estate-portal/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=700&fit=crop",
+      "/images/projects/real-estate-portal/cover.jpg",
     ],
     techStack: ["React", "Node.js", "PostgreSQL", "Google Maps API", "AWS S3"],
     title: {
@@ -330,11 +321,9 @@ export const projects: Project[] = [
     slug: "booking-management-web",
     category: "web",
     featured: false,
-    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&h=700&fit=crop",
+    image: "/images/projects/booking-management-web/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=1200&h=700&fit=crop",
+      "/images/projects/booking-management-web/cover.jpg",
     ],
     techStack: ["Next.js", "tRPC", "Prisma", "Stripe", "Twilio"],
     title: {
@@ -376,12 +365,9 @@ export const projects: Project[] = [
     slug: "mobile-banking-app",
     category: "mobile",
     featured: true,
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=700&fit=crop",
+    image: "/images/projects/mobile-banking-app/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1559526324-593bc073d938?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=1200&h=700&fit=crop",
+      "/images/projects/mobile-banking-app/cover.jpg",
     ],
     techStack: ["React Native", "Node.js", "MongoDB", "Firebase", "Stripe"],
     title: {
@@ -419,11 +405,9 @@ export const projects: Project[] = [
     slug: "food-delivery-app",
     category: "mobile",
     featured: false,
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&h=700&fit=crop",
+    image: "/images/projects/food-delivery-app/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1200&h=700&fit=crop",
+      "/images/projects/food-delivery-app/cover.jpg",
     ],
     techStack: ["Flutter", "Firebase", "Google Maps", "Stripe", "Node.js"],
     title: {
@@ -460,11 +444,9 @@ export const projects: Project[] = [
     slug: "fitness-health-app",
     category: "mobile",
     featured: false,
-    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&h=700&fit=crop",
+    image: "/images/projects/fitness-health-app/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1200&h=700&fit=crop",
+      "/images/projects/fitness-health-app/cover.jpg",
     ],
     techStack: ["React Native", "HealthKit", "Google Fit", "TensorFlow Lite", "Firebase"],
     title: {
@@ -501,11 +483,9 @@ export const projects: Project[] = [
     slug: "elearning-mobile-app",
     category: "mobile",
     featured: false,
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1200&h=700&fit=crop",
+    image: "/images/projects/elearning-mobile-app/cover.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=700&fit=crop",
-      "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1200&h=700&fit=crop",
+      "/images/projects/elearning-mobile-app/cover.jpg",
     ],
     techStack: ["Flutter", "Firebase", "Agora", "AWS CloudFront", "Stripe"],
     title: {

@@ -56,7 +56,7 @@ export default function FeaturedProjects({ locale, projects }: FeaturedProjectsP
               aria-label={t("viewAll")}
             >
               {t("viewAll")}
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
           </motion.div>
         </div>
@@ -119,7 +119,7 @@ export default function FeaturedProjects({ locale, projects }: FeaturedProjectsP
                   aria-label={`${t("viewDetails")} — ${featured[0].title[lang]}`}
                 >
                   {t("viewDetails")}
-                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  <ArrowUpRight className="w-4 h-4 rtl:-scale-x-100" aria-hidden="true" />
                 </Link>
               </div>
             </div>

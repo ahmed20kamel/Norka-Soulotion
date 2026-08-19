@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Lightbulb, Award, Shield, HeadphonesIcon,
@@ -12,7 +13,7 @@ import CTASection from "@/components/home/CTASection";
 import { Card } from "@/components/ui/card";
 import { COMPANY_STATS } from "@/lib/constants";
 import { staggerContainer, staggerItem, fadeLeft, fadeRight, viewport } from "@/lib/animations";
-import PageHeroArt from "@/components/art/PageHeroArt";
+import { images } from "@/lib/images.config";
 import AboutArt from "@/components/art/AboutArt";
 import MonogramAvatar from "@/components/art/MonogramAvatar";
 
@@ -59,7 +60,14 @@ export default function AboutContent() {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
-          <PageHeroArt variant="about" className="scale-105" />
+          <Image
+            src={images.pageHeroes.about.src}
+            alt={images.pageHeroes.about.alt}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gray-950/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent" />
         </div>
@@ -99,11 +107,11 @@ export default function AboutContent() {
                 <AboutArt className="absolute inset-0" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent" />
               </div>
-              <div className="absolute -bottom-5 -right-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10" aria-hidden="true" />
+              <div className="absolute -bottom-5 -end-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10" aria-hidden="true" />
               <motion.div
                 initial={{ opacity: 0, scale: .85 }} whileInView={{ opacity: 1, scale: 1 }}
                 viewport={viewport} transition={{ delay: .5, type: "spring" }}
-                className="absolute -bottom-7 -right-7 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700 z-10"
+                className="absolute -bottom-7 -end-7 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700 z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center">

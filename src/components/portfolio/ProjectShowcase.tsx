@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -21,6 +20,7 @@ import {
 } from "lucide-react";
 import type { Project } from "@/lib/data/projects";
 import { Dialog, DialogPortal, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -74,7 +74,7 @@ export default function ProjectShowcase({
                 href={`/${locale}/portfolio`}
                 className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors mb-6 text-sm"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
                 {t("title")}
               </Link>
               <Badge className="bg-accent/90 text-dark text-xs font-semibold uppercase tracking-wider w-fit mb-4">
@@ -99,7 +99,7 @@ export default function ProjectShowcase({
               <Images className="w-5 h-5 text-accent" />
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {locale === "ar" ? "لقطات الشاشة" : "Screenshots"}
-                <span className="ml-2 text-sm font-normal text-gray-400">
+                <span className="ms-2 text-sm font-normal text-gray-400">
                   ({allShots.length})
                 </span>
               </h2>

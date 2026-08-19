@@ -8,8 +8,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { viewport } from "@/lib/animations";
 import { buttonVariants } from "@/components/ui/button";
-import type { ServiceCopy } from "@/sanity/lib/fetch-content";
 import { images } from "@/lib/images.config";
+import type { ServiceCopy } from "@/sanity/lib/fetch-content";
 import { useTilt } from "@/hooks/useTilt";
 import { cn } from "@/lib/utils";
 
@@ -109,7 +109,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
               aria-label={t("viewAll")}
             >
               {t("viewAll")}
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
           </motion.div>
         </div>
@@ -179,7 +179,7 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
                       aria-label={`${t("learnMore")} — ${activeCopy.title}`}
                     >
                       {t("learnMore")}
-                      <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                      <ArrowUpRight className="w-4 h-4 rtl:-scale-x-100" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -250,8 +250,8 @@ export default function ServicesPreview({ locale, serviceCopy }: ServicesPreview
                     </div>
                     <ArrowRight
                       className={cn(
-                        "w-4 h-4 text-accent shrink-0 transition-all duration-300",
-                        isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1 group-hover:opacity-60"
+                        "w-4 h-4 text-accent shrink-0 transition-all duration-300 rtl:rotate-180",
+                        isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1 rtl:translate-x-1 group-hover:opacity-60"
                       )}
                       aria-hidden="true"
                     />

@@ -62,7 +62,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
             {/* Decorative frame */}
             <div
-              className="absolute -bottom-5 -right-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10"
+              className="absolute -bottom-5 -end-5 w-full h-full rounded-3xl border-2 border-accent/15 -z-10"
               aria-hidden="true"
             />
 
@@ -72,7 +72,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={viewport}
               transition={{ delay: .45, duration: .5, type: "spring" }}
-              className="absolute -bottom-7 -right-7 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700 z-10"
+              className="absolute -bottom-7 -end-7 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-100 dark:border-gray-700 z-10"
             >
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center shrink-0">
@@ -89,11 +89,11 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
 
             {/* Satisfaction badge */}
             <motion.div
-              initial={{ opacity: 0, scale: .85, x: 20 }}
+              initial={{ opacity: 0, scale: .85, x: isAr ? -20 : 20 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={viewport}
               transition={{ delay: .6, duration: .5, type: "spring" }}
-              className="absolute -top-5 -left-5 bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700 z-10 flex items-center gap-2"
+              className="absolute -top-5 -start-5 bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700 z-10 flex items-center gap-2"
             >
               <span className="text-accent text-lg font-black">{COMPANY_STATS.satisfaction}</span>
               <span className="text-xs text-gray-500 leading-tight max-w-[60px]">
@@ -136,7 +136,7 @@ export default function AboutPreview({ locale }: AboutPreviewProps) {
               aria-label={t("learnMore")}
             >
               {t("learnMore")}
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
           </motion.div>
         </div>

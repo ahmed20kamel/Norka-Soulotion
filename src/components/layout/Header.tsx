@@ -181,7 +181,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-label={t("getStarted")}
               >
                 {t("getStarted")}
-                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden="true" />
               </Link>
 
               {/* Mobile hamburger */}
@@ -235,7 +235,7 @@ export default function Header({ locale }: HeaderProps) {
               aria-label={t("getStarted")}
             >
               {t("getStarted")}
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
             <Link
               href={switchPath}

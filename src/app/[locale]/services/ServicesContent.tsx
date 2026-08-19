@@ -53,11 +53,11 @@ export default function ServicesContent({ serviceCopy }: ServicesContentProps) {
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={images.home.heroWorkspace.src}
-            alt={images.home.heroWorkspace.alt}
+            src={images.pageHeroes.services.src}
+            alt={images.pageHeroes.services.alt}
             fill
             priority
-            className="object-cover scale-105"
+            className="object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gray-950/70" />
