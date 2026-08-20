@@ -2,6 +2,16 @@
 
 Marketing site for Norka Solution, built with Next.js 16 (App Router), Tailwind CSS v4, next-intl (English/Arabic, RTL-aware), and Framer Motion.
 
+**Live:** https://norka-soulotion.vercel.app
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router), TypeScript
+- **Styling:** Tailwind CSS v4, Framer Motion
+- **i18n:** next-intl (English/Arabic, RTL-aware)
+- **CMS:** Sanity (optional, fallback-safe — falls back to local content files when not configured)
+- **Integrations:** Anthropic-powered AI chat widget, Resend (contact form email)
+
 ## Getting Started
 
 ```bash
